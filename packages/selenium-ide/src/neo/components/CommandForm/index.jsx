@@ -211,6 +211,7 @@ export default class CommandForm extends React.Component {
             disabled={!this.props.command}
             onChange={this.props.command ? this.props.command.setComment : null}
           />
+            //till here  */ }
           <input
             tabIndex="-1"
             type="submit"
