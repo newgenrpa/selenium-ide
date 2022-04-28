@@ -10,11 +10,15 @@
   padding: 5px;
   border-color: rgba(0, 0, 0, 0.55);
 }
-
+.labelled-input > select {
+  font-size: 12px;
+  line-height: 17px;
+  padding: 5px;
+}
 .labelled-input > label {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
-  text-transform: uppercase;
   margin: 1px 0 2px 0;
-  color: rgba(0, 0, 0, 0.55);
+  color: rgb(0, 0, 0);
+  padding-bottom: 3px;
 }

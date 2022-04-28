@@ -21,6 +21,7 @@ import Modal from '../../Modal'
 import DialogContainer from '../Dialog'
 import LabelledInput from '../../LabelledInput'
 import FlatButton from '../../FlatButton'
+import './style.css' 
 
 export default class BaseUrlDialog extends React.Component {
   static propTypes = {
@@ -67,7 +68,7 @@ class BaseUrlDialogContents extends React.Component {
         title={
           this.props.isInvalid
             ? 'Project base URL is invalid!'
-            : "Set your project's base URL"
+            : "Web Recorder"
         }
         type={this.props.isInvalid ? 'warn' : 'info'}
         buttons={[
@@ -89,14 +90,25 @@ class BaseUrlDialogContents extends React.Component {
         modalTitle={BaseUrlDialogContents.modalTitleElement}
         modalDescription={BaseUrlDialogContents.modalDescriptionElement}
       >
-        <p>
-          Before you can start recording, you must specify a valid base URL for
-          your project. Your tests will start by navigating to this URL.
-        </p>
+        <div  className="flexer">
+       <h  className="custom-text">Web Recorder</h>
+        <button
+          type="submit"
+          className='custom-record'
+          disabled={!this.urlRegex.test(this.state.url)}
+          onClick={() => {
+            this.props.onUrlSelection(this.state.url)
+          }}
+        >
+        </button> 
+       Record
+         
+        </div>
+      <hr></hr>
         <LabelledInput
           name="baseUrl"
-          label="base url"
-          placeholder="https://www.seleniumhq.org/"
+          label="Open URL"
+          placeholder="https://newgensoft.com/"
           value={this.state.url}
           onChange={this.onUrlChange}
           autoFocus

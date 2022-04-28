@@ -1,0 +1,17 @@
+.custom-text{
+    padding-right: 140px;
+    font-size: 15px;
+}
+
+.custom-record{
+    background-color: #f46a0f;
+border-radius: 50%;
+width: 10px;
+height: 15px;
+overflow: hidden;
+}
+.flexer {
+    flex-grow: 1;
+    color: black;
+    font-size: 12px;
+  }

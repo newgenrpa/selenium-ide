@@ -23,6 +23,7 @@ import { escapeHTML } from './escape'
 import BrowserBot, { browserVersion } from './selenium-browserbot'
 import goog, { bot, core } from './closure-polyfill'
 import PatternMatcher from './PatternMatcher'
+import html2canvas from 'html2canvas';
 import {
   getTagName,
   getTimeoutTime,
@@ -3391,6 +3392,160 @@ Selenium.prototype.doExecuteScript = function(script, varName) {
     return browser.runtime.sendMessage({ storeStr: value, storeVar: varName })
   }
 }
+
+Selenium.prototype.doCsvSave = function(locator, varName) {
+  var blob=null;
+  var csv = [];
+  var flag=false;
+	// console.log("script is " + script);
+	// console.log("script is " + script.argv);
+	// console.log("script is script " + script.script);
+  console.log("script is script " + varName);
+  if(locator.includes("css")||locator.includes("xpath"))
+  {
+    let element = this.browserbot.findElement(locator);
+    console.log(element);
+   var t= element.querySelector("table")
+    console.log(t);
+    var rows = t.querySelectorAll('tr');
+    flag=true;
+    console.log(rows);
+  }
+  
+  else{
+console.log(locator);
+var target = locator;
+var selector = target.split("=");
+
+
+console.log(selector.length)
+if (selector.length > 1) {
+    console.log(selector);
+    console.log(selector[0]);
+    if (selector[0] === "id"){
+        console.log(selector[1]);
+    var table = document.querySelector(selector[1]);
+    var rows = table.querySelectorAll('tr');
+	flag=true;
+	}
+    else{
+        console.log("no selector")
+	}
+} else {
+    var divSelector = target.split(">")
+	
+    console.log(divSelector);
+	if(divSelector.length > 1){
+    console.log(divSelector[0]);
+    var table = document.getElementById(divSelector[0]);
+    var rows = table.querySelectorAll('table tr');
+	flag=true;
+	}
+}
+  }
+
+if(flag == true)
+{
+for (var i = 0; i < rows.length; i++) {
+    var row = [],
+        cols = rows[i].querySelectorAll("td, th");
+
+    for (var j = 0; j < cols.length; j++)
+        row.push(cols[j].innerText);
+
+    csv.push(row.join(","));
+}
+console.log(varName);
+// Download CSV file
+if(varName){
+  var filename = varName + ".csv";
+}else{
+  
+  var filename="csvSave.csv";
+}
+
+downloadCSV(csv.join("\n"), filename);	
+}	
+	setTimeout(function(){
+  const value = this.eval(console.log("hello"), script.argv)
+  console.log("hello" + value);
+  if (value && value.constructor.name === 'Promise') {
+    throw new Error('Expected sync operation, instead received Promise')
+  }
+  if (varName) {
+    return browser.runtime.sendMessage({ storeStr: value, storeVar: varName })
+  }
+	
+	
+	
+	}, 5000);
+		
+
+}
+
+
+function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+
+    // CSV file
+    csvFile = new Blob([csv], {type: "text/csv"});
+
+    // Download link
+    downloadLink = document.createElement("a");
+
+    // File name
+    downloadLink.download = filename;
+
+    // Create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    // Hide download link
+    downloadLink.style.display = "none";
+
+    // Add the link to DOM
+    document.body.appendChild(downloadLink);
+
+    // Click download link
+    downloadLink.click();
+}
+
+
+
+
+Selenium.prototype.doCaptureScreen = function(script, varName) {
+  console.log("inside capturescreen");
+  const body = document.querySelector('body');
+  body.id = 'capture';
+  html2canvas(document.querySelector("#capture")).then(canvas => {
+    document.body.appendChild(canvas);
+  }).then(() => {
+    var canvas = document.querySelector('canvas');
+    canvas.style.display = 'none';
+    var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    var a = document.createElement("a");
+    a.setAttribute('download',varName + '.png');
+    a.setAttribute('href', image);
+    a.click();
+		setTimeout(function(){
+  const value = this.eval(console.log("hello"), script.argv)
+  console.log("hello" + value);
+  if (value && value.constructor.name === 'Promise') {
+    throw new Error('Expected sync operation, instead received Promise')
+  }
+  if (varName) {
+    return browser.runtime.sendMessage({ storeStr: value, storeVar: varName })
+  }
+	
+	
+	
+	}, 5000);
+	
+  });
+}
+
+
+
 
 Selenium.prototype.doExecuteAsyncScript = function(script, varName) {
   const value = this.eval(script.script, script.argv)

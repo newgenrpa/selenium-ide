@@ -53,9 +53,14 @@ export default class Record extends React.Component {
           isActive={this.props.isRecording}
           onClick={this.props.onClick}
           className="si-record"
-          aria-label={
-            this.props.isRecording ? 'Stop recording' : 'Start recording'
-          }
+          aria-label=""
+        />
+	 <ActionButton
+          disabled={this.props.disabled}
+          isActive={this.props.isRecording}
+          onClick={this.props.onClick}
+          className="si-record-test"
+          labelname="Record"
         />
       </div>
     )

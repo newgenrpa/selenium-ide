@@ -20,8 +20,10 @@ import ModalState from '../stores/view/ModalState'
 import exporter from '@seleniumhq/code-export'
 import { availableLanguages as languages } from '@seleniumhq/code-export'
 import { downloadUniqueFile } from '../IO/filesystem'
+import { normalizeTestsInSuite } from '../IO/normalize'
 import PluginManager from '../../plugin/manager'
 import { userAgent, project as projectProcessor } from '@seleniumhq/side-utils'
+import { availableLanguages as languages } from 'code-export'
 const vendorLanguages = PluginManager.plugins.vendorLanguages
 
 export function availableLanguages() {

@@ -1,25 +1,23 @@
 .record {
-  padding-right: 5px;
+  padding-right: 25px;
 }
 
 .si-record {
-  color: #b00000;
+  color: #ec2f2a;
   animation: none;
 }
 
 .si-record:hover {
-  color: #de2a00;
+  color: #f56660;
 }
 
-.si-record.active::after {
+.si-record.active::before {
   animation: fadeIn 500ms infinite alternate;
-  border: red 4px solid;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -4px -4px;
-  width: 0;
-  height: 0;
+  background: red;
+  width: 8px;
+  height: 8px;
+  display: block;
+  margin: auto;
   content: '';
 }
 

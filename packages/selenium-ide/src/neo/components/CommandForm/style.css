@@ -3,7 +3,7 @@
 }
 
 .command-form form > * {
-  width: 123em;
+  max-width: 480px;
 }
 
 .command-form .form-input:first-child > div {
@@ -39,6 +39,7 @@
   margin: 0;
   padding: 2px 4px;
   margin-left: 5px;
+  color: #ff6600;
 }
 
 .command-form .target button img {

@@ -516,12 +516,16 @@ function doImplicitWait(error, commandId, target, implicitTime, implicitCount) {
       'Playback aborted'
     )
     return false
+	
+	/*
+	Modified by Vinay for Bug 87016
+	*/
   } else if (isElementNotFound(error)) {
     if (isFallbackExclusion()) return overrideImplicitWait(commandId)
     if (implicitTime && Date.now() - implicitTime > timeout) {
       return doLocatorFallback().then(result => {
         if (result && result.result === 'success') return result
-        reportError(`Implicit Wait timed out after ${timeout}ms`)
+        reportError(`Element Not Found timed out after ${timeout}ms`)
         implicitCount = 0
         implicitTime = ''
       })

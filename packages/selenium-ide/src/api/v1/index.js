@@ -212,8 +212,18 @@ router.post('/project', (req, res) => {
       })
     } else {
       WindowSession.focusIDEWindow()
-      loadJSProject(UiState.project, req.project)
-      ModalState.completeWelcome()
+         ModalState.hideWelcome()
+      ModalState.showAlert({
+        title: 'Open project',
+        description: `${plugin.name} is trying to load a project`,
+        confirmLabel: 'proceed',
+        cancelLabel: 'cancel',
+      }).then(result => {
+        if (result) {
+          loadJSProject(UiState.project, req.project)
+          ModalState.completeWelcome()
+        }
+      })
       res(true)
     }
     res(false)

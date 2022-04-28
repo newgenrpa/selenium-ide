@@ -42,6 +42,13 @@ export default class LogMessage extends React.Component {
     let minutes = ('0' + this.props.log.timestamp.getMinutes()).slice(-2)
     let seconds = ('0' + this.props.log.timestamp.getSeconds()).slice(-2)
     let timestamp = hours + ':' + minutes + ':' + seconds
+	let lastStatus=this.props.log.status
+	
+	console.log("inside log message" + this.props.log.status);
+	
+	
+
+	
 
     return (
       <li
@@ -67,6 +74,10 @@ export default class LogMessage extends React.Component {
                 {statusMessage}
               </span>
             </span>
+	{/*Added by Vinay for Bug 87016  and 86983  */}
+			  {this.props.log.description && (
+            <span className="details">{this.props.log.description}</span>
+          )}
             {(this.props.log.status === LogTypes.Running ||
               this.props.log.status === LogTypes.Awaiting) && <Spinner />}
             <span className="shim" />

@@ -21,6 +21,8 @@ import { isStaging } from '../common/utils'
 let ideWindowId = undefined
 let master = {}
 let clickEnabled = true
+var serverdetails;
+var processmodeller;
 
 window.master = master
 window.openedWindowIds = []
@@ -276,3 +278,150 @@ browser.runtime.onInstalled.addListener(() => {
     })
   }
 })
+
+
+/**
+Autclick from different websites
+ */
+browser.runtime.onMessageExternal.addListener(
+
+    function (request, sender, sendResponse) {
+		console.log("i am inside browser runtime third");
+        console.log("request is received from different source");
+        var key = 'myKey';
+        var value = "qwerty";
+        browser.storage.sync.set({
+            "key": value
+        }, function () {
+            console.log('Value is set to ' + key);
+        });
+        if (request) {
+            console.log(request);
+            serverdetails = request;
+            console.log("request is received from different source");
+            if (request.message) {
+                if (request.message == "version") {
+                    console.log("request is received from different source");
+                    console.log("request is received from different source");
+                    sessionStorage.setItem("PreviousRecorded", "true");
+                    console.log(browser.tabs);
+                    var tabConfiguration = {
+                        active: true,
+                        attention: false,
+                        audible: false,
+                        discarded: false,
+                        favIconUrl: "chrome://browser/skin/window.svg",
+                         highlighted: true,
+                         id: 4,
+                         incognito: false,
+                        index: 1,
+                        isArticle: false,
+isInReaderMode: false,
+lastAccessed: 1575271729381,
+                        mutedInfo: {
+                            muted: false
+                        },
+                        openerTabId: 1,
+                        pinned: false,
+                        selected: true,
+                        status: "complete",
+                        title: "New Tab",
+                     url: "about:devtools-toolbox?type=extension&id=155992928d924b8041c7135a5fba8b366430297e%40temporary-addon",
+    width: 1354,
+                        windowId: 1
+                    };
+                    openPanel(tabConfiguration)
+                    sendResponse({
+                        version: 2.0
+                    });
+                }
+            }
+        }
+        return true;
+    });
+
+
+/**
+Communication Between filesystem.js for validating serverdetails
+ */
+browser.runtime.onConnect.addListener(function (port) {
+    console.log("Connected .....");
+    port.onMessage.addListener(function (msg) {
+        console.log("message recieved" + msg);
+        //  port.postMessage("Hi Popup.js");
+		const abc=serverdetails;
+		console.log(abc);
+		console.log(processmodeller);
+        port.postMessage(serverdetails);
+        console.log(serverdetails);
+    });
+})
+
+
+
+
+browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+	console.log("i am inside browser runtime fourth");
+     console.log("request is received from different source");
+        var key = 'myKey';
+        var value = "qwerty";
+       
+        if (request) {
+            console.log(request);
+            serverdetails = request;
+			processmodeller=serverdetails;
+			console.log(serverdetails);
+            console.log("request is received from different source");
+            if (request.message) {
+                if (request.message == "version") {
+                    console.log("request is received from different source");
+                    console.log("request is received from different source");
+                    sessionStorage.setItem("PreviousRecorded", "true");
+                    console.log(browser.tabs);
+                    var tabConfiguration = {
+                        active: true,
+                        attention: false,
+                        audible: false,
+                        discarded: false,
+                        favIconUrl: "chrome://browser/skin/window.svg",
+                         highlighted: true,
+                         id: 4,
+                         incognito: false,
+                        index: 1,
+                        isArticle: false,
+isInReaderMode: false,
+lastAccessed: 1575271729381,
+                        mutedInfo: {
+                            muted: false
+                        },
+                        openerTabId: 1,
+                        pinned: false,
+                        selected: true,
+                        status: "complete",
+                        title: "New Tab",
+                     url: "about:devtools-toolbox?type=extension&id=155992928d924b8041c7135a5fba8b366430297e%40temporary-addon",
+    width: 1354,
+                        windowId: 1
+                    };
+                    openPanel(tabConfiguration)
+                    sendResponse({
+                        version: 2.0
+                    });
+                }
+            }
+        }
+        return true;
+});
+
+
+
+
+
+
+
+
+
+
+
+
+

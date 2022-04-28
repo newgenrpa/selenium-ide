@@ -39,6 +39,7 @@ export default class ProjectHeader extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     changed: PropTypes.bool,
+	view:PropTypes.bool,
     changeName: PropTypes.func.isRequired,
     openFile: PropTypes.func,
     load: PropTypes.func,
@@ -58,16 +59,18 @@ export default class ProjectHeader extends React.Component {
     return (
       <div className={classNames('header', { changed: this.props.changed })}>
         <Title
-          title={`Selenium IDE ${this.props.title === '' ? '' : '-'} ${
+          title={`Web Recorder ${this.props.title === '' ? '' : '-'} ${
             this.props.title
           }${this.props.changed ? '*' : ''}`}
         />
         <div>
-          <span className="title-prefix">Project: </span>
-          <ContentEditable
+          <span className="title-prefix">Web Recorder </span>
+         {/* 
+         <ContentEditable
             className="title"
             onKeyDown={this.handleKeyDown}
             onChange={this.handleChange}
+					disabled={true} 
             html={this.props.title}
             aria-label="Change the project name"
             role="textbox"
@@ -111,6 +114,10 @@ export default class ProjectHeader extends React.Component {
             </ListMenuItem>
           </ListMenu>
         </span>
+         */} 
+      
+        </div>
+       
       </div>
     )
   }

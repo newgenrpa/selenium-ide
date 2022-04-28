@@ -32,6 +32,7 @@ export default class PlayCurrentButton extends React.Component {
         }</span></p>`}
         {...this.props}
         className={classNames('si-play', this.props.className)}
+        labelname="Run"
       /> // eslint-disable-line react/prop-types
     )
   }

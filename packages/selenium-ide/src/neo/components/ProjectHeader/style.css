@@ -4,6 +4,9 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  background-color: #ff6600;
+  color: white;
+
 }
 
 .header > div:first-child {
@@ -37,7 +40,9 @@
 }
 
 .header .title:focus {
+  border-color: #cecece;
   cursor: initial;
+  outline: 0;
 }
 
 .header:hover .title ~ i {

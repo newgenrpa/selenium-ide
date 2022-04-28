@@ -41,6 +41,7 @@ export default class CommandForm extends React.Component {
   static propTypes = {
     command: PropTypes.object,
     isSelecting: PropTypes.bool,
+	view:PropTypes.bool,
     onSubmit: PropTypes.func,
   }
   getCommandName(command) {
@@ -73,7 +74,7 @@ export default class CommandForm extends React.Component {
   }
   render() {
     return (
-      <div className="command-form">
+      <div className="command-form" style={this.props.view ? {pointerEvents: "none", opacity: "1.0"} : {}}>
         <form
           onSubmit={e => {
             e.preventDefault()
@@ -201,7 +202,8 @@ export default class CommandForm extends React.Component {
             disabled={!this.props.command}
             onChange={this.props.command ? this.props.command.setValue : null}
           />
-          <Input
+		  {/*       //Modified by Vinay for Bug 87005 on 30/09/19
+         <Input
             id="comment"
             name="comment"
             label="Description"

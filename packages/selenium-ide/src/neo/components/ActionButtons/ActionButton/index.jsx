@@ -40,7 +40,7 @@ export default class ActionButton extends React.Component {
           this.props.className
         )}
         aria-label={props['aria-label']}
-      />
+      >{this.props.labelname}</button>
     )
   }
 

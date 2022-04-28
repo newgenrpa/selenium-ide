@@ -409,7 +409,7 @@ export default class WebDriverExecutor {
   // other commands
 
   async doEcho(string) {
-    this.logger.log(`echo: ${string}`)
+    this.logger.log(`console: ${string}`)
     return Promise.resolve()
   }
 

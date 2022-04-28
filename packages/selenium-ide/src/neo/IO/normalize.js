@@ -15,19 +15,23 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import React from 'react'
-import ActionButton from '../ActionButton'
-import classNames from 'classnames'
+import url from 'url'
 
-export default class PauseExceptionsButton extends React.Component {
-  render() {
-    return (
-      <ActionButton
-        data-tip="<p>Pause on exceptions</p>"
-        {...this.props}
-        className={classNames('si-break-exceptions', this.props.className)}
-        aria-label="Pause"
-      /> // eslint-disable-line react/prop-types
-    )
+export function normalizeTestsInSuite({ suite, tests }) {
+  if (!suite) return
+  let _suite = { ...suite }
+  _suite.tests.forEach((testId, index) => {
+    _suite.tests[index] = tests.find(test => test.id === testId).name
+  })
+  return _suite
+}
+
+export function sanitizeProjectName(projectName) {
+  let name = projectName
+  if (name.startsWith('http')) {
+    // eslint-disable-next-line node/no-deprecated-api
+    return url.parse(projectName).host
+  } else {
+    return name.replace(/([^a-z0-9 ._-]+)/gi, '')
   }
 }
