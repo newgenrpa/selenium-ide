@@ -72,9 +72,7 @@ class BaseUrlDialogContents extends React.Component {
         }
         type={this.props.isInvalid ? 'warn' : 'info'}
         buttons={[
-          <FlatButton onClick={this.props.cancel} key="cancel">
-            cancel
-          </FlatButton>,
+     
 	   <div
             className="right"
             style={{
@@ -90,6 +88,9 @@ class BaseUrlDialogContents extends React.Component {
             key="ok"
           >
             {this.props.confirmLabel || 'confirm'}
+          </FlatButton>
+          <FlatButton onClick={this.props.cancel} key="cancel">
+            cancel
           </FlatButton>
 	  </div>,
         ]}

@@ -88,45 +88,47 @@ class TestSelectorContent extends React.Component {
   }
   render() {
     return (
-      <DialogContainer
-        title="Select tests"
-        onRequestClose={this.props.cancel}
-        buttons={[
-          <FlatButton onClick={this.props.cancelSelection} key="cancel">
-            cancel
-          </FlatButton>,
-          <FlatButton
-            type="submit"
-            onClick={() => {
-              this.props.completeSelection(
-                Object.values(this.state.selectedTests).filter(t => !!t)
-              )
-            }}
-            style={{
-              marginRight: '0',
-            }}
-            key="ok"
-          >
-            select
-          </FlatButton>,
-        ]}
-        modalTitle={TestSelectorContent.modalTitleElement}
-        modalDescription={TestSelectorContent.modalDescriptionElement}
-      >
-        <SearchBar
-          inputRef={input => {
-            this.input = input
-          }}
-          filter={this.filter}
-          value={this.state.filterTerm}
-        />
-        <TestSelectorList
-          tests={this.props.tests}
-          filterTerm={this.state.filterTerm}
-          selectedTests={this.state.selectedTests}
-          selectTest={this.selectTest}
-        />
-      </DialogContainer>
+      // <DialogContainer
+      //   title="Select tests"
+      //   onRequestClose={this.props.cancel}
+      //   buttons={[
+      //     <FlatButton onClick={this.props.cancelSelection} key="cancel">
+      //       cancel
+      //     </FlatButton>,
+      //     <FlatButton
+      //       type="submit"
+      //       onClick={() => {
+      //         this.props.completeSelection(
+      //           Object.values(this.state.selectedTests).filter(t => !!t)
+      //         )
+      //       }}
+      //       style={{
+      //         marginRight: '0',
+      //       }}
+      //       key="ok"
+      //     >
+      //       select
+      //     </FlatButton>,
+      //   ]}
+      //   modalTitle={TestSelectorContent.modalTitleElement}
+      //   modalDescription={TestSelectorContent.modalDescriptionElement}
+      // >
+      //   <SearchBar
+      //     inputRef={input => {
+      //       this.input = input
+      //     }}
+      //     filter={this.filter}
+      //     value={this.state.filterTerm}
+      //   />
+      //   <TestSelectorList
+      //     tests={this.props.tests}
+      //     filterTerm={this.state.filterTerm}
+      //     selectedTests={this.state.selectedTests}
+      //     selectTest={this.selectTest}
+      //   />
+      // </DialogContainer>
+      <div>
+      </div>
     )
   }
 }
