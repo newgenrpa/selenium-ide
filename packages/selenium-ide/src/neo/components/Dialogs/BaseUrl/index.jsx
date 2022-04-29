@@ -75,6 +75,12 @@ class BaseUrlDialogContents extends React.Component {
           <FlatButton onClick={this.props.cancel} key="cancel">
             cancel
           </FlatButton>,
+	   <div
+            className="right"
+            style={{
+              display: 'flex',
+            }}
+          >
           <FlatButton
             type="submit"
             disabled={!this.urlRegex.test(this.state.url)}
@@ -84,7 +90,8 @@ class BaseUrlDialogContents extends React.Component {
             key="ok"
           >
             {this.props.confirmLabel || 'confirm'}
-          </FlatButton>,
+          </FlatButton>
+	  </div>,
         ]}
         onRequestClose={this.props.cancel}
         modalTitle={BaseUrlDialogContents.modalTitleElement}

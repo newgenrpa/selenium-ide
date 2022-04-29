@@ -46,7 +46,7 @@ export default class Modal extends Component {
     return (
       <div>
         <AlertDialog show={show => (ModalState.showAlert = show)} />
-        <TestSelector
+        {/* <TestSelector
           isEditing={!!ModalState.editedSuite}
           tests={this.props.project.tests}
           selectedTests={
@@ -58,7 +58,7 @@ export default class Modal extends Component {
           completeSelection={tests =>
             this.selectTestsForSuite(ModalState.editedSuite, tests)
           }
-        />
+        /> */}
         <RenameDialog
           isEditing={!!ModalState.renameState.type}
           type={ModalState.renameState.type}
