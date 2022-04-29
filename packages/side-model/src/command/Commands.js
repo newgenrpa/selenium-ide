@@ -223,6 +223,31 @@ export const Commands = [
       value: ArgTypes.pattern,
     },
   ],
+        [
+    'captureScreen',
+    {
+      name: 'capture screen',
+      description: `Executes a snippet of JavaScript in the context of the 
+        currently selected frame or window. The script fragment will be executed 
+        as the body of an anonymous function.  To store the return value, use 
+        the 'return' keyword and provide a variable name in the value input field.`,
+      target: ArgTypes.script,
+      value: { isOptional: true, ...ArgTypes.variableName },
+    },
+  ],
+      [
+    'csvSave',
+    {
+      name: 'csv save',
+      description: `Executes a snippet of JavaScript in the context of the 
+        currently selected frame or window. The script fragment will be executed 
+        as the body of an anonymous function.  To store the return value, use 
+        the 'return' keyword and provide a variable name in the value input field.`,
+      target: ArgTypes.locator,
+      type: TargetTypes.LOCATOR,
+      value: { isOptional: true, ...ArgTypes.variableName },
+    },
+  ],
   [
     'check',
     {
@@ -339,11 +364,10 @@ export const Commands = [
     },
   ],
   [
-    'echo',
+    'printOutput',
     {
-      name: 'echo',
-      description: `Prints the specified message into the third table cell in 
-        your Selenese tables. Useful for debugging.`,
+      name: 'printOutput',
+      description: `Prints the specified message into  console/output tab. Useful for debugging.`,
       target: ArgTypes.message,
     },
   ],

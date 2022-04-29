@@ -36,6 +36,7 @@ import ExtCommand from '../../IO/SideeX/ext-command'
 import WebDriverExecutor from '../../IO/playback/webdriver'
 import CommandTarget from './CommandTarget'
 import Suite from '../../models/Suite'
+import swal from 'sweetalert';
 
 class PlaybackState {
   @observable
@@ -184,13 +185,47 @@ class PlaybackState {
     this.pauseOnExceptions = !this.pauseOnExceptions
   }
 
-  async beforePlaying(play) {
+  async beforePlaying(play,control) {
     try {
       UiState._project.addCurrentUrl()
     } catch (e) {} // eslint-disable-line no-empty
     this.lastSelectedView = UiState.selectedView
     UiState.changeView('Executing', true)
     UiState.selectCommand(undefined)
+	 /*Added by Vinay for Bug 86998 */
+	if(control)
+
+	{		
+			     const choseDelete = await ModalState.showAlert({
+      title: 'Record From Here',
+      description: `This option  will first Play the recording from start`,
+      cancelLabel: 'cancel',
+      confirmLabel: 'ok',
+    }) 
+    if (choseDelete) {
+        if (UiState.isRecording) {
+      const chosePlay = await ModalState.showAlert({
+        title: 'Stop recording',
+        description:
+          'Playing this test will stop the recording process. Would you like to continue?',
+        confirmLabel: 'playback',
+        cancelLabel: 'cancel',
+      })
+      if (chosePlay) {
+        UiState.stopRecording()
+        play()
+      }
+    } else {
+      play()
+    }
+		
+    }
+	  
+		
+		
+  }
+		
+		else{
     if (UiState.isRecording) {
       const chosePlay = await ModalState.showAlert({
         title: 'Stop recording',
@@ -206,6 +241,7 @@ class PlaybackState {
     } else {
       play()
     }
+		}
   }
 
   @action.bound
@@ -402,7 +438,17 @@ class PlaybackState {
         }
       })
     })
-    this.beforePlaying(playTest)
+	
+	 	 /*Added by Vinay for Bug 86998 */
+	  if(controls.recordFromHere)
+        this.beforePlaying(playTest,controls.recordFromHere)
+	else
+		this.beforePlaying(playTest,false)
+   // }
+	  
+	  
+  
+	
   }
 
   pluginDidFail(responses) {
@@ -437,7 +483,7 @@ class PlaybackState {
           this.isSingleCommandRunning = false
         })
       })
-      this.beforePlaying(playCommand)
+      this.beforePlaying(playCommand,false)
     } else {
       const queue = this.runningQueue
       const currentExecutingCommandNode = this.currentExecutingCommandNode

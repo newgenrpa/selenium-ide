@@ -21,6 +21,7 @@ import { observe } from 'mobx'
 import { observer } from 'mobx-react'
 import TabBar from '../../components/TabBar'
 import LogList from '../../components/LogList'
+import Bottomproceed from '../../components/Bottomproceed'
 import ClearButton from '../../components/ActionButtons/Clear'
 import { output } from '../../stores/view/Logs'
 import PlaybackLogger from '../../side-effects/playback-logging'
@@ -104,6 +105,12 @@ export default class Console extends React.Component {
             />
           )}
         </div>
+        <div className="customdiv">
+              <Bottomproceed
+              changed={this.props.changed}
+    save={this.props.save}
+    view={this.props.view}></Bottomproceed>
+            </div>
       </footer>
     )
   }

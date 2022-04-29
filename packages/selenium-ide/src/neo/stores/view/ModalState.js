@@ -39,6 +39,9 @@ class ModalState {
   @observable
   exportState = {}
 
+  @observable
+  baseUrlFlag = true
+
   constructor() {
     this.renameTest = this.rename.bind(this, Types.test)
     this.renameSuite = this.rename.bind(this, Types.suite)
@@ -244,6 +247,12 @@ class ModalState {
   @action.bound
   toggleNewWindowConfiguration() {
     this.newWindowConfigurationState = !this.newWindowConfigurationState
+  }
+
+  @action.bound
+  toggleBaseurlFlagState() {
+    console.log("state changing ")
+    this.baseUrlFlag = !this.baseUrlFlag
   }
 
   isUniqueWindowName(windowName, commandId) {

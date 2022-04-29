@@ -57,11 +57,11 @@ class UiState {
   @observable
   minContentHeight = 460
   @observable
-  minNavigationWidth = 180
+  minNavigationWidth = 0
   @observable
-  maxNavigationWidth = 350
+  maxNavigationWidth = 0
   @observable
-  navigationWidth = 180
+  navigationWidth = 0
   @observable
   pristineCommand = new Command()
   @observable
@@ -385,7 +385,7 @@ class UiState {
     if (!startingUrl) {
       startingUrl = await ModalState.selectBaseUrl({
         isInvalid,
-        confirmLabel: 'Start recording',
+        confirmLabel: 'Start web recording',
       })
     }
     try {

@@ -244,10 +244,10 @@ export default class Test extends React.Component {
           className={classNames(
             'name',
             this.props.className,
-            {
-              selected:
-                this.props.selected &&
-                this.props.selectedStackIndex === undefined,
+            {//commented by pranesh -for Ui misplace (display issue) 
+              //selected:
+               // this.props.selected &&
+               // this.props.selectedStackIndex === undefined,
             },
             {
               executing:

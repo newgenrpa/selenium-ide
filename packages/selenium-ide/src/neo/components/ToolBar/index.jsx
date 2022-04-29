@@ -17,6 +17,7 @@
 
 import React from 'react'
 import { observer } from 'mobx-react'
+import PropTypes from 'prop-types'
 import PlayAll from '../../components/ActionButtons/PlayAll'
 import PlayCurrent from '../../components/ActionButtons/PlayCurrent'
 import Pause from '../../components/ActionButtons/Pause'
@@ -31,10 +32,23 @@ import UiState from '../../stores/view/UiState'
 import { parse } from 'modifier-keys'
 import PlaybackState from '../../stores/view/PlaybackState'
 import ModalState from '../../stores/view/ModalState'
+import Title from 'react-document-title'
+import PauseBanner from '../../components/PauseBanner'
 import './style.css'
 
 @observer
 export default class ToolBar extends React.Component {
+	
+	  static propTypes = {
+  
+	view:PropTypes.bool,
+   
+  }
+	
+	  constructor(props) {
+    super(props)
+ 
+  }
   toggleRecord() {
     UiState.toggleRecord()
   }
@@ -92,6 +106,28 @@ export default class ToolBar extends React.Component {
           }
           onClick={PlaybackState.playTestOrResume}
         />
+       
+        {/* {PlaybackState.isPlaying ? (
+          <Pause
+            isActive={PlaybackState.paused}
+            data-tip={
+              !PlaybackState.paused
+                ? `<p>Pause test execution <span style="color: #929292;padding-left: 5px;">${parse(
+                    'p',
+                    { primaryKey: true }
+                  )}</span></p>`
+                : `<p>Resume test execution <span style="color: #929292;padding-left: 5px;">${parse(
+                    'p',
+                    { primaryKey: true }
+                  )}</span></p>`
+            }
+            onClick={PlaybackState.pauseOrResume}
+          />
+        ) : null} */}
+        <StepInto
+          disabled={!isCommandValid || UiState.isRecording}
+          onClick={PlaybackState.stepOver}
+        />
         {PlaybackState.isPlaying ? (
           <Stop
             onClick={() => {
@@ -129,22 +165,38 @@ export default class ToolBar extends React.Component {
           value={PlaybackState.delay}
           maxDelay={PlaybackState.maxDelay}
           onChange={PlaybackState.setDelay}
-        />
-        <div className="flexer" />
+        /> 
+		
+		*/}
+        
+       
+        {/* Modified By Vinay for Bug 87001
         <DisableBreakpoints
           isActive={PlaybackState.breakpointsDisabled}
           onClick={PlaybackState.toggleDisableBreakpoints}
         />
-        <PauseExceptions
-          isActive={PlaybackState.pauseOnExceptions}
-          onClick={PlaybackState.togglePauseOnExceptions}
-        />
+        */}
+        {!PlaybackState.isPlaying &&
+           <PauseExceptions
+           isActive={PlaybackState.pauseOnExceptions}
+           onClick={PlaybackState.togglePauseOnExceptions}
+         />
+        }
+     
         <div className="sep" />
-        <Record
-          disabled={PlaybackState.isPlaying || !UiState.selectedTest.test}
-          isRecording={UiState.isRecording}
-          onClick={this.toggleRecord}
-        />
+		
+				 {this.props.view? (
+				  null
+       
+      ) :( 
+        !PlaybackState.isPlaying &&
+        <Record 
+        disabled={PlaybackState.isPlaying || !UiState.selectedTest.test}
+        isRecording={UiState.isRecording}
+        onClick={this.toggleRecord}
+      />
+       )}
+     
       </div>
     )
   }

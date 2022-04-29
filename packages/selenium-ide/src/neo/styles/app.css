@@ -4,13 +4,13 @@
 
 :root {
   --hover-color: #f3f3f3;
-  --active-color: #d8ebfb;
-  --selected-color: #e8f1f8;
-  --selected-border-color: #4d90fe;
+  --active-color: #ff66003b;
+  --selected-color:#ff66003b;
+  --selected-border-color: #5cb3ff;
 }
 
 html {
-  overflow: auto;
+  overflow: hidden;
 }
 
 body {
@@ -43,6 +43,10 @@ a:visited {
   color: #505050;
 }
 
+a:focus {
+  outline: 0;
+}
+
 a.link {
   color: #333;
   text-decoration: underline;
@@ -69,6 +73,12 @@ textarea {
 textarea {
   resize: none;
   font-family: inherit;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #40a6ff;
+  outline: 0;
 }
 
 input:disabled,
@@ -120,7 +130,7 @@ code,
 }
 
 .passed {
-  color: #276533 !important;
+  color: #276d3a !important;
 }
 
 .failed {

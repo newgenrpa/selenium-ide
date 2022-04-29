@@ -32,6 +32,7 @@ export default class Editor extends React.Component {
     test: PropTypes.object,
     callstackIndex: PropTypes.number,
     url: PropTypes.string.isRequired,
+	view:PropTypes.bool,
     urls: PropTypes.array,
     setUrl: PropTypes.func.isRequired,
   }
@@ -82,13 +83,17 @@ export default class Editor extends React.Component {
   render() {
     return (
       <main className="editor" onKeyDown={this.handleKeyDown.bind(this)}>
-        <ToolBar />
+        <ToolBar view={this.props.view}
+          title={""}
+          changed={this.props.changed} />
         <UrlBar
           url={this.props.url}
           urls={this.props.urls}
           setUrl={this.props.setUrl}
         />
         <TestTable
+       
+		   view={this.props.view}
           commands={this.props.test ? this.props.test.commands : null}
           callstackIndex={this.props.callstackIndex}
           selectedCommand={
@@ -103,6 +108,7 @@ export default class Editor extends React.Component {
           swapCommands={this.props.test ? this.props.test.swapCommands : null}
         />
         <CommandForm
+		   view={this.props.view}
           command={UiState.selectedCommand}
           setCommand={this.handleCommandChange}
           isSelecting={UiState.isSelectingTarget}

@@ -41,7 +41,7 @@
   content: '\e925';
 }
 .si-new-project::before {
-  content: '\e91e';
+  content: '\e984';
 }
 .si-record {
   position: relative;
@@ -51,11 +51,15 @@
   content: '\e91f';
 }
 .si-record::after,
-.si-record-out::after {
-  content: '\e920';
+.si-record-circle::before {
+ 
   position: absolute;
   top: 0;
   left: 0;
+}
+.si-record::before,
+.si-record-out::before {
+  content: '\e920';
 }
 .si-download::before {
   content: '\e905';

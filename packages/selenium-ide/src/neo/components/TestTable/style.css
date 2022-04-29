@@ -26,7 +26,12 @@
 }
 
 .test-table th:first-child {
-  margin-left: 47px;
+  margin-left: 0px;
+  position: relative;
+  flex: initial;
+  padding: 5px;
+  width: 39px;
+ 
 }
 
 .test-table th:last-child {

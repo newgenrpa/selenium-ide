@@ -52,6 +52,7 @@ export default class TestTable extends React.Component {
     removeCommand: PropTypes.func,
     swapCommands: PropTypes.func,
     clearAllCommands: PropTypes.func,
+	view:PropTypes.bool
   }
   detectNewCommand(change) {
     this.newCommand = change.added[0]
@@ -92,6 +93,7 @@ export default class TestTable extends React.Component {
         <table>
           <thead>
             <tr>
+              <th >Sl no.</th>
               <th>
                 <span>Command</span>
               </th>

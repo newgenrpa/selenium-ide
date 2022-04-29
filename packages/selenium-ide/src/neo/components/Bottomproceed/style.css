@@ -1,0 +1,102 @@
+.headers {
+    border-bottom: 1px solid #cecece;
+    padding: 7px 7px 7px 2px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  background-color: #f3f3f3;
+  border-top: 1px solid #cecece;
+  }
+  
+  .headers > div:first-child {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+  }
+  
+  .headers .title {
+    display: inline-block;
+    border: 1px transparent solid;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 17px;
+    min-height: 17px;
+    padding: 3px 26px 3px 6px;
+    font-weight: bold;
+    cursor: pointer;
+    min-width: 143px;
+  }
+  
+  .headers .title ~ i {
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: -20px;
+    visibility: hidden;
+  }
+  
+  .headers:hover .title {
+    border-color: #f3f3f3;
+  }
+  
+  .headers .title:focus {
+    border-color: #cecece;
+    cursor: initial;
+    outline: 0;
+  }
+  
+  .headers:hover .title ~ i {
+    visibility: visible;
+  }
+  
+  .headers:focus-within .title ~ i {
+    visibility: hidden;
+  }
+  
+  .headers.changed .title::after {
+    content: '*';
+  }
+  
+  .headers .title:focus::after {
+    content: ' ';
+  }
+  
+  .headers .buttons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .headers .buttons > *:not(:last-child) {
+    margin-left: 10px;
+  }
+  
+  .headers .buttons > *:last-child {
+    margin-left: 4px;
+  }
+  
+  .headers .title-prefix {
+    font-weight: bold;
+    padding-left: 6px;
+  }
+  
+  .custombutton{
+      background-color:  #ff6600;
+      color: white;
+      border: none;
+  padding: 2px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 10px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 4px;
+  }
+
+  .custombutton:hover{
+    background-color:#dd5800;
+  }
+  .headers  .flexer {
+    flex-grow: 1;
+  }
+  

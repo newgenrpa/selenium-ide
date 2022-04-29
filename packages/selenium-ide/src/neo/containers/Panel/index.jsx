@@ -45,8 +45,8 @@ import '../../styles/layout.css'
 import '../../styles/resizer.css'
 import { isProduction, isTest, userAgent } from '../../../common/utils'
 import Logger from '../../stores/view/Logs'
-
-import { loadProject, saveProject, loadJSProject } from '../../IO/filesystem'
+import { find, select } from '../../IO/SideeX/find-select'
+import { loadProject, saveProject, loadJSProject ,openRecordedProject, setFileParameters,openRecordedProjectRPA} from '../../IO/filesystem'
 
 if (!isTest) {
   const api = require('../../../api')
@@ -55,20 +55,110 @@ if (!isTest) {
 
 if (userAgent.os.name === 'Windows') {
   require('../../styles/conditional/scrollbar.css')
+  require('../../styles/conditional/button-direction.css')
   require('../../styles/conditional/text.css')
 }
 
 const project = observable(new ProjectStore(''))
 
+var serverdetails;
+var saveButtonState=true;
+var disableButtonState=false;
 UiState.setProject(project)
 
 if (isProduction) {
   createDefaultSuite(project, { suite: '', test: '' })
 } else {
-  seed(project)
+debugger;
+createDefaultSuite(project, { suite: '', test: '' })
+/* var port = browser.extension.connect({
+name: "Sample Communication"
+});
+port.postMessage("Hi BackGround");
+port.onMessage.addListener(function(msg) {
+console.log("message recieved" + msg.ip);
+console.log("message recieved" + msg.message);
+console.log("message recieved" + msg.username);
+console.log("message recieved" + msg.pass);
+console.log("message recieved" + msg.previousRecorded);
+if(msg.previousRecorded == "true")
+{
+console.log("Load Previous SavedFile"+msg.previousRecorded);
+saveProject(project)
+}
+})   */
+//seed(project)
 }
 project.setModified(false)
+var port = browser.runtime.connect({
+name: "Sample Communication"
+});
+port.postMessage("Hi BackGround");
+port.onMessage.addListener(function(msg) {
+if(msg)
+{
+console.log(msg.rpa);
+  if(msg.rpa){
+    console.log("inside Rpa")
+    if(msg.previousRecorded == "false" || msg.previousRecorded== "r")
+    {
+    UiState.toggleRecord();
+    setFileParameters(msg);
+    serverdetails=msg;
+    }
 
+      
+    if(msg.previousRecorded == "m"  || msg.previousRecorded == "v")
+    {
+      ModalState.toggleBaseurlFlagState()
+      console.log(ModalState.baseUrlFlag)
+      console.log("open recorded project" + msg.previousRecorded);
+      setFileParameters(msg);
+    openRecordedProjectRPA(project, msg);  
+    
+    }
+  }else{
+    console.log("inside IBPS");
+    console.log("message recieved" + msg.baseurl);
+    console.log("message recieved" + msg.message);
+    console.log("message recieved" + msg.username);
+    console.log("message recieved" + msg.pass);
+    console.log("message recieved" + msg.previousRecorded);
+    console.log("message recieved" + msg.processState);
+    serverdetails=msg;
+    project.changeName(msg.projectName.substr(0,msg.projectName.indexOf('.')));
+    
+    if(msg.previousRecorded == "false" || msg.previousRecorded== "r")
+    {
+    UiState.toggleRecord();
+    setFileParameters(msg);
+    }
+    
+    if(msg.previousRecorded == "v")
+    {
+      saveButtonState=false;
+      disableButtonState=true;
+    }
+    
+    if(msg.previousRecorded == "m"  || msg.previousRecorded == "v")
+    {
+      console.log("open recorded project" + msg.previousRecorded);
+      setFileParameters(msg);
+     openRecordedProject(project, msg); 
+    
+    
+    }
+    if(msg.previousRecorded == "z"){
+     // const type = this.parseCommandTargetType(this.props.command.command)
+      if (msg.type) {
+        select(msg.type, msg.target)
+      }
+    }
+  }
+
+}
+}
+)  
 function createDefaultSuite(
   aProject,
   name = { suite: 'Default Suite', test: 'Untitled' }
@@ -83,7 +173,7 @@ function firefox57WorkaroundForBlankPanel() {
   // TODO: remove this as soon as Mozilla fixes https://bugzilla.mozilla.org/show_bug.cgi?id=1425829
   // browser. windows. create () displays blank windows (panel, popup or detached_panel)
   // The trick to display content is to resize the window...
-  // We do not check the browser since this doesn't affect chrome at all
+  // We do not check the browser since this doesn't affect browser at all
 
   function getCurrentWindow() {
     return browser.windows.getCurrent()
@@ -136,6 +226,7 @@ export default class Panel extends React.Component {
         })
       }, 3000)
     }
+     UiState.startRecording()
   }
   handleResize(currWindow) {
     UiState.setWindowHeight(currWindow.innerHeight)
@@ -336,8 +427,9 @@ export default class Panel extends React.Component {
             }}
           >
             <div className="wrapper">
-              <PauseBanner />
-              <ProjectHeader
+              {/* <PauseBanner /> */}
+              {/*
+               <ProjectHeader
                 title={this.state.project.name}
                 changed={this.state.project.modified}
                 changeName={this.state.project.changeName}
@@ -345,9 +437,12 @@ export default class Panel extends React.Component {
                   this.openFile = openFile
                 }}
                 load={this.doLoadProject.bind(this)}
-                save={() => saveProject(this.state.project)}
+                save={() => saveProject(this.state.project,this.state.serverdetails)}
                 new={this.loadNewProject.bind(this)}
+			view={saveButtonState}
               />
+              */}
+             
               <div
                 className={classNames('content', {
                   dragging: UiState.navigationDragging,
@@ -366,18 +461,25 @@ export default class Panel extends React.Component {
                     duplicateTest={this.state.project.duplicateTestCase}
                   />
                   <Editor
+				     	view={disableButtonState}
                     url={this.state.project.url}
                     urls={this.state.project.urls}
                     setUrl={this.state.project.setUrl}
                     test={UiState.displayedTest}
                     callstackIndex={UiState.selectedTest.stack}
+                    title={this.state.project.name}
+                    changed={this.state.project.modified}
                   />
                 </SplitPane>
               </div>
             </div>
+           
             <Console
               height={UiState.consoleHeight}
               restoreSize={UiState.restoreConsoleSize}
+              changed={this.state.project.modified}
+              save={() => saveProject(this.state.project,this.state.serverdetails)}
+    view={saveButtonState}
             />
           </SplitPane>
           <Modal

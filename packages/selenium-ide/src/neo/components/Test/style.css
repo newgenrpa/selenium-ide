@@ -62,6 +62,10 @@
   background-color: var(--selected-color);
 }
 
+.test:focus > a.selected {
+  background-color: var(--active-color);
+}
+
 .test > a.executing {
   background-color: #e3f2ff;
 }

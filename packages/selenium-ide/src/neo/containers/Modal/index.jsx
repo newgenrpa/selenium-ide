@@ -85,14 +85,17 @@ export default class Modal extends Component {
               : null
           }
           cancel={ModalState.cancelSuiteSettings}
-        />
+        />{console.log(ModalState.baseUrlFlag)}
+        {ModalState.baseUrlFlag?( 
         <BaseUrlDialog
           isSelectingUrl={ModalState.baseUrlState.selecting}
           isInvalid={!!ModalState.baseUrlState.isInvalid}
           confirmLabel={ModalState.baseUrlState.confirmLabel}
           onUrlSelection={ModalState.baseUrlState.done}
           cancel={ModalState.baseUrlState.cancel}
-        />
+        />)
+        :null}
+       
         {isProduction ? (
           <WelcomeDialog
             isWelcomed={ModalState.welcomeState.started}
