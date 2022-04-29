@@ -74,10 +74,7 @@ class BaseUrlDialogContents extends React.Component {
         buttons={[
      
 	   <div
-            className="right"
-            style={{
-              display: 'flex',
-            }}
+     className="flexer"
           >
           <FlatButton
             type="submit"
