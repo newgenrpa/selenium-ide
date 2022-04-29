@@ -55,7 +55,6 @@ if (!isTest) {
 
 if (userAgent.os.name === 'Windows') {
   require('../../styles/conditional/scrollbar.css')
-  require('../../styles/conditional/button-direction.css')
   require('../../styles/conditional/text.css')
 }
 
