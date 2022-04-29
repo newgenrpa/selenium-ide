@@ -104,7 +104,7 @@ export default class Navigation extends React.Component {
         </VerticalTabBar>
         <Provider renameTest={ModalState.renameTest}>
           <React.Fragment>
-            {UiState.selectedView === 'Tests' && (
+            {/*UiState.selectedView === 'Tests' && (
               <React.Fragment>
                 <SearchBar
                   value={UiState.filterTerm}
@@ -133,7 +133,7 @@ export default class Navigation extends React.Component {
                   codeExport={ModalState.codeExport}
                 />
               </React.Fragment>
-            )}
+            )*/}
             {UiState.selectedView === 'Executing' && (
               <React.Fragment>
                 <ExecutionPlan />

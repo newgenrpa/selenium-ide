@@ -62,7 +62,7 @@ export default class DialogContainer extends React.Component {
       ? this.props.buttons.slice().reverse()
       : this.props.buttons
     ).filter(button => button !== null)
-    return <div className="right">{buttons}</div>
+    return <div >{buttons}</div>
   }
 
   render() {
