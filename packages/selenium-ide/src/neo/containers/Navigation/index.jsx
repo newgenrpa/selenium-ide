@@ -78,11 +78,11 @@ export default class Navigation extends React.Component {
   render() {
     return (
       <aside className="test-cases" onKeyDown={this.handleKeyDown.bind(this)}>
-        <VerticalTabBar
+        {/* <VerticalTabBar
           tabs={UiState.views}
           tab={UiState.selectedView}
           tabChanged={this.handleChangedTab}
-        >
+        > */}
           {UiState.selectedView === 'Tests' && (
             <AddButton
               data-tip={'<p>Add new test</p>'}
