@@ -82,7 +82,7 @@ export default class Navigation extends React.Component {
           tabs={UiState.views}
           tab={UiState.selectedView}
           tabChanged={this.handleChangedTab}
-        > */}
+        > 
           {UiState.selectedView === 'Tests' && (
             <AddButton
               data-tip={'<p>Add new test</p>'}
@@ -101,7 +101,7 @@ export default class Navigation extends React.Component {
               aria-label="Add new test suite"
             />
           )}
-        </VerticalTabBar>
+        </VerticalTabBar>*/}
         <Provider renameTest={ModalState.renameTest}>
           <React.Fragment>
             {/*UiState.selectedView === 'Tests' && (
