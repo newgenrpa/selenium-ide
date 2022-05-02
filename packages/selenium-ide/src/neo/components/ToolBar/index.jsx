@@ -124,10 +124,7 @@ export default class ToolBar extends React.Component {
             onClick={PlaybackState.pauseOrResume}
           />
         ) : null} */}
-        <StepInto
-          disabled={!isCommandValid || UiState.isRecording}
-          onClick={PlaybackState.stepOver}
-        />
+      
         {PlaybackState.isPlaying ? (
           <Stop
             onClick={() => {
