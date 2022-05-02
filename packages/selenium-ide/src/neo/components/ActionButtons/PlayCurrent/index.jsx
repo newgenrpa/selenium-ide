@@ -25,14 +25,14 @@ export default class PlayCurrentButton extends React.Component {
   render() {
     return (
       <ActionButton
-        data-tip={`<p>Run current test <span style="color: #929292;padding-left: 5px;">${
+        data-tip={`<p>Play <span style="color: #929292;padding-left: 5px;">${
           !UiState.keyboardShortcutsEnabled
             ? ''
             : parse('r', { primaryKey: true })
         }</span></p>`}
         {...this.props}
         className={classNames('si-play', this.props.className)}
-        labelname="Run"
+        labelname="Play"
       /> // eslint-disable-line react/prop-types
     )
   }
