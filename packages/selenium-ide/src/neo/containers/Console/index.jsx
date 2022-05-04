@@ -70,8 +70,8 @@ export default class Console extends React.Component {
       ? Commands.list.get(UiState.selectedCommand.displayedName)
       : undefined
     const tabs = [
-      { name: 'Log', unread: this.state.logsUnread },
-      { name: 'Reference', unread: false },
+      { name: 'Output', unread: this.state.logsUnread }
+      
     ]
     return (
       <footer
@@ -93,17 +93,17 @@ export default class Console extends React.Component {
             <LogList
               output={output}
               scrollTo={this.scroll}
-              id="Output"
+              id="Log"
               role="tabpanel"
             />
           )}
-          {/*this.state.tab === 'Reference' && (
+          {this.state.tab === 'Reference' && (
             <CommandReference
               currentCommand={command}
               id="Reference"
               role="tabpanel"
             />
-          )*/}
+          )}
         </div>
         <div className="customdiv">
               <Bottomproceed
