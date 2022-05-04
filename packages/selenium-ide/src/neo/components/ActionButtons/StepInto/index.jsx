@@ -32,6 +32,7 @@ export default class StepIntoButton extends React.Component {
         }</span></p>`}
         {...this.props}
         className={classNames('si-step-down', this.props.className)}
+        labelname="Step into"
       /> // eslint-disable-line react/prop-types
     )
   }
