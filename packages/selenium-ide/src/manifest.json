@@ -69,5 +69,11 @@
     "scripts": [
       "assets/background.js"
     ]
+  }  ,
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "155992928d924b8041c7135a5fba8b366430297e@temporary-addon",
+      "strict_min_version": "42.0"
+    }
   }
 }
