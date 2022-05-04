@@ -93,17 +93,17 @@ export default class Console extends React.Component {
             <LogList
               output={output}
               scrollTo={this.scroll}
-              id="Log"
+              id="Output"
               role="tabpanel"
             />
           )}
-          {this.state.tab === 'Reference' && (
+          {/*this.state.tab === 'Reference' && (
             <CommandReference
               currentCommand={command}
               id="Reference"
               role="tabpanel"
             />
-          )}
+          )*/}
         </div>
         <div className="customdiv">
               <Bottomproceed
