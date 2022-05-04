@@ -74,31 +74,8 @@ export default class ToolBar extends React.Component {
       UiState.selectedCommand && UiState.selectedCommand.isValid
     return (
       <div className="toolbar">
-        {/* <PlayAll
-          isActive={!PlaybackState.paused && PlaybackState.isPlayingSuite}
-          disabled={UiState.isRecording}
-          onClick={this.playAll}
-          data-tip={
-            PlaybackState.canPlaySuite
-              ? `<p>Run all tests in suite <span style="color: #929292;padding-left: 5px;">${
-                  !UiState.keyboardShortcutsEnabled
-                    ? ''
-                    : parse('r', { primaryKey: true, shiftKey: true })
-                }</span></p>`
-              : `<p>Run all tests <span style="color: #929292;padding-left: 5px;">${
-                  !UiState.keyboardShortcutsEnabled
-                    ? ''
-                    : parse('r', { primaryKey: true, shiftKey: true })
-                }</span></p>`
-          }
-          data-event="focus mouseenter"
-          data-event-off="blur mouseleave"
-          aria-label={
-            PlaybackState.canPlaySuite
-              ? 'Run all tests in suite'
-              : 'Run all tests'
-          }
-        /> */}
+         <PauseBanner />
+     <div className="flexer" />
         <PlayCurrent
           isActive={!PlaybackState.paused && PlaybackState.isPlayingTest}
           disabled={
@@ -124,41 +101,25 @@ export default class ToolBar extends React.Component {
             onClick={PlaybackState.pauseOrResume}
           />
         ) : null} */}
-      
-        {PlaybackState.isPlaying ? (
+        <StepInto
+          disabled={!isCommandValid || UiState.isRecording}
+          onClick={PlaybackState.stepOver}
+        />
+		 {PlaybackState.isPlaying ? (
           <Stop
             onClick={() => {
               PlaybackState.abortPlaying()
             }}
           />
         ) : null}
-        {PlaybackState.isPlaying ? (
-          <Pause
-            isActive={PlaybackState.paused}
-            data-tip={
-              !PlaybackState.paused
-                ? `<p>Pause test execution <span style="color: #929292;padding-left: 5px;">${
-                    !UiState.keyboardShortcutsEnabled
-                      ? ''
-                      : parse('p', { primaryKey: true })
-                  }</span></p>`
-                : `<p>Resume test execution <span style="color: #929292;padding-left: 5px;">${
-                    !UiState.keyboardShortcutsEnabled
-                      ? ''
-                      : parse('p', { primaryKey: true })
-                  }</span></p>`
-            }
-            data-event="focus mouseenter"
-            data-event-off="blur mouseleave"
-            onClick={PlaybackState.pauseOrResume}
-          />
-        ) : null}
-        <StepInto
-          disabled={!isCommandValid || UiState.isRecording}
-          onClick={PlaybackState.stepOver}
+		{/* Modified By Vinay for Bug 87296
+        <DisableBreakpoints
+          isActive={PlaybackState.breakpointsDisabled}
+          onClick={PlaybackState.toggleDisableBreakpoints}
         />
-        	{/*
-        <GaugeMenu
+        */}
+		
+		{/*   <GaugeMenu
           opener={<SpeedGauge speed={UiState.gaugeSpeed} />}
           value={PlaybackState.delay}
           maxDelay={PlaybackState.maxDelay}
