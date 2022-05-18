@@ -4,10 +4,14 @@ document.addEventListener('yourCustomEvent', function (e) {
   
 //browser.runtime.sendMessage(extensionId, { name: 'msg1', key1: 'value1'}, undefined, (response) => {});
  
-//    var extensionId = 'akobpmedfdpmgocehllaondcdhldoedp';
-//	var extensionId = 'pfddbfhgbbnmelnkgnhljmhljcpanmmo';
- // var extensionId='lljjiiegpodiibjhpenceldimbkpgjgc';
-  var extensionId='akobpmedfdpmgocehllaondcdhldoedp';
+//testing in local
+  var extensionId='nnhckidchinihnfldkcfgbejmkdpoplg';
+ //chrome
+  //var extensionId='akobpmedfdpmgocehllaondcdhldoedp';
+  //mozila
+   //var extensionId='155992928d924b8041c7135a5fba8b366430297e@temporary-addon';
+   //edge 
+  // var extensionId='mmmdfkddgoiebnkkgpdompjmonpnplpl';
   
     var hasExtension = false;
     var completeurl=window.location.href;
