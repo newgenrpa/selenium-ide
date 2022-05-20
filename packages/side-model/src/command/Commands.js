@@ -364,7 +364,7 @@ export const Commands = [
     },
   ],
   [
-    'printOutput',
+    'echo',
     {
       name: 'print output',
       description: `Prints the specified message into  console/output tab. Useful for debugging.`,
