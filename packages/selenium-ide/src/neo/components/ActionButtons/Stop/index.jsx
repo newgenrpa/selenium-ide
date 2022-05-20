@@ -32,6 +32,7 @@ export default class StopButton extends React.Component {
         }</span></p>`}
         {...this.props}
         className={classNames('si-stop', this.props.className)}
+        labelname="Stop"
       /> // eslint-disable-line react/prop-types
     )
   }
