@@ -29,6 +29,8 @@ import CommandReference from '../../components/CommandReference'
 import UiState from '../../stores/view/UiState'
 import { Commands } from '../../models/Command'
 import PlaybackState from '../../stores/view/PlaybackState'
+import ExecutionPlan from '../../components/ExecutionPlan'
+import Runs from '../../components/Runs'
 import './style.css'
 
 @observer
