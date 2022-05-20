@@ -102,8 +102,8 @@ export default class Navigation extends React.Component {
             />
           )}
         </VerticalTabBar>*/}
-        <Provider renameTest={ModalState.renameTest}>
-          <React.Fragment>
+       {/* <Provider renameTest={ModalState.renameTest}>
+          <React.Fragment>*/ }
             {/*UiState.selectedView === 'Tests' && (
               <React.Fragment>
                 <SearchBar
@@ -150,8 +150,8 @@ export default class Navigation extends React.Component {
                 />
               </React.Fragment>
             )} */}
-          </React.Fragment>
-        </Provider>
+          {/*   </React.Fragment>
+        </Provider>*/}
       </aside>
     )
   }
