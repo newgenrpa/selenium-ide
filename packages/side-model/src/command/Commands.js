@@ -364,9 +364,9 @@ export const Commands = [
     },
   ],
   [
-    'echo',
+    'printOutput',
     {
-      name: 'print Output',
+      name: 'print output',
       description: `Prints the specified message into  console/output tab. Useful for debugging.`,
       target: ArgTypes.message,
     },
