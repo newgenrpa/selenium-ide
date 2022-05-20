@@ -92,7 +92,7 @@ export default class Console extends React.Component {
           <ClearButton onClick={output.clear} />
         </TabBar>
         <div className="viewport" ref={this.setViewportRef}>
-        {UiState.selectedView === 'Executing' && (
+        {/* {UiState.selectedView === 'Executing' && (
               <React.Fragment>
                 <ExecutionPlan />
                 <Runs
@@ -103,7 +103,7 @@ export default class Console extends React.Component {
                   totalProgress={PlaybackState.testsCount}
                 />
               </React.Fragment>
-            )}
+            )} */}
           {this.state.tab === 'Log' && (
             <LogList
               output={output}
