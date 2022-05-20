@@ -89,7 +89,7 @@ class WelcomeDialogContents extends React.Component {
         renderTitle={() => (
           <div>
             <div className="welcome-dialog__title">
-              Welcome to Selenium IDE!
+              Welcome to WebRecorder!
             </div>
             <div className="welcome-dialog__subtitle">
               Version {project.version}
@@ -98,13 +98,13 @@ class WelcomeDialogContents extends React.Component {
         )}
         renderFooter={() => (
           <p>
-            To learn more on Selenium IDE and how to use it visit the{' '}
+            To learn more on WebRecorder and how to use it visit the{' '}
             <a
               href="https://www.seleniumhq.org/selenium-ide/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              the Selenium IDE project page
+              the WebRecorder project page
             </a>
             .
           </p>
@@ -130,7 +130,7 @@ class WelcomeDialogContents extends React.Component {
               <a onClick={this.createNewProject}>Create a new project</a>
             </li>
             <li>
-              <a onClick={this.dismiss}>Close Selenium IDE</a>
+              <a onClick={this.dismiss}>Close WebRecorder</a>
             </li>
           </ul>
         </div>

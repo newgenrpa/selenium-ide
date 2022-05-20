@@ -134,6 +134,10 @@ export default class Navigation extends React.Component {
                 />
               </React.Fragment>
             )*/}
+
+            {
+              /*commented for bug id 109725 by pranesh
+           
             {UiState.selectedView === 'Executing' && (
               <React.Fragment>
                 <ExecutionPlan />
@@ -145,7 +149,7 @@ export default class Navigation extends React.Component {
                   totalProgress={PlaybackState.testsCount}
                 />
               </React.Fragment>
-            )}
+            )} */}
           </React.Fragment>
         </Provider>
       </aside>

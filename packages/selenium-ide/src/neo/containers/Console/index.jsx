@@ -28,6 +28,7 @@ import PlaybackLogger from '../../side-effects/playback-logging'
 import CommandReference from '../../components/CommandReference'
 import UiState from '../../stores/view/UiState'
 import { Commands } from '../../models/Command'
+import PlaybackState from '../../stores/view/PlaybackState'
 import './style.css'
 
 @observer
@@ -89,6 +90,18 @@ export default class Console extends React.Component {
           <ClearButton onClick={output.clear} />
         </TabBar>
         <div className="viewport" ref={this.setViewportRef}>
+        {UiState.selectedView === 'Executing' && (
+              <React.Fragment>
+                <ExecutionPlan />
+                <Runs
+                  runs={PlaybackState.finishedTestsCount}
+                  failures={PlaybackState.failures}
+                  hasError={!!PlaybackState.failures}
+                  progress={PlaybackState.finishedTestsCount}
+                  totalProgress={PlaybackState.testsCount}
+                />
+              </React.Fragment>
+            )}
           {this.state.tab === 'Log' && (
             <LogList
               output={output}
