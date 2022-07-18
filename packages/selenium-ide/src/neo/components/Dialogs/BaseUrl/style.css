@@ -9,6 +9,7 @@ border-radius: 50%;
 width: 10px;
 height: 15px;
 overflow: hidden;
+margin-right: 2px;
 }
 .custom-record:hover{
   background-color: #005EA3;
@@ -16,6 +17,7 @@ border-radius: 50%;
 width: 10px;
 height: 15px;
 overflow: hidden;
+cursor: pointer;
 }
 
 .custom-button{
@@ -23,6 +25,7 @@ overflow: hidden;
   background-color:white;
   border: 1px transparent solid;
   border-color: #0072C6;
+  margin-left:4px;
 }
 .custom-button:hover{
   color:#005EA3;
@@ -34,7 +37,7 @@ overflow: hidden;
 .flexer {
     flex-grow: 1;
     color: black;
-    font-size: 12px;
+    font-size: 13px;
   }
   .flexer2 {
     margin-right: -100px;
