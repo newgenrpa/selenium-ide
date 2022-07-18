@@ -9,8 +9,15 @@ border-radius: 50%;
 width: 10px;
 height: 15px;
 overflow: hidden;
-cursor: pointer;
 }
+.custom-record:hover{
+  background-color: #005EA3;
+border-radius: 50%;
+width: 10px;
+height: 15px;
+overflow: hidden;
+}
+
 .custom-button{
   color:#0072C6;
   background-color:white;
