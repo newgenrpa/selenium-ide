@@ -94,8 +94,7 @@
   }
 
   .custombutton:hover{
-    background-color:#E5F1F9;
-    color:black;
+    background-color:#005EA3;
   }
   .headers  .flexer {
     flex-grow: 1;
