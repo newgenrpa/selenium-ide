@@ -87,12 +87,8 @@ class BaseUrlDialogContents extends React.Component {
             {this.props.confirmLabel || 'confirm'}
           </FlatButton>
           <FlatButton onClick={this.props.cancel} key="cancel"
-          style={{
-              color:'#606060',
-              backgroundColor:'white',
-              border: "1px transparent solid",
-              borderColor: '#D3D3D3'
-          }}
+          className='custom-button'
+        
           >
             cancel
           </FlatButton>

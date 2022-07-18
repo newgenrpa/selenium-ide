@@ -9,7 +9,21 @@ border-radius: 50%;
 width: 10px;
 height: 15px;
 overflow: hidden;
+cursor: pointer;
 }
+.custom-button{
+  color:#0072C6;
+  background-color:white;
+  border: 1px transparent solid;
+  border-color: #0072C6;
+}
+.custom-button:hover{
+  color:#005EA3;
+  background-color:white;
+  border: 1px transparent solid;
+  border-color: #005EA3;
+}
+
 .flexer {
     flex-grow: 1;
     color: black;
