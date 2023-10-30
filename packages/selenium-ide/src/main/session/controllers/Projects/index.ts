@@ -9,6 +9,7 @@ import { randomUUID } from 'crypto'
 import RecentProjects from './Recent'
 import BaseController from '../Base'
 import { isAutomated } from 'main/util'
+
 //import {WebSocket} from 'ws'
 //import Stomp from "stompjs";
 //var SockJS = require('sockjs-client');
@@ -82,8 +83,8 @@ export default class ProjectsController {
       id: randomUUID(),
       version: '3.0',
       name: 'New Project',
-      url: 'http://www.google.com',
-      urls: ['http://www.google.com'],
+      url: 'https://newgensoft.com',
+      urls: ['https://newgensoft.com'],
       plugins: [],
       suites: [
         {
@@ -150,6 +151,8 @@ export default class ProjectsController {
    // return this.save_v3(filepath)
    console.log("pranesh")
    console.log(filepath)
+
+   
   //  const ws = new WebSocket('http://192.168.21.22:8080/designerWebSockets'); // Replace with your WebSocket server URL.
 
   //  ws.on('open', () => {
