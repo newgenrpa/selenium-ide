@@ -9,6 +9,7 @@ import { randomUUID } from 'crypto'
 import RecentProjects from './Recent'
 import BaseController from '../Base'
 import { isAutomated } from 'main/util'
+import { session } from 'electron'
 
 //import {WebSocket} from 'ws'
 //import Stomp from "stompjs";
@@ -48,6 +49,9 @@ export default class ProjectsController {
     if (this.loaded) return
     this.filepath = filepath
     this.project = project
+    await session.defaultSession.clearStorageData({
+      storages: ['cookies', 'localstorage'],
+    })
     await this.executeHook('onProjectLoaded')
     this.loaded = true
   }
@@ -269,7 +273,7 @@ export default class ProjectsController {
   async doSaveChangesConfirm(): Promise<boolean> {
     if (await this.projectHasChanged()) {
       const confirmationStatus = await this.session.dialogs.showMessageBox(
-        'Save changes before leaving?',
+        'Save changes before closing project?',
         ['Cancel', 'Save and Continue', 'Continue without Saving']
       )
       switch (confirmationStatus) {
