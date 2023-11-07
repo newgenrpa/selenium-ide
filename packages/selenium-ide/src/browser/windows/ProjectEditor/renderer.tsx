@@ -6,7 +6,7 @@ import React from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import AppBar from './components/AppBar'
-import Drawer from './components/Drawer'
+//import Drawer from './components/Drawer'
 import Main from './components/Main'
 import renderWhenReady from 'browser/helpers/renderWhenReady'
 import { TAB, TESTS_TAB } from './enums/tab'
@@ -18,7 +18,7 @@ const ProjectEditor = () => {
   } = session
 
   const [tab, setTab] = React.useState<TAB>(TESTS_TAB)
-  const [openDrawer, setOpenDrawer] = React.useState(true)
+  const [openDrawer, setOpenDrawer] = React.useState(false)
 
   if (id == loadingID) {
     return <div id="loading" />
@@ -35,12 +35,12 @@ const ProjectEditor = () => {
             setTab={setTab}
             tab={tab}
           />
-          <Drawer
+          {/* <Drawer
             open={openDrawer}
             session={session}
             setOpen={setOpenDrawer}
             tab={tab}
-          />
+          /> */}
           <Main
             openDrawer={openDrawer}
             session={session}

@@ -10,7 +10,7 @@ import helpMenu from './help'
 const applicationMenu = (session: Session) => async () =>
   Menu.buildFromTemplate([
     {
-      label: 'Selenium IDE',
+      label: 'Web Recorder',
       submenu: [
         { role: 'about' },
         { type: 'separator' },

@@ -1,7 +1,7 @@
 import { StateShape } from '@seleniumhq/side-api'
 import React, { FC } from 'react'
 import PauseButton from '../../components/Controls/PauseButton'
-import PlayListButton from '../../components/Controls/PlayListButton'
+//import PlayListButton from '../../components/Controls/PlayListButton'
 import StopButton from '../../components/Controls/StopButton'
 
 export interface SuiteControlsProps {
@@ -19,7 +19,7 @@ const SuiteControls: FC<SuiteControlsProps> = ({ state }) => (
       </>
     ) : (
       <>
-        <PlayListButton state={state} />
+        {/* <PlayListButton state={state} /> */}
       </>
     )}
   </>

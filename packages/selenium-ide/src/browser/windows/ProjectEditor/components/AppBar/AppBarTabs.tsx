@@ -1,7 +1,7 @@
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import React from 'react'
-import { PROJECT_TAB, SUITES_TAB, TESTS_TAB } from '../../enums/tab'
+import { PROJECT_TAB, TESTS_TAB } from '../../enums/tab'
 import { SIDEMainProps } from '../types'
 
 function a11yProps(index: number) {
@@ -24,7 +24,7 @@ const AppBarTabs: React.FC<Pick<SIDEMainProps, 'setTab' | 'tab'>> = ({
     value={tab}
   >
     <Tab label="Tests" {...a11yProps(TESTS_TAB)} />
-    <Tab label="Suites" {...a11yProps(SUITES_TAB)} />
+    {/* <Tab label="Suites" {...a11yProps(SUITES_TAB)} /> */}
     <Tab label="Config" {...a11yProps(PROJECT_TAB)} />
   </Tabs>
 )

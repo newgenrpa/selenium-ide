@@ -1,25 +1,25 @@
-import IconButton from '@mui/material/IconButton'
-import MenuIcon from '@mui/icons-material/Menu'
+//import IconButton from '@mui/material/IconButton'
+//import MenuIcon from '@mui/icons-material/Menu'
 import React from 'react'
 import AppBarCore from './AppBarCore'
 import TabPanel from '../Tab/Panel'
-import TabPanelMulti from '../Tab/PanelMulti'
+//import TabPanelMulti from '../Tab/PanelMulti'
 import SuiteControls from '../../tabs/Suites/Controls'
 import TestControls from '../../tabs/Tests/Controls'
-import { SUITES_TAB, TESTS_TAB } from '../../enums/tab'
+import { PROJECT_TAB, TESTS_TAB } from '../../enums/tab'
 import { SIDEMainProps } from '../types'
 import AppBarTabs from './AppBarTabs'
 
 const SIDEAppBar: React.FC<SIDEMainProps> = ({
   openDrawer,
   session,
-  setOpenDrawer,
+  //setOpenDrawer,
   setTab,
   tab,
 }) => {
   return (
     <AppBarCore className="draggable" position="fixed" openDrawer={openDrawer}>
-      <TabPanelMulti indexes={[TESTS_TAB, SUITES_TAB]} value={tab}>
+      {/* <TabPanelMulti indexes={[TESTS_TAB, PROJECT_TAB]} value={tab}>
         <IconButton
           color="inherit"
           aria-label="openDrawer drawer"
@@ -34,12 +34,12 @@ const SIDEAppBar: React.FC<SIDEMainProps> = ({
         >
           <MenuIcon />
         </IconButton>
-      </TabPanelMulti>
+      </TabPanelMulti> */}
       <AppBarTabs setTab={setTab} tab={tab} />
       <TabPanel index={TESTS_TAB} value={tab}>
         <TestControls state={session.state} />
       </TabPanel>
-      <TabPanel index={SUITES_TAB} value={tab}>
+      <TabPanel index={PROJECT_TAB} value={tab}>
         <SuiteControls state={session.state} />
       </TabPanel>
     </AppBarCore>

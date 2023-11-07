@@ -41,7 +41,7 @@ export const projectEditorCommands: MenuComponent = (session) => async () =>
       click: async () => {
         await session.projects.save(session.projects.filepath as string)
       },
-      enabled: Boolean(session.projects.filepath),
+     // enabled: Boolean(session.projects.filepath),
     },
     {
       accelerator: 'CommandOrControl+Shift+S',

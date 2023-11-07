@@ -94,7 +94,7 @@ const DriverSelector = () => {
     <AppWrapper>
       <Grid className="centered pt-4" container spacing={2}>
         <Grid item xs={12}>
-          <Typography variant="h4">Initializing Selenium IDE v4</Typography>
+          <Typography variant="h4">Initializing Newgen Web Recorder</Typography>
           <Typography variant="subtitle1">
             {driverStates[driverStatus]}
           </Typography>
