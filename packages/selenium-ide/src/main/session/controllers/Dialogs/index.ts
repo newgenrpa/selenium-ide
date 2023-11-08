@@ -13,6 +13,12 @@ export default class DialogsController extends BaseController {
     const { response } = await dialog.showMessageBox({ message, buttons })
     return response
   }
+
+  async showSaveMessageBox(message: string, buttons: string[]): Promise<number> {
+    const { response } = await dialog.showMessageBox({ message, buttons ,type:'info',title:'Newgen Web Recorder'})
+    return response
+  }
+
   async confirm(
     options: Electron.MessageBoxOptions = {
       message: 'Are you sure?',

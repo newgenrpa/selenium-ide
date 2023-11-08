@@ -10,6 +10,7 @@ import RecentProjects from './Recent'
 import BaseController from '../Base'
 import { isAutomated } from 'main/util'
 import { session } from 'electron'
+import { app } from 'electron'
 
 //import {WebSocket} from 'ws'
 //import Stomp from "stompjs";
@@ -203,9 +204,12 @@ export default class ProjectsController {
   
   if(response.status==200){
     console.log(response)
-   
+    await this.session.dialogs.showSaveMessageBox(
+      'Changes Saved Successfully',
+      ['Ok']
+    )
     console.log(" data save response 200")
-    
+    app.exit(0)
   }else{
     console.log("failed data save")
     console.log(response)

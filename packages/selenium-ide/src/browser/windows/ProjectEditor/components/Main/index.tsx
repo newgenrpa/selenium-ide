@@ -9,11 +9,11 @@ import { SIDEMainProps } from '../types'
 
 const SIDEMain: React.FC<
   Pick<SIDEMainProps, 'openDrawer' | 'session' | 'tab'>
-> = ({ openDrawer, session, tab }) => (
+> = ({  session, tab }) => (
   <Main
     className="fill no-select"
     hasDrawer={tab !== PROJECT_TAB}
-    openDrawer={openDrawer}
+    openDrawer={true}
   >
     <TabPanel index={TESTS_TAB} value={tab}>
       <TestsTab session={session} />
