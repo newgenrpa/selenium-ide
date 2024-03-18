@@ -61,6 +61,9 @@ const CommandList: FC<CommandListProps> = ({
         if (!command) {
           return null
         }
+        console.log("pranesh2")
+        console.log(command)
+          console.log(commandStates)
         const { id } = command
         return (
           <CommandListItem

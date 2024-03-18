@@ -1223,7 +1223,7 @@ export default class WebDriverExecutor {
 
   async doEcho(string: string) {
     if (this.logger) {
-      this.logger.info(`echo: ${string}`)
+      this.logger.info(`print output: ${string}`)
     }
   }
 

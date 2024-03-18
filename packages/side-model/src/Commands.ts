@@ -168,6 +168,24 @@ export default {
     description: `Affects a currently showing alert prompt. This command 
         instructs Selenium to dismiss it.`,
   },
+  captureScreen: {
+    name: 'capture screen',
+    description: `Executes a snippet of JavaScript in the context of the 
+    currently selected frame or window. The script fragment will be executed 
+    as the body of an anonymous function.  To store the return value, use 
+    the 'return' keyword and provide a variable name in the value input field.`,
+    target:ArgTypes.script,
+    value: { isOptional: true, ...ArgTypes.variableName },
+  },
+  csvSave: {
+    name: 'csv save',
+    description: `Executes a snippet of JavaScript in the context of the 
+    currently selected frame or window. The script fragment will be executed 
+    as the body of an anonymous function.  To store the return value, use 
+    the 'return' keyword and provide a variable name in the value input field.`,
+    target: ArgTypes.locator,
+    value: { isOptional: true, ...ArgTypes.variableName },
+  },
   check: {
     name: 'check',
     description: 'Check a toggle-button (checkbox/radio).',
@@ -224,8 +242,8 @@ export default {
     value: ArgTypes.locatorOfDragDestinationObject,
   },
   echo: {
-    name: 'echo',
-    description: `Prints the specified message. Useful for debugging.`,
+    name: 'print output',
+    description: `Prints the specified message into  console/output tab. Useful for debugging.`,
     target: ArgTypes.message,
   },
   editContent: {

@@ -63,22 +63,31 @@ const CommandList: FC<CommandListProps> = ({
         </EditorToolbar>
       }
     >
-      {preview.map(([command, origIndex], index) => {
+      {
+      preview.map(([command, origIndex], index) => {
+  
         if (!command) {
           return null
         }
+       
+          
+        console.log("pranesh")
+        console.log(command)
+          console.log(commandStates)
         const { id } = command
         return (
+        
           <CommandRow
             activeTest={activeTest}
             command={command}
             commandState={commandStates[id]}
-            key={id}
+            
             index={index}
             reorderPreview={reorderPreview}
             resetPreview={resetPreview}
             selected={selectedCommandIndexes.includes(origIndex)}
           />
+            
         )
       })}
     </ReorderableList>
