@@ -4,7 +4,7 @@ import React from 'react'
 import TabPanel from '../Tab/Panel'
 import SuiteControls from 'browser/windows/ProjectEditor/tabs/Suites/Controls'
 import TestControls from 'browser/windows/ProjectEditor/tabs/Tests/Controls'
-import { SUITES_TAB, TESTS_TAB } from 'browser/enums/tab'
+import { PROJECT_TAB, TESTS_TAB } from 'browser/enums/tab'
 import { SIDEMainProps } from '../types'
 import AppBarTabs from './AppBarTabs'
 import IconButton from '@mui/material/IconButton'
@@ -32,7 +32,7 @@ const SIDEAppBar: React.FC<SIDEAppBarProps> = ({ session, setTab, tab }) => {
       <TabPanel index={TESTS_TAB} value={tab}>
         <TestControls state={session.state} test={getActiveTest(session)} />
       </TabPanel>
-      <TabPanel index={SUITES_TAB} value={tab}>
+      <TabPanel index={PROJECT_TAB} value={tab}>
         <SuiteControls state={session.state} />
       </TabPanel>
     </Paper>
