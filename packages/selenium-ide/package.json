@@ -10,7 +10,7 @@
     "clean": "rimraf build dist files node_modules tsconfig.tsbuildinfo",
     "start": "electron build/main-bundle.js",
     "build": "run-s build:webpack build:electron",
-    "build:electron": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder -mwl --publish never",
+    "build:electron": "electron-builder -w --publish never",
     "build:electron:dir": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --dir",
     "build:webpack": "webpack",
     "install-app-deps": "electron-builder install-app-deps",

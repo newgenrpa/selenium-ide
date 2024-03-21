@@ -70,7 +70,7 @@ export default class ProjectsController {
     return this.recentProjects.get()
   }
 
-  async new(): Promise<ProjectShape | null> {
+  async new(openUrl:string): Promise<ProjectShape | null> {
     if (this.loaded) {
       const confirm = await this.onProjectUnloaded()
       if (!confirm) {
@@ -82,8 +82,8 @@ export default class ProjectsController {
       id: randomUUID(),
       version: '3.0',
       name: 'New Project',
-      url: 'https://newgensoft.com',
-      urls: ['https://newgensoft.com'],
+      url: openUrl,
+      urls: [openUrl],
       plugins: [],
       suites: [
         {

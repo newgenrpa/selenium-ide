@@ -7,7 +7,7 @@ export const commands: MenuComponent = (session) => () =>
       accelerator: 'CommandOrControl+N',
       label: 'New Project',
       click: async () => {
-        await session.api.projects.new()
+        await session.api.projects.new('https://newgensoft.com/')
       },
     },
     { type: 'separator' },
