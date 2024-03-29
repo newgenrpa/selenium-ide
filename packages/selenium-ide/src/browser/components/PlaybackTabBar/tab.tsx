@@ -12,30 +12,44 @@ const {
 
 export type TabShape = {
   id: number
-  title: string
   focused: boolean
+  test: string
+  title: string
+  url: string
+  visible: boolean
 }
 
-const PlaybackTab: React.FC<TabShape> = ({ focused, id, title }) => {
+const playbackTabSX = { borderRadius: 0.5 }
+
+const PlaybackTab: React.FC<TabShape> = ({
+  focused,
+  id,
+  test,
+  title,
+  visible,
+}) => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
   const colorSuffix = `.${prefersDarkMode ? 'dark' : 'light'}`
   return (
     <Paper
-      className="flex flex-1 flex-row mw-200 mx-2 ps-3 text-overflow z-2"
+      className="flex flex-1 flex-row mw-200 no-window-drag ps-3 text-overflow z-2"
       elevation={1}
       onClick={() => {
         focusPlaybackWindow(id)
       }}
       square
       sx={{
-        backgroundColor: `${focused ? 'success' : 'info'}${colorSuffix}`,
+        backgroundColor: `${visible ? 'warning' : 'info'}${colorSuffix}`,
+        opacity: visible ? (focused ? 1 : 0.9) : 0.7,
+        borderRadius: '12px 12px 0 0',
+        marginLeft: '1px',
       }}
     >
       <Box
         className="flex flex-1 flex-col height-100 text-overflow"
         justifyContent="center"
       >
-        <Typography variant="subtitle1">{title}</Typography>
+        <Typography variant="subtitle1">{test || title}</Typography>
       </Box>
       <Box className="flex flex-initial">
         <IconButton
@@ -44,7 +58,8 @@ const PlaybackTab: React.FC<TabShape> = ({ focused, id, title }) => {
             e.stopPropagation()
             closePlaybackWindow(id)
           }}
-          sx={{ borderRadius: 0.5 }}
+          size="small"
+          sx={playbackTabSX}
         >
           <Clear />
         </IconButton>

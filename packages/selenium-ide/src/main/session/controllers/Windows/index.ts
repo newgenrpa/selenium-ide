@@ -1,19 +1,21 @@
-import { ipcMain } from 'electron'
+import { retry } from '@seleniumhq/side-commons'
 import Commands from '@seleniumhq/side-model/dist/Commands'
+import { Playback, WebDriverExecutor } from '@seleniumhq/side-runtime'
 import * as windowConfigs from 'browser/windows/controller'
 import { WindowConfig } from 'browser/types'
 import electron, {
   BrowserWindow,
   BrowserWindowConstructorOptions,
   Menu,
+  ipcMain,
 } from 'electron'
 import { existsSync, readFileSync } from 'fs'
 import kebabCase from 'lodash/fp/kebabCase'
 import { Session } from 'main/types'
 import { join } from 'node:path'
-import BaseController from '../Base'
 import { window as playbackWindowOpts } from 'browser/windows/PlaybackWindow/controller'
-import { Playback } from '@seleniumhq/side-runtime'
+import { randomUUID } from 'crypto'
+import BaseController from '../Base'
 
 const playbackWindowName = 'playback-window'
 const playbackCSS = readFileSync(join(__dirname, 'highlight.css'), 'utf-8')
@@ -62,6 +64,7 @@ const windowLoaderFactoryMap: WindowLoaderFactoryMap = Object.fromEntries(
               ...(_options.webPreferences ?? {}),
             },
           }
+
           const win = new BrowserWindow(options)
           win.loadFile(join(__dirname, `${filename}.html`))
           return win
@@ -175,7 +178,7 @@ export default class WindowsController extends BaseController {
     return this.windows[name]
   }
 
-  requestPlaybackWindow(playback: Playback) {
+  async requestWindowForPlayback(playback: Playback) {
     let availableWindow: BrowserWindow | null = null
     const activeWindow = this.getActivePlaybackWindow()
     const claimedWindows = this.claimedPlaybackWindows
@@ -190,7 +193,7 @@ export default class WindowsController extends BaseController {
       }
     }
     if (availableWindow) {
-      this.claimPlaybackWindow(playback, availableWindow)
+      await this.claimPlaybackWindow(playback, availableWindow)
     }
     return availableWindow
   }
@@ -208,9 +211,7 @@ export default class WindowsController extends BaseController {
     const test = this.session.projects.project.tests.find(
       (t) => t.id === testID
     )
-    this.session.api.windows.onPlaybackWindowOpened.dispatchEvent(window.id, {
-      title: test!.name,
-    })
+    return test?.name ?? ''
   }
 
   releasePlaybackWindow(
@@ -231,11 +232,11 @@ export default class WindowsController extends BaseController {
       this.session.api.windows.onPlaybackWindowChanged.dispatchEvent(
         window.id,
         {
+          test: '',
           title: window?.isDestroyed() ? '' : window?.webContents.getTitle(),
         }
       )
     } else {
-      this.session.api.windows.onPlaybackWindowClosed.dispatchEvent(window.id)
       window.close()
     }
   }
@@ -272,6 +273,13 @@ export default class WindowsController extends BaseController {
       delete this.windows[name]
     })
     return true
+  }
+
+  async requestCustomEditorPanel(name: string, url: string) {
+    await this.session.api.plugins.onRequestCustomEditorPanel.dispatchEvent(
+      name,
+      url
+    )
   }
 
   async openCustom(
@@ -336,8 +344,27 @@ export default class WindowsController extends BaseController {
     })
   }
 
+  async shiftFocus(e: Electron.IpcMainEvent, target: 'editor' | 'playback') {
+    console.log(
+      'Maybe shifting focus to',
+      target,
+      e.senderFrame.top === e.senderFrame
+    )
+    if (e.senderFrame.top !== e.senderFrame) {
+      return
+    }
+    const window =
+      target === 'editor'
+        ? await this.get(projectEditorWindowName)
+        : this.getActivePlaybackWindow()
+    if (window && !window.isFocused() && window.isFocusable()) {
+      console.log('Shifting focus to window', window?.title)
+      window?.focus()
+    }
+  }
+
   async openPlaybackWindow(
-    playback: Playback,
+    playback: Playback | null,
     opts: BrowserWindowConstructorOptions = {}
   ) {
     const playbackPanel =
@@ -352,6 +379,7 @@ export default class WindowsController extends BaseController {
     )
     const window = this.windowLoaders[playbackWindowName]({
       ...opts,
+      show: false,
       x: playbackPanel.position[0],
       y: playbackPanel.position[1],
       width: correctedDims.width,
@@ -362,12 +390,61 @@ export default class WindowsController extends BaseController {
         zoomFactor: correctedDims.zoomFactor,
       },
     })
-    this.handlePlaybackWindow(playback, window)
+    await this.handlePlaybackWindow(playback, window)
     window.showInactive()
     if (opts.title) {
       window.webContents.executeJavaScript(`document.title = "${opts.title}";`)
     }
     return window
+  }
+
+  async navigatePlaybackWindow(id: number, url: string) {
+    const window = await BrowserWindow.fromId(id)!
+    if (url.includes('://')) {
+      window.webContents.loadURL(url)
+    } else {
+      window.webContents.loadURL('https://' + url)
+    }
+  }
+
+  async registerPlaybackWindow(
+    window: Electron.BrowserWindow,
+    executor?: WebDriverExecutor
+  ): Promise<string> {
+    let driver =
+      executor?.driver ?? (await this.session.driver.getExecutor()).driver
+    const UUIDKey = randomUUID()
+    const UUIDValue = randomUUID()
+    await window.webContents.executeJavaScript(
+      `window['${UUIDKey}'] = '${UUIDValue}'`
+    )
+    const handles = await retry(() => driver.getAllWindowHandles(), 3, 100)
+    for (let i = 0, ii = handles.length; i !== ii; i++) {
+      const handle = handles[i]
+      const isRegistered =
+        this.session.windows.getPlaybackWindowByHandle(handle)
+      if (!isRegistered) {
+        try {
+          await driver.switchTo().window(handle)
+          const value = await driver.executeScript<string>(
+            `return window['${UUIDKey}']`
+          )
+          if (value === UUIDValue) {
+            await this.registerPlaybackWindowHandle(handle, window.id)
+            return handle
+          }
+        } catch (windowDNE) {
+          // nothing to do here
+        }
+      }
+    }
+    throw new Error('Failed to register playback window')
+  }
+
+  async requestPlaybackWindow() {
+    const window = await this.openPlaybackWindow(null)
+    const projectURL = this.session.projects.project.url
+    window.loadURL(projectURL)
   }
 
   async calculateScaleAndZoom(_targetWidth: number, _targetHeight: number) {
@@ -430,8 +507,21 @@ export default class WindowsController extends BaseController {
     this.handlesToIDs[handle] = id
   }
 
-  handlePlaybackWindow(playback: Playback, window: BrowserWindow) {
-    this.claimPlaybackWindow(playback, window)
+  async handlePlaybackWindow(playback: Playback | null, window: BrowserWindow) {
+    if (playback) {
+      const testName = await this.claimPlaybackWindow(playback, window)
+      this.session.api.windows.onPlaybackWindowOpened.dispatchEvent(window.id, {
+        test: testName,
+        title: 'New tab',
+        url: window.webContents.getURL(),
+      })
+    } else {
+      this.session.api.windows.onPlaybackWindowOpened.dispatchEvent(window.id, {
+        test: '',
+        title: 'New tab',
+        url: window.webContents.getURL(),
+      })
+    }
     this.playbackWindows.push(window)
     window.webContents.insertCSS(playbackCSS)
     const windowDimensions =
@@ -506,6 +596,31 @@ export default class WindowsController extends BaseController {
       )
     })
 
+    window.webContents.on(
+      'did-navigate-in-page',
+      (_event, url, isMainFrame) => {
+        if (isMainFrame) {
+          this.session.api.windows.onPlaybackWindowChanged.dispatchEvent(
+            window.id,
+            {
+              title: window.webContents.getTitle(),
+              url,
+            }
+          )
+        }
+      }
+    )
+
+    window.webContents.on('did-navigate', (_event, url) => {
+      this.session.api.windows.onPlaybackWindowChanged.dispatchEvent(
+        window.id,
+        {
+          title: window.webContents.getTitle(),
+          url,
+        }
+      )
+    })
+
     window.on('blur', () => {
       this.session.api.windows.onPlaybackWindowChanged.dispatchEvent(
         window.id,
@@ -533,11 +648,15 @@ export default class WindowsController extends BaseController {
       )
     })
 
-    window.on('closed', () => {
-      this.releasePlaybackWindow(playback, window)
+    window.on('closed', async () => {
+      if (playback) {
+        await this.releasePlaybackWindow(playback, window)
+      }
       this.session.api.windows.onPlaybackWindowClosed.dispatchEvent(window.id)
       this.removePlaybackWindow(window)
     })
+
+    await this.registerPlaybackWindow(window)
   }
 
   async removePlaybackWindow(window: Electron.BrowserWindow) {
@@ -627,6 +746,12 @@ export default class WindowsController extends BaseController {
       this.session.resizablePanels.recalculatePlaybackWindows()
     })
     projectWindow.on('resized', () => {
+      this.session.resizablePanels.recalculatePlaybackWindows()
+    })
+    projectWindow.webContents.on('devtools-opened', () => {
+      this.session.resizablePanels.recalculatePlaybackWindows()
+    })
+    projectWindow.webContents.on('devtools-closed', () => {
       this.session.resizablePanels.recalculatePlaybackWindows()
     })
 

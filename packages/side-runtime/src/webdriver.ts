@@ -168,8 +168,8 @@ export default class WebDriverExecutor {
   >): webdriver.ThenableWebDriver {
     const { browserName, ...capabilities } = this
       .capabilities as ExpandedCapabilities
-    debug && logger.info('Building driver for ' + browserName)
-    debug &&
+    if (debug) {
+      logger.info('Building driver for ' + browserName)
       logger.info(
         'Driver attributes:' +
           inspect({
@@ -178,6 +178,7 @@ export default class WebDriverExecutor {
             browserName,
           })
       )
+    }
     let builder = new webdriver.Builder().withCapabilities(capabilities)
     if (this.server) {
       builder = builder.usingServer(this.server)
@@ -1520,8 +1521,8 @@ export default class WebDriverExecutor {
       this.withCancel(async () => {
         const el = await this.elementIsLocated(locator, fallback)
         if (!el) return null
-        const elText = await el.getText()
-        return elText === text
+        const elText = (await el.getText()).replace(/\u00A0/g, ' ').trim()
+        return elText === text.replace(/\u00A0/g, ' ').trim()
       })
     )
     await this.driver.wait<boolean>(textCondition, timeout)
