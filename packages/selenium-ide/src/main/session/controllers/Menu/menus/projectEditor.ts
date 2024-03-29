@@ -3,37 +3,37 @@ import { menuFactoryFromCommandFactory } from '../utils'
 
 export const commands: MenuComponent = (session) => () =>
   [
-    {
-      accelerator: 'CommandOrControl+N',
-      label: 'New Project',
-      click: async () => {
-        await session.api.projects.new('https://newgensoft.com/')
-      },
-    },
-    { type: 'separator' },
-    {
-      accelerator: 'CommandOrControl+O',
-      label: 'Load Project',
-      click: async () => {
-        const response = await session.dialogs.open()
-        if (response.canceled) return
-        await session.api.projects.load(response.filePaths[0])
-      },
-    },
-    {
-      accelerator: 'CommandOrControl+R',
-      label: 'Recent Projects',
-      click: async () => {
-        await session.projects.showRecents()
-      },
-      submenu: (session.projects.getRecent()).map((project) => ({
-        click: async () => {
-          await session.api.projects.load(project)
-        },
-        label: project,
-      })),
-    },
-    { type: 'separator' },
+    // {
+    //   accelerator: 'CommandOrControl+N',
+    //   label: 'New Project',
+    //   click: async () => {
+    //     await session.api.projects.new('https://newgensoft.com/')
+    //   },
+    // },
+    // { type: 'separator' },
+    // {
+    //   accelerator: 'CommandOrControl+O',
+    //   label: 'Load Project',
+    //   click: async () => {
+    //     const response = await session.dialogs.open()
+    //     if (response.canceled) return
+    //     await session.api.projects.load(response.filePaths[0])
+    //   },
+    // },
+    // {
+    //   accelerator: 'CommandOrControl+R',
+    //   label: 'Recent Projects',
+    //   click: async () => {
+    //     await session.projects.showRecents()
+    //   },
+    //   submenu: (session.projects.getRecent()).map((project) => ({
+    //     click: async () => {
+    //       await session.api.projects.load(project)
+    //     },
+    //     label: project,
+    //   })),
+    // },
+    // { type: 'separator' },
     {
       accelerator: 'CommandOrControl+S',
       label: 'Save Project',
