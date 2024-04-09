@@ -10,7 +10,7 @@ import { menuFactoryFromCommandFactory } from '../utils'
 export const commands: MenuComponent = (session: Session) => () =>
   [
     {
-      label: 'Selenium IDE',
+      label: 'Web Recorder',
       submenu: [
         { role: 'about' },
         { type: 'separator' },

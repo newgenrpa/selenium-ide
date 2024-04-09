@@ -4,7 +4,7 @@ import { Mutator } from '../../types/base'
 /**
  * Creates a new project
  */
-export type Shape = () => Promise<ProjectShape>
+export type Shape = (openUrl:string) => Promise<ProjectShape>
 
 export const mutator: Mutator<Shape> = (session, { result }) => ({
   ...session,

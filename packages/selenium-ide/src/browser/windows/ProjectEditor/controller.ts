@@ -7,8 +7,9 @@ export const window: WindowConfig['window'] = () => {
   return {
     x: 50,
     y: 50,
-    width: display.bounds.width - 100,
-    height: display.bounds.height - 100,
-    titleBarStyle: platform() === 'darwin' ? 'hidden' : 'default',
+
+    width: display.bounds.width ,
+    height: display.bounds.height ,
+titleBarStyle: platform() === 'darwin' ? 'hidden' : 'default',
   }
 }
