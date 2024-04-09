@@ -1,5 +1,5 @@
 import { getCommandIndex } from '@seleniumhq/side-api/dist/helpers/getActiveData'
-import { state as defaultState } from '@seleniumhq/side-api'
+import { state as defaultState, Mutator } from '@seleniumhq/side-api'
 import {
   CamelCaseNamesPref,
   CoreSessionData,
@@ -13,20 +13,70 @@ import {
 import clone from 'lodash/fp/clone'
 import merge from 'lodash/fp/merge'
 import BaseController from '../Base'
-import { loadingID } from '@seleniumhq/side-api/src/constants/loadingID'
+import { loadingID } from '@seleniumhq/side-api/dist/constants/loadingID'
+import getCore from 'main/api/helpers/getCore'
 
 const queue = (op: () => void) => setTimeout(op, 0)
 
 export default class StateController extends BaseController {
-  static pathFromID = (id: string) => id.replace(/\-/g, '_')
+  static pathFromID = (id: string) => id.replace(/-/g, '_')
+
+  prevHistory: CoreSessionData[] = []
+  nextHistory: CoreSessionData[] = []
 
   state: StateShape = clone(defaultState)
+
+  appendHistory(path: string) {
+    if (path.includes('setAll')) return
+    if (this.session.projects.project.id !== loadingID) {
+      this.prevHistory.push(this.get())
+      this.nextHistory = []
+    }
+  }
+
+  async undo() {
+    const prev = this.prevHistory.pop()
+    if (prev) {
+      this.nextHistory.push(this.get())
+      this.session.api.state.setAll(prev)
+    }
+  }
+
+  async redo() {
+    const next = this.nextHistory.pop()
+    if (next) {
+      this.prevHistory.push(this.get())
+      this.session.api.state.setAll(next)
+    }
+  }
+
+  async mutate<T extends (...args: any[]) => any>(
+    mutator: undefined | Mutator<T>,
+    params: Parameters<T>,
+    result: Awaited<ReturnType<T>>,
+    path: string
+  ) {
+    if (!mutator) return
+    this.appendHistory(path)
+    const { project, state } = mutator(getCore(this.session), {
+      params,
+      result,
+    })
+    this.session.projects.project = project
+    this.session.state.state = state
+    this.session.api.state.onMutate.dispatchEvent(path, { params, result })
+  }
 
   get(): CoreSessionData {
     return {
       project: this.session.projects.project,
       state: this.state,
     }
+  }
+
+  setAll(data: CoreSessionData) {
+    this.session.projects.project = data.project
+    this.state = data.state
   }
 
   set(key: string, _data: any) {

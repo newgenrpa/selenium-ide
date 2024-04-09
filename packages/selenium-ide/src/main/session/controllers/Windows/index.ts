@@ -50,7 +50,7 @@ const windowLoaderFactoryMap: WindowLoaderFactoryMap = Object.fromEntries(
       const preloadPath = join(__dirname, `${filename}-preload-bundle.js`)
       const hasPreload = !filename.endsWith('-bidi') && existsSync(preloadPath)
       const windowLoader: WindowLoaderFactory =
-        (_session: Session) =>
+        (session: Session) =>
         (_options: BrowserWindowConstructorOptions = {}) => {
           const windowConfig = window()
           const options: Electron.BrowserWindowConstructorOptions = {
@@ -66,7 +66,11 @@ const windowLoaderFactoryMap: WindowLoaderFactoryMap = Object.fromEntries(
           }
 
           const win = new BrowserWindow(options)
-          win.loadFile(join(__dirname, `${filename}.html`))
+          if (session.system.isDev) {
+            win.loadURL(`http://localhost:8083/${filename}.html`)
+          } else {
+            win.loadFile(join(__dirname, `${filename}.html`))
+          }
           return win
         }
       return [key, windowLoader]
@@ -251,6 +255,7 @@ export default class WindowsController extends BaseController {
 
   getActivePlaybackWindow(): BrowserWindow | null {
     const windowCount = this.playbackWindows.length
+    console.log('Window count:', windowCount)
     if (windowCount === 0) {
       return null
     }
@@ -548,6 +553,12 @@ export default class WindowsController extends BaseController {
           y: position[1],
           width: size[0],
           height: size[1],
+          webPreferences: {
+            ...playbackWindowOptions.webPreferences,
+            preload: this.session.system.isDev
+              ? `http://localhost:8083/playback-window-preload-bundle.js`
+              : join(__dirname, `playback-window-preload-bundle.js`),
+          },
         },
       }
     })

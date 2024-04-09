@@ -1,6 +1,6 @@
 import { dialog, ipcMain } from 'electron'
 import { autoUpdater } from 'electron-updater'
-import { isAutomated } from 'main/util'
+import { COLOR_CYAN, isAutomated, vdebuglog } from 'main/util'
 import { inspect } from 'util'
 import { writeFile } from 'fs/promises'
 import BaseController from '../Base'
@@ -13,8 +13,12 @@ export default class SystemController extends BaseController {
     this.writeToLog = this.writeToLog.bind(this)
   }
   isDown = true
+  isDev = false
   shuttingDown = false
   logs: string[] = []
+  loggers = {
+    api: vdebuglog('api', COLOR_CYAN),
+  }
 
   async dumpSession() {
     const response = await this.session.dialogs.openSave()
@@ -47,6 +51,7 @@ export default class SystemController extends BaseController {
   }
 
   async startup() {
+    this.isDev = process.env.SIDE_DEV === '1'
     if (this.isDown) {
       // If automated, assume we already have a chromedriver process running
       if (!isAutomated) {
@@ -141,14 +146,18 @@ export default class SystemController extends BaseController {
         if (confirm) {
           try {
             await this.session.driver.stopProcess()
-          } catch (e) {}
+          } catch (e) {
+            console.warn('Failed to stop driver process', e)
+          }
           this.isDown = true
         }
         this.shuttingDown = false
       }
       try {
         await this.session.api.system.onLog.removeListener(this.writeToLog)
-      } catch (e) {}
+      } catch (e) {
+        console.warn('Failed to remove log listener', e)
+      }
     }
   }
 

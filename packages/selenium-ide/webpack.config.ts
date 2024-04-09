@@ -18,6 +18,7 @@ import type { Configuration as DevServerConfiguration } from 'webpack-dev-server
 
 const isProduction = process.env.NODE_ENV === 'production'
 const isDevelopment = !isProduction
+const useHMR = process.env.SIDE_DEV === '1' && isDevelopment
 
 const commonPlugins: WebpackPluginInstance[] = [
   new ForkTsCheckerWebpackPlugin(),
@@ -28,7 +29,7 @@ const commonPlugins: WebpackPluginInstance[] = [
 if (isProduction) {
   commonPlugins.push(new MiniCssExtractPlugin())
 }
-if (isDevelopment) {
+if (useHMR) {
   commonPlugins.push(new ReactRefreshWebpackPlugin())
 }
 
@@ -38,10 +39,6 @@ const commonConfig: Pick<
 > & {
   devServer?: DevServerConfiguration
 } = {
-  devServer: {
-    hot: isDevelopment,
-    port: 8081,
-  },
   devtool: 'source-map',
   externals: ['utf-8-validate', 'bufferutil'],
   mode: isProduction ? 'production' : 'development',
@@ -59,7 +56,7 @@ const commonConfig: Pick<
         loader: require.resolve('ts-loader'),
         options: {
           getCustomTransformers: () => ({
-            before: [isDevelopment && ReactRefreshTypeScript()].filter(Boolean),
+            before: [useHMR && ReactRefreshTypeScript()].filter(Boolean),
           }),
           transpileOnly: true,
         },
@@ -115,10 +112,6 @@ const preloadEntries = windowData
 
 const preloadConfig: Configuration = {
   ...commonConfig,
-  devServer: {
-    ...commonConfig.devServer,
-    port: 8083,
-  },
   entry: Object.fromEntries(preloadEntries),
   plugins: commonPlugins,
   target: 'electron-preload',
@@ -134,10 +127,15 @@ const rendererEntries = windowData
 
 const rendererConfig: Configuration = {
   ...commonConfig,
-  devServer: {
-    ...commonConfig.devServer,
-    port: 8084,
-  },
+  devServer: useHMR
+    ? {
+        devMiddleware: {
+          writeToDisk: true,
+        },
+        hot: isDevelopment,
+        port: 8083,
+      }
+    : undefined,
   entry: Object.fromEntries(rendererEntries),
   plugins: commonPlugins.concat(
     Object.values(rendererEntries).map(
@@ -150,10 +148,6 @@ const rendererConfig: Configuration = {
 
 const playbackPreloadBidiConfig: Configuration = {
   ...commonConfig,
-  devServer: {
-    ...commonConfig.devServer,
-    port: 8085,
-  },
   entry: {
     'playback-window-bidi-preload': path.join(
       __dirname,
@@ -170,10 +164,6 @@ const playbackPreloadBidiConfig: Configuration = {
 
 const playbackRendererBidiConfig: Configuration = {
   ...commonConfig,
-  devServer: {
-    ...commonConfig.devServer,
-    port: 8086,
-  },
   entry: {
     'playback-window-bidi-renderer': path.join(
       __dirname,
@@ -205,10 +195,6 @@ const playbackRendererBidiConfig: Configuration = {
 
 const mainConfig: Configuration = {
   ...commonConfig,
-  devServer: {
-    ...commonConfig.devServer,
-    port: 8087,
-  },
   entry: {
     main: path.join(__dirname, 'src', 'main', 'index.ts'),
   },
@@ -217,11 +203,11 @@ const mainConfig: Configuration = {
 }
 
 export default [
-  mainConfig,
-  preloadConfig,
   rendererConfig,
+  preloadConfig,
   playbackPreloadBidiConfig,
   playbackRendererBidiConfig,
+  mainConfig,
 ]
 
 function getBrowserPlugin(filename: string) {

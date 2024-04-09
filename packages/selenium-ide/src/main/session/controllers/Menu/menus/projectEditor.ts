@@ -3,6 +3,7 @@ import { menuFactoryFromCommandFactory } from '../utils'
 
 export const commands: MenuComponent = (session) => () =>
   [
+
     // {
     //   accelerator: 'CommandOrControl+N',
     //   label: 'New Project',
@@ -34,6 +35,7 @@ export const commands: MenuComponent = (session) => () =>
     //   })),
     // },
     // { type: 'separator' },
+
     {
       accelerator: 'CommandOrControl+S',
       label: 'Save Project',

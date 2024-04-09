@@ -6,7 +6,7 @@ import { TestShape } from '@seleniumhq/side-model'
 import React from 'react'
 import SuiteViewerEntry from './Entry'
 import { SIDEMainProps } from 'browser/components/types'
-import { loadingID } from '@seleniumhq/side-api/src/constants/loadingID'
+import { loadingID } from '@seleniumhq/side-api/dist/constants/loadingID'
 
 export interface CurrentSuiteTestListProps {
   session: CoreSessionData

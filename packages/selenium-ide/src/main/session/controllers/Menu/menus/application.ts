@@ -36,8 +36,8 @@ export const commands: MenuComponent = (session: Session) => () =>
     {
       label: '&Edit',
       submenu: [
-        ...(editBasicsCommands(session)()),
-        ...(testEditorCommands(session)()),
+        ...editBasicsCommands(session)(),
+        ...testEditorCommands(session)(),
       ],
     },
     {

@@ -16,7 +16,7 @@
 // under the License.
 
 import { codeExport as exporter } from 'side-code-export'
-import { LocationEmitters } from 'side-code-export/src/code-export/emit'
+import { LocationEmitters } from 'side-code-export/dist/code-export/emit'
 
 const emitters: LocationEmitters = {
   id: emitId,

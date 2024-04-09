@@ -25,6 +25,27 @@ export const commands: MenuComponent = (session) => () =>
       },
       label: 'Reset Playback Windows',
     },
+    {
+      accelerator: 'CommandOrControl+R',
+      label: 'Refresh Playback Window',
+      click: async () => {
+        const window = await session.windows.getActivePlaybackWindow()
+        if (window) {
+          await window.webContents.executeJavaScript('window.location.reload()')
+          if (session.state.state.status === 'recording') {
+            await session.api.recorder.recordNewCommand(
+              {
+                command: 'executeScript',
+                comment: 'Reload the page',
+                target: 'window.location.reload()',
+                value: '',
+              },
+              true
+            )
+          }
+        }
+      },
+    },
   ]
 
 export default menuFactoryFromCommandFactory(commands)

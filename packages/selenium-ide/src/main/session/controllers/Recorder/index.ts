@@ -4,10 +4,7 @@ import {
   getActiveCommandIndex,
   getActiveWindowHandleID,
 } from '@seleniumhq/side-api/dist/helpers/getActiveData'
-import {
-  LocatorFields,
-  RecordNewCommandInput,
-} from '@seleniumhq/side-api'
+import { LocatorFields, RecordNewCommandInput } from '@seleniumhq/side-api'
 import { randomUUID } from 'crypto'
 import { relative } from 'node:path'
 import BaseController from '../Base'
@@ -143,7 +140,9 @@ export default class RecorderController extends BaseController {
    * If the window was opened by a command, the handle will be the name of the window.
    */
   async start(): Promise<string> {
-    const playback = await this.session.playback.getPlayback(this.session.state.state.activeTestID)
+    const playback = await this.session.playback.getPlayback(
+      this.session.state.state.activeTestID
+    )
     const executor = playback.executor
     const driver = executor.driver
     const useBidi = this.session.store.get('browserInfo.useBidi')

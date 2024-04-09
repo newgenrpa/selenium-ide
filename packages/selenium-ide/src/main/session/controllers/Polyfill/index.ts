@@ -107,11 +107,7 @@ export default class PromptController extends BaseController {
         document.querySelector('#confirm').innerText = "${confirm}";
       `
     )
-    await this.waitForResolution(
-      this.confirm,
-      successKeys,
-      errorKey
-    )
+    await this.waitForResolution(this.confirm, successKeys, errorKey)
     this.confirm.confirm = null
   }
 
@@ -237,8 +233,6 @@ export default class PromptController extends BaseController {
   }
 
   hasBlockingDialog() {
-    return (
-      this.alert.ready || this.confirm.ready || this.prompt.ready || false
-    )
+    return this.alert.ready || this.confirm.ready || this.prompt.ready || false
   }
 }

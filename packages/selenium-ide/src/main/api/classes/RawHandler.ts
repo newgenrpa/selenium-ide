@@ -1,12 +1,8 @@
 import { Mutator } from '@seleniumhq/side-api'
 import { ipcMain } from 'electron'
 import noop from 'lodash/fp/noop'
-import { COLOR_CYAN, vdebuglog } from 'main/util'
 import { AsyncHandler, HandlerFactory } from './Handler'
-import getCore from '../helpers/getCore'
 import { Session, SessionControllerKeys } from '../../types'
-
-const apiDebugLog = vdebuglog('api', COLOR_CYAN)
 
 export type ParametersExceptFirst<F> = F extends (
   arg0: any,
@@ -50,28 +46,17 @@ const Handler =
     const handler = factory(path, session)
     const doAPI = async (...params: Parameters<HANDLER>) => {
       const result = await handler(...params)
-      if (mutator) {
-        const serializableParams = params.slice(
-          1
-        ) as ParametersExceptFirst<HANDLER>
-        const newState = mutator(getCore(session), {
-          params: serializableParams,
-          result,
-        })
-        session.projects.project = newState.project
-        session.state.state = newState.state
-        session.api.state.onMutate.dispatchEvent(path, {
-          params: serializableParams,
-          result,
-        })
-      }
+      const serializableParams = params.slice(
+        1
+      ) as ParametersExceptFirst<HANDLER>
+      await session.state.mutate(mutator, serializableParams, result, path)
       return result
     }
     ipcMain.handle(path, async (...args) => {
-      apiDebugLog('Received API Request', path, args.slice(1))
+      session.system.loggers.api('Received API Request', path, args.slice(1))
       const result = await doAPI(...(args as Parameters<HANDLER>))
-      apiDebugLog('Resolved API Request', path, result)
-      return result;
+      session.system.loggers.api('Resolved API Request', path, result)
+      return result
     })
     return doAPI
   }

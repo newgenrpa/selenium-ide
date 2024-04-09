@@ -1,4 +1,4 @@
-import { ArgNames } from '@seleniumhq/side-model/src/ArgTypes'
+import { ArgNames } from '@seleniumhq/side-model/dist/ArgTypes'
 import React, { FC } from 'react'
 import CommandLocatorField from './LocatorField'
 import CommandTextField from './TextField'

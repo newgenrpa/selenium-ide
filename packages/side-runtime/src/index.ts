@@ -18,14 +18,13 @@
 export { default as Playback } from './playback'
 export { default as Variables } from './variables'
 export { default as WebDriverExecutor } from './webdriver'
-import { CommandType as _CommandType } from './playback-tree/command-node'
 import createRecorderSyncronizer from './recording-syncronizer'
 import createRecorderSyncronizerForWebdriverExecutor from './recording-syncronizer-webdriver'
 
 export * from './playback'
 export * from './plugins'
 export * from './types'
-export const CommandType = _CommandType
+export { CommandType } from './playback-tree/command-node'
 export const RecordingSyncronizers = {
   createRecorderSyncronizer,
   createRecorderSyncronizerForWebdriverExecutor,

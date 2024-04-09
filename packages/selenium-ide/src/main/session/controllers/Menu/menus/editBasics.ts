@@ -1,10 +1,20 @@
-import { MenuComponent } from 'main/types'
+import { MenuComponent, Session } from 'main/types'
 import { menuFactoryFromCommandFactory } from '../utils'
 
-export const commands: MenuComponent = () => () =>
+export const commands: MenuComponent = (session: Session) => () =>
   [
-    { label: 'Undo', role: 'undo' },
-    { label: 'Redo', role: 'redo' },
+    {
+      accelerator: 'CommandOrControl+Z',
+      click: () => session.api.state.undo(),
+      enabled: session.state.prevHistory.length !== 0,
+      label: 'Undo',
+    },
+    {
+      accelerator: 'CommandOrControl+Shift+Z',
+      click: () => session.api.state.redo(),
+      enabled: session.state.nextHistory.length !== 0,
+      label: 'Redo',
+    },
     { type: 'separator' },
     { label: 'Cut', role: 'cut' },
     { label: 'Copy', role: 'copy' },

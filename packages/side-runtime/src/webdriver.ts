@@ -1521,8 +1521,12 @@ export default class WebDriverExecutor {
       this.withCancel(async () => {
         const el = await this.elementIsLocated(locator, fallback)
         if (!el) return null
-        const elText = (await el.getText()).replace(/\u00A0/g, ' ').trim()
-        return elText === text.replace(/\u00A0/g, ' ').trim()
+        try {
+          const elText = (await el.getText()).replace(/\u00A0/g, ' ').trim()
+          return elText === text.replace(/\u00A0/g, ' ').trim()
+        } catch (e) {
+          return null
+        }
       })
     )
     await this.driver.wait<boolean>(textCondition, timeout)
@@ -2015,11 +2019,11 @@ const OPTIONS_LOCATORS = {
       switch (type) {
         case 'mostly-equals':
           return By.xpath(
-            `//option[normalize-space(translate(., '${nbsp}', ' ')) = '${labelBody}']`
+            `.//option[normalize-space(translate(., '${nbsp}', ' ')) = '${labelBody}']`
           )
       }
     }
-    return By.xpath(`//option[. = '${label}']`)
+    return By.xpath(`.//option[. = '${label}']`)
   },
   index: (index: string) => By.css(`*:nth-child(${index})`),
 }

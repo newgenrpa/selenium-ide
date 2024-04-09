@@ -344,7 +344,9 @@ export default class PlaybackController extends BaseController {
       const testName = this.session.tests.getByID(
         testID || this.session.state.state.activeTestID
       )?.name
-      console.debug(`Playing state changed ${e.state} for test ${testName}`)
+      console.debug(
+        `Playing state changed ${e.state} for test ${testName}, doink?`
+      )
       let closeAll = false
       switch (e.state) {
         case 'aborted':
@@ -358,6 +360,13 @@ export default class PlaybackController extends BaseController {
               setTimeout(() => this.playNextTest(true))
             }
           }
+          if (!this.playingSuite) {
+            if (testID && this.session.state.state.activeTestID !== testID) {
+              console.debug(`Setting active test to ${testID}`)
+              await this.session.api.state.setActiveTest(testID)
+            }
+          }
+          console.debug(`Releasing window for playback`)
           this.playbacks.splice(this.playbacks.indexOf(playback), 1)
           this.session.windows.releasePlaybackWindows(playback, closeAll)
           await playback.cleanup()
@@ -367,6 +376,7 @@ export default class PlaybackController extends BaseController {
       if (fullyComplete) {
         this.playingSuite = ''
       }
+      console.debug(`Fully complete? ${fullyComplete}`)
       this.session.api.playback.onPlayUpdate.dispatchEvent({
         state: e.state,
         testID,

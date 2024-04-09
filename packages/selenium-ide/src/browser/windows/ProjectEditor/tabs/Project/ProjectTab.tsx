@@ -14,11 +14,7 @@ export interface MiniProjectShape {
 }
 
 const SettingsWrapper: FC = () =>
-  useContext(context) === 'project' ? (
-    <ProjectSettings />
-  ) : (
-    <SystemSettings />
-  )
+  useContext(context) === 'project' ? <ProjectSettings /> : <SystemSettings />
 
 const ProjectTab: React.FC<Pick<SIDEMainProps, 'setTab' | 'tab'>> = () => (
   <Box className="fill flex flex-col">

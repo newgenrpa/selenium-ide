@@ -21,16 +21,6 @@ export const commands: MenuComponent = () => () =>
     {
       type: 'separator',
     },
-    {
-      accelerator: 'CommandOrControl+Z',
-      label: 'Undo',
-      role: 'undo',
-    },
-    {
-      accelerator: 'Shift+CommandOrControl+Z',
-      label: 'Redo',
-      role: 'redo',
-    },
   ]
 
 export default menuFactoryFromCommandFactory(commands)

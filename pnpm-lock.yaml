@@ -131,7 +131,7 @@ importers:
   packages/code-export-csharp-commons:
     dependencies:
       side-code-export:
-        specifier: ^4.0.0
+        specifier: ^4.0.4
         version: link:../side-code-export
     devDependencies:
       '@seleniumhq/side-model':
@@ -144,7 +144,7 @@ importers:
         specifier: ^4.0.1
         version: link:../code-export-csharp-commons
       side-code-export:
-        specifier: ^4.0.0
+        specifier: ^4.0.4
         version: link:../side-code-export
 
   packages/code-export-csharp-xunit:
@@ -153,7 +153,7 @@ importers:
         specifier: ^4.0.1
         version: link:../code-export-csharp-commons
       side-code-export:
-        specifier: ^4.0.0
+        specifier: ^4.0.4
         version: link:../side-code-export
     devDependencies:
       '@seleniumhq/side-model':
@@ -163,7 +163,7 @@ importers:
   packages/code-export-java-junit:
     dependencies:
       side-code-export:
-        specifier: ^4.0.0
+        specifier: ^4.0.4
         version: link:../side-code-export
     devDependencies:
       '@seleniumhq/side-model':
@@ -173,7 +173,7 @@ importers:
   packages/code-export-javascript-mocha:
     dependencies:
       side-code-export:
-        specifier: ^4.0.0
+        specifier: ^4.0.4
         version: link:../side-code-export
     devDependencies:
       '@seleniumhq/side-model':
@@ -183,7 +183,7 @@ importers:
   packages/code-export-python-pytest:
     dependencies:
       side-code-export:
-        specifier: ^4.0.0
+        specifier: ^4.0.4
         version: link:../side-code-export
     devDependencies:
       '@seleniumhq/side-model':
@@ -193,7 +193,7 @@ importers:
   packages/code-export-ruby-rspec:
     dependencies:
       side-code-export:
-        specifier: ^4.0.0
+        specifier: ^4.0.4
         version: link:../side-code-export
     devDependencies:
       '@seleniumhq/side-model':
@@ -252,28 +252,28 @@ importers:
         specifier: ^0.5.11
         version: 0.5.11(react-refresh@0.14.0)(webpack-dev-server@5.0.4)(webpack@5.89.0)
       '@seleniumhq/code-export-csharp-nunit':
-        specifier: ^4.0.1
+        specifier: ^4.0.3
         version: link:../code-export-csharp-nunit
       '@seleniumhq/code-export-csharp-xunit':
-        specifier: ^4.0.1
+        specifier: ^4.0.3
         version: link:../code-export-csharp-xunit
       '@seleniumhq/code-export-java-junit':
-        specifier: ^4.0.1
+        specifier: ^4.0.3
         version: link:../code-export-java-junit
       '@seleniumhq/code-export-javascript-mocha':
-        specifier: ^4.0.1
+        specifier: ^4.0.3
         version: link:../code-export-javascript-mocha
       '@seleniumhq/code-export-python-pytest':
-        specifier: ^4.0.1
+        specifier: ^4.0.3
         version: link:../code-export-python-pytest
       '@seleniumhq/code-export-ruby-rspec':
-        specifier: ^4.0.1
+        specifier: ^4.0.3
         version: link:../code-export-ruby-rspec
       '@seleniumhq/get-driver':
         specifier: ^4.0.1
         version: link:../get-driver
       '@seleniumhq/side-api':
-        specifier: ^4.0.3
+        specifier: ^4.0.6
         version: link:../side-api
       '@seleniumhq/side-commons':
         specifier: ^4.0.1
@@ -282,7 +282,7 @@ importers:
         specifier: ^4.0.1
         version: link:../side-model
       '@seleniumhq/side-runtime':
-        specifier: ^4.0.2
+        specifier: ^4.0.5
         version: link:../side-runtime
       dnd-core:
         specifier: ^16.0.1
@@ -330,7 +330,7 @@ importers:
         specifier: ^4.16.0
         version: 4.16.0
       side-code-export:
-        specifier: ^4.0.0
+        specifier: ^4.0.4
         version: link:../side-code-export
       v8-compile-cache:
         specifier: ^2.3.0
@@ -439,7 +439,7 @@ importers:
         specifier: ^4.0.1
         version: link:../side-model
       '@seleniumhq/side-runtime':
-        specifier: ^4.0.2
+        specifier: ^4.0.5
         version: link:../side-runtime
       lodash:
         specifier: ^4.17.21
@@ -483,7 +483,7 @@ importers:
         specifier: ^4.0.1
         version: link:../side-model
       '@seleniumhq/side-runtime':
-        specifier: ^4.0.2
+        specifier: ^4.0.5
         version: link:../side-runtime
       commander:
         specifier: ^9.4.0
@@ -497,11 +497,11 @@ importers:
         specifier: ^4.0.1
         version: link:../code-export-python-pytest
       side-code-export:
-        specifier: ^4.0.0
+        specifier: ^4.0.4
         version: link:../side-code-export
     devDependencies:
       '@seleniumhq/side-api':
-        specifier: ^4.0.3
+        specifier: ^4.0.6
         version: link:../side-api
 
   packages/side-migrate:
@@ -534,7 +534,7 @@ importers:
         specifier: ^4.0.1
         version: link:../side-model
       '@seleniumhq/side-runtime':
-        specifier: ^4.0.2
+        specifier: ^4.0.5
         version: link:../side-runtime
       commander:
         specifier: ^11.0.0

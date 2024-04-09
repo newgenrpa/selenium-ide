@@ -7,9 +7,6 @@ import {
 } from '@seleniumhq/side-api'
 import { Session } from 'main/types'
 import getCore from '../helpers/getCore'
-import { COLOR_CYAN, vdebuglog } from 'main/util'
-
-const apiDebugLog = vdebuglog('api', COLOR_CYAN)
 
 export type MainListener<
   ARGS extends VariadicArgs,
@@ -26,11 +23,11 @@ const baseListener = <ARGS extends VariadicArgs, RESULT extends any>(
   const listeners: any[] = []
   return {
     addListener(listener) {
-      apiDebugLog('Listener added', path)
+      session.system.loggers.api('Listener added', path)
       listeners.push(listener)
     },
     async dispatchEvent(...args) {
-      apiDebugLog('Dispatch event', path, args)
+      session.system.loggers.api('Dispatch event', path, args)
       if (mutator) {
         session.api.state.onMutate.dispatchEvent(path, args)
         const newState = mutator(getCore(session), args)
@@ -40,7 +37,7 @@ const baseListener = <ARGS extends VariadicArgs, RESULT extends any>(
       return await Promise.all<RESULT>(listeners.map((fn) => fn(...args)))
     },
     async dispatchEventAsync(...args) {
-      apiDebugLog('Dispatch event async', path, args)
+      session.system.loggers.api('Dispatch event async', path, args)
       if (mutator) {
         session.api.state.onMutate.dispatchEvent(path, args)
         const newState = mutator(getCore(session), args)
@@ -61,7 +58,7 @@ const baseListener = <ARGS extends VariadicArgs, RESULT extends any>(
       if (index === -1) {
         throw new Error(`Unable to remove listener for ${path} ${listener}`)
       }
-      apiDebugLog('Listener removed', path)
+      session.system.loggers.api('Listener removed', path)
       listeners.splice(index, 1)
     },
   }

@@ -15,11 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import { RecordNewCommandInput, RecorderPreprocessor } from '@seleniumhq/side-api'
+import {
+  RecordNewCommandInput,
+  RecorderPreprocessor,
+} from '@seleniumhq/side-api'
 import initFindSelect from 'browser/windows/PlaybackWindow/preload/find-select'
 import LocatorBuilders from 'browser/windows/PlaybackWindow/preload/locator-builders'
-import { attach, detach } from 'browser/windows/PlaybackWindow/preload/prompt-injector'
-import { handlers, observers } from 'browser/windows/PlaybackWindow/preload/record-handlers'
+import {
+  attach,
+  detach,
+} from 'browser/windows/PlaybackWindow/preload/prompt-injector'
+import {
+  handlers,
+  observers,
+} from 'browser/windows/PlaybackWindow/preload/record-handlers'
 import {
   EventHandler,
   ExpandedMessageEvent,

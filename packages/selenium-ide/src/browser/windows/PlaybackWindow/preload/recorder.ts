@@ -24,7 +24,10 @@ import {
   ExpandedMutationObserver,
 } from 'browser/types'
 import initFindSelect from './find-select'
-import { RecordNewCommandInput, RecorderPreprocessor } from '@seleniumhq/side-api'
+import {
+  RecordNewCommandInput,
+  RecorderPreprocessor,
+} from '@seleniumhq/side-api'
 import LocatorBuilders from './locator-builders'
 
 export interface RecordingState {

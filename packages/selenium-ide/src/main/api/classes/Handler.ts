@@ -6,11 +6,7 @@ import {
   Mutator,
 } from '@seleniumhq/side-api'
 import noop from 'lodash/fp/noop'
-import { COLOR_CYAN, vdebuglog } from 'main/util'
-import getCore from '../helpers/getCore'
 import { Session, SessionControllerKeys } from '../../types'
-
-const apiDebugLog = vdebuglog('api', COLOR_CYAN)
 
 export type AsyncHandler<HANDLER extends ApiHandler> = (
   ...args: Parameters<HANDLER>
@@ -31,7 +27,9 @@ const defaultHandler = <HANDLER extends ApiHandler>(
     // @ts-expect-error
     return controller[method].bind(controller) as AsyncHandler<HANDLER>
   }
-  apiDebugLog(`Missing method for path ${path}, using passthrough`)
+  session.system.loggers.api(
+    `Missing method for path ${path}, using passthrough`
+  )
   return noop as unknown as AsyncHandler<HANDLER>
 }
 
@@ -52,19 +50,14 @@ const Handler =
     const handler = factory(path, session)
     const doAPI = async (...params: Parameters<HANDLER>) => {
       const result = await handler(...params)
-      if (mutator) {
-        const { project, state } = mutator(getCore(session), { params, result })
-        session.projects.project = project
-        session.state.state = state
-        session.api.state.onMutate.dispatchEvent(path, { params, result })
-      }
+      await session.state.mutate(mutator, params, result, path)
       return result
     }
     ipcMain.handle(path, async (_event, ...args) => {
-      apiDebugLog('Received API Request', path, args)
+      session.system.loggers.api('Received API Request', path, args)
       const result = await doAPI(...(args as Parameters<HANDLER>))
-      apiDebugLog('Resolved API Request', path, result)
-      return result;
+      session.system.loggers.api('Resolved API Request', path, result)
+      return result
     })
     return doAPI
   }
