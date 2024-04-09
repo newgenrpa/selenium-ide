@@ -83,7 +83,7 @@ const TestsTab: React.FC = () => {
   return (
     <Box className="fill flex flex-col" ref={ref}>
 
-<!--       {!session.state.editor.showDrawer && <TestSelector />} -->
+       {/* {!session.state.editor.showDrawer && <TestSelector />} */}
 
       {activeTestID === loadingID ? (
         <NoTestFound />
