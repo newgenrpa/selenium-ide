@@ -1,86 +1,43 @@
-import Box from '@mui/material/Box'
-import SIDEAppBar from 'browser/components/AppBar'
-// import SIDEDrawer from 'browser/components/Drawer'
-import Main from 'browser/components/Main'
-import { context } from 'browser/contexts/show-drawer'
-import { TESTS_TAB, TAB } from 'browser/enums/tab'
-import { usePanelGroup } from 'browser/hooks/usePanelGroup'
-import React, { useContext } from 'react'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { Panel, PanelGroup } from 'react-resizable-panels'
-import ResizeHandle from '../ResizeHandle'
+// import MenuIcon from '@mui/icons-material/Menu'
+// import MenuOpenIcon from '@mui/icons-material/MenuOpen'
+import React from 'react'
+import SuiteControls from 'browser/windows/ProjectEditor/tabs/Suites/Controls'
+import TestControls from 'browser/windows/ProjectEditor/tabs/Tests/Controls'
+import { SUITES_TAB,TESTS_TAB } from 'browser/enums/tab'
+import { SIDEMainProps } from '../types'
+import AppBarTabs from './AppBarTabs'
+// import IconButton from '@mui/material/IconButton'
+import Paper from '@mui/material/Paper'
+// import { context } from 'browser/contexts/show-drawer'
+// import baseControlProps from '../Controls/BaseProps'
+import TabPanel from '../Tab/Panel'
 
-export type PluginWindow = {
-  name: string
-  url: string
-}
+type SIDEAppBarProps = Pick<SIDEMainProps, 'setTab' | 'tab'>
 
-const ProjectEditor: React.FC = () => {
-  const [tab, setTab] = React.useState<TAB>(TESTS_TAB)
-  const showDrawer = useContext(context)
-  const [pluginWindows, setPluginWindows] = React.useState<PluginWindow[]>([])
-  React.useEffect(() => {
-    const handler = (name: string, url: string) => {
-      setPluginWindows((prev) => prev.concat({ name, url }))
-    }
-    window.sideAPI.plugins.onRequestCustomEditorPanel.addListener(handler)
-    return () => {
-      window.sideAPI.plugins.onRequestCustomEditorPanel.removeListener(handler)
-    }
-  }, [])
+const SIDEAppBar: React.FC<SIDEAppBarProps> = ({ setTab, tab }) => {
+  // const showDrawer = useContext(context)
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div className="flex flex-col height-100 pb-1 ps-1 pt-6 window-drag">
-        <div className="flex-initial no-window-drag">
-          <SIDEAppBar setTab={setTab} tab={tab} />
-        </div>
-        <PanelGroup direction="vertical" id="plugin-windows">
-          <Panel defaultSize={100} id="plugin-windows-panel">
-            <div className="flex-col flex-1 height-100 no-window-drag">
-              <PanelGroup
-                direction="horizontal"
-                id="drawer-editor"
-                {...usePanelGroup('drawer-editor', !showDrawer)}
-              >
-                {/* {showDrawer && (
-                  <>
-                    <Panel
-                      collapsible
-                      id="editor-drawer"
-                      defaultSize={25}
-                      order={1}
-                    
-                    >
-                      <SIDEDrawer tab={tab} />
-                    </Panel>
-                    <ResizeHandle id="h-resize-1" y />
-                  </>
-                )} */}
-                <Panel defaultSize={75} id="editor-panel" order={2}>
-                  <Box className="fill flex flex-col">
-                    <Main setTab={setTab} tab={tab} />
-                  </Box>
-                </Panel>
-              </PanelGroup>
-            </div>
-          </Panel>
-          {pluginWindows.map((pluginWindow, index) => (
-            <React.Fragment key={index}>
-              <ResizeHandle id={`v-resize-${index}`} x />
-              <Panel key={index} id={pluginWindow.name}>
-                <iframe
-                  className="fill"
-                  src={pluginWindow.url}
-                  title={pluginWindow.name}
-                />
-              </Panel>
-            </React.Fragment>
-          ))}
-        </PanelGroup>
-      </div>
-    </DndProvider>
+    <Paper className="flex flex-row width-100 z-3" elevation={1} square>
+      {/* <IconButton
+        {...baseControlProps}
+        aria-label={showDrawer ? 'Close drawer' : 'Open drawer'}
+        onClick={() =>
+          window.sideAPI.state.set('editor.showDrawer', !showDrawer)
+        }
+      >
+        {showDrawer ? <MenuOpenIcon /> : <MenuIcon />}
+      </IconButton> */}
+      <AppBarTabs setTab={setTab} tab={tab} />
+      <div className="flex flex-1" />
+      <TabPanel index={TESTS_TAB} value={tab}>
+        <TestControls />
+      </TabPanel>
+
+      <TabPanel index={SUITES_TAB} value={tab}>
+        <SuiteControls />
+      </TabPanel>
+    </Paper>
   )
 }
 
-export default ProjectEditor
+export default SIDEAppBar
