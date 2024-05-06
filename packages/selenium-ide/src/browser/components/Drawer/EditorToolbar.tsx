@@ -3,12 +3,14 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import EditIcon from '@mui/icons-material/Edit'
 import RemoveIcon from '@mui/icons-material/Remove'
 import Box from '@mui/material/Box'
-import {PaperProps} from '@mui/material/Paper'
+import { PaperProps } from '@mui/material/Paper'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import React, { FC } from 'react'
 import DrawerHeader from './Header'
 import baseControlProps from '../Controls/BaseProps'
+import languageMap from 'browser/I18N/keys'
+import { FormattedMessage } from 'react-intl'
 
 export interface EditorToolbarIconsProps {
   disabled?: boolean
@@ -25,7 +27,7 @@ export interface EditorToolbarIconsProps {
 export const EditorToolbarIcons: FC<EditorToolbarIconsProps> = ({
   disabled = false,
   onAdd,
-  addText = "Add",
+  addText = 'Add',
   onEdit,
   editText = 'Edit',
   onRemove,
@@ -36,7 +38,14 @@ export const EditorToolbarIcons: FC<EditorToolbarIconsProps> = ({
   <>
     {onRemove ? (
       <Box sx={{ flex: 0 }}>
-        <Tooltip title={removeText}>
+        <Tooltip
+          title={
+            <FormattedMessage
+              id={languageMap.testsTab.remove}
+              defaultMessage={removeText}
+            />
+          }
+        >
           <IconButton
             {...baseControlProps}
             color="warning"
@@ -78,7 +87,14 @@ export const EditorToolbarIcons: FC<EditorToolbarIconsProps> = ({
     ) : null}
     {onAdd ? (
       <Box sx={{ flex: 0 }}>
-        <Tooltip title={addText}>
+        <Tooltip
+          title={
+            <FormattedMessage
+              id={languageMap.testsTab.add}
+              defaultMessage={addText}
+            />
+          }
+        >
           <IconButton
             {...baseControlProps}
             color="success"
@@ -109,7 +125,9 @@ export const EditorToolbarShell: FC<PaperProps> = ({
   </DrawerHeader>
 )
 
-export interface EditorToolbarProps extends PaperProps, EditorToolbarIconsProps {}
+export interface EditorToolbarProps
+  extends PaperProps,
+    EditorToolbarIconsProps {}
 
 const EditorToolbar: FC<EditorToolbarProps> = ({
   children,
@@ -117,7 +135,7 @@ const EditorToolbar: FC<EditorToolbarProps> = ({
   disabled = false,
   elevation = 0,
   onAdd,
-  addText = "Add",
+  addText = 'Add',
   onEdit,
   editText = 'Edit',
   onRemove,
@@ -125,26 +143,28 @@ const EditorToolbar: FC<EditorToolbarProps> = ({
   onView,
   viewText = 'View',
   ...props
-}) => (
-  <DrawerHeader
-    className={className + ' flex flex-row'}
-    elevation={elevation}
-    square
-    {...props}
-  >
-    <Box sx={{ flex: 1 }}>{children}</Box>
-    <EditorToolbarIcons
-      disabled={disabled}
-      onAdd={onAdd}
-      addText={addText}
-      onEdit={onEdit}
-      editText={editText}
-      onRemove={onRemove}
-      removeText={removeText}
-      onView={onView}
-      viewText={viewText}
-    />
-  </DrawerHeader>
-)
+}) => {
+  return (
+    <DrawerHeader
+      className={className + ' flex flex-row'}
+      elevation={elevation}
+      square
+      {...props}
+    >
+      <Box sx={{ flex: 1 }}>{children}</Box>
+      <EditorToolbarIcons
+        disabled={disabled}
+        onAdd={onAdd}
+        addText={addText}
+        onEdit={onEdit}
+        editText={editText}
+        onRemove={onRemove}
+        removeText={removeText}
+        onView={onView}
+        viewText={viewText}
+      />
+    </DrawerHeader>
+  )
+}
 
 export default EditorToolbar

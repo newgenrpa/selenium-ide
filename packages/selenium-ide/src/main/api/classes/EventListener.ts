@@ -27,7 +27,9 @@ const baseListener = <ARGS extends VariadicArgs, RESULT extends any>(
       listeners.push(listener)
     },
     async dispatchEvent(...args) {
-      session.system.loggers.api('Dispatch event', path, args)
+      if (path !== 'system.onLog') {
+        session.system.loggers.api('Dispatch event', path, args)
+      }
       if (mutator) {
         session.api.state.onMutate.dispatchEvent(path, args)
         const newState = mutator(getCore(session), args)
@@ -37,7 +39,9 @@ const baseListener = <ARGS extends VariadicArgs, RESULT extends any>(
       return await Promise.all<RESULT>(listeners.map((fn) => fn(...args)))
     },
     async dispatchEventAsync(...args) {
-      session.system.loggers.api('Dispatch event async', path, args)
+      if (path !== 'system.onLog') {
+        session.system.loggers.api('Dispatch event async', path, args)
+      }
       if (mutator) {
         session.api.state.onMutate.dispatchEvent(path, args)
         const newState = mutator(getCore(session), args)
@@ -64,7 +68,7 @@ const baseListener = <ARGS extends VariadicArgs, RESULT extends any>(
   }
 }
 
-const responsePaths = ['recorder.onRequestelementAt']
+const responsePaths = ['recorder.onRequestElementAt']
 const wrappedListener = <ARGS extends VariadicArgs>(
   path: string,
   session: Session,
@@ -111,6 +115,7 @@ const wrappedListener = <ARGS extends VariadicArgs>(
             resolve(null)
           }
         } catch (e) {
+          console.error(e)
           // Sender has expired
           removeListener(event)
         }

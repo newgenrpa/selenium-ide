@@ -4,6 +4,8 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
+import { FormattedMessage } from 'react-intl'
+import languageMap from 'browser/I18N/keys'
 
 type CloseReason = 'Delete' | 'Cancel'
 
@@ -51,7 +53,10 @@ const SuiteDeleteDialog: React.FC<SuiteDeleteDialogProps> = ({
     >
       <DialogContent>
         <DialogContentText>
-          Are you sure you want to delete suite {suiteName}
+          <FormattedMessage
+            id={languageMap.suitesTab.deleteNotice}
+            values={{ name: suiteName }}
+          />
         </DialogContentText>
       </DialogContent>
       <DialogActions>

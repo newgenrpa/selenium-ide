@@ -5,6 +5,8 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import TextField from '@mui/material/TextField'
+import { FormattedMessage } from 'react-intl'
+import languageMap from 'browser/I18N/keys'
 
 const {
   state: { setActiveSuite: setSelected },
@@ -40,7 +42,6 @@ const SuiteNewDialog: React.FC<SuiteNewDialogProps> = ({ open, setOpen }) => {
       handleClose('Create')
     }
   }
-
   return (
     <Dialog
       classes={{
@@ -50,12 +51,14 @@ const SuiteNewDialog: React.FC<SuiteNewDialogProps> = ({ open, setOpen }) => {
       open={open}
     >
       <DialogContent>
-        <DialogContentText>Please specify the new suite name</DialogContentText>
+        <DialogContentText>
+          {<FormattedMessage id={languageMap.suitesTab.dialogTitle} />}
+        </DialogContentText>
         <TextField
           autoFocus
           fullWidth
           id="name"
-          label="Suite Name"
+          label={<FormattedMessage id={languageMap.suitesTab.suiteName} />}
           margin="dense"
           onChange={(e) => setSuiteName(e.target.value)}
           onKeyDown={onKeyDown}
@@ -63,8 +66,12 @@ const SuiteNewDialog: React.FC<SuiteNewDialogProps> = ({ open, setOpen }) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => handleClose('Cancel')}>Cancel</Button>
-        <Button onClick={() => handleClose('Create')}>Create</Button>
+        <Button onClick={() => handleClose('Cancel')}>
+          {<FormattedMessage id={languageMap.suitesTab.cancel} />}
+        </Button>
+        <Button onClick={() => handleClose('Create')}>
+          {<FormattedMessage id={languageMap.suitesTab.create} />}
+        </Button>
       </DialogActions>
     </Dialog>
   )

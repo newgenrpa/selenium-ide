@@ -2,6 +2,7 @@ import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import { SIDEMainProps } from 'browser/components/types'
 import React, { FC, useContext } from 'react'
+import OutPutSettings from './OutPutSettings'
 import ProjectSettings from './ProjectSettings'
 import SystemSettings from './SystemSettings'
 import SettingsTabs from './SettingTabs'
@@ -13,8 +14,17 @@ export interface MiniProjectShape {
   name: string
 }
 
-const SettingsWrapper: FC = () =>
-  useContext(context) === 'project' ? <ProjectSettings /> : <SystemSettings />
+const SettingsWrapper: FC = () => {
+  const configSettingsGroup = useContext(context)
+  switch (configSettingsGroup) {
+    case 'outPut':
+      return <OutPutSettings />
+    case 'project':
+      return <ProjectSettings />
+    case 'system':
+      return <SystemSettings />
+  }
+}
 
 const ProjectTab: React.FC<Pick<SIDEMainProps, 'setTab' | 'tab'>> = () => (
   <Box className="fill flex flex-col">

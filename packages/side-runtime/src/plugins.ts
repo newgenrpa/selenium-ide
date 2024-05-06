@@ -37,6 +37,7 @@ export const loadPlugins = async (
         : pluginFile
       if (plugin) {
         Object.entries(plugin.commands || {}).forEach(([key, command]) => {
+          // @ts-expect-error oh fuck off
           Commands[key] = command
         })
       }

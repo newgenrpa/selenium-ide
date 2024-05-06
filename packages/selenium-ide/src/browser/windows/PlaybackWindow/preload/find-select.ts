@@ -74,7 +74,9 @@ function processElementAtCommand(
       const target = locatorBuilders.buildAll(element as HTMLElement)
       return target
     }
-  } catch (e) {}
+  } catch (e) {
+    // Do nothing
+  }
   return null
 }
 

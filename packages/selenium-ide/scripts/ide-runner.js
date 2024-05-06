@@ -41,7 +41,8 @@ main()
 
 async function main() {
   console.log('Starting webdriver backend')
-  const { proc, success } = await startWebdriverBackend({ driver: 'chrome' })
+  console.log(`Using display [${process.env.DISPLAY || 'none'}] specified`)
+  const { proc, success } = await startWebdriverBackend()
   if (!success) {
     console.error('Failed to start webdriver backend')
     console.error(proc.error)
@@ -49,6 +50,7 @@ async function main() {
   }
   let driver
   try {
+    console.log('Instantiating IDE as driver process')
     driver = await new webdriver.Builder()
       .usingServer(`http://localhost:${port}`)
       .withCapabilities({
@@ -61,6 +63,8 @@ async function main() {
       })
       .forBrowser('chrome')
       .build()
+    console.log('IDE instantiated successfully!')
+    console.log('Starting new project...')
     const newProject = await driver.wait(
       webdriver.until.elementLocated(webdriver.By.css('[data-new-project]')),
       5000
@@ -72,9 +76,14 @@ async function main() {
       await driver.sleep(100)
       try {
         handles = await driver.getAllWindowHandles()
-      } catch (e) {}
+      } catch (e) {
+        // ignore
+      }
     }
     await driver.switchTo().window(handles[0])
+    console.log(
+      'Project started successfully, IDE is ready to record commands!'
+    )
 
     const projectTab = await driver.wait(
       webdriver.until.elementLocated(webdriver.By.id('tab-2')),
@@ -90,7 +99,7 @@ async function main() {
       await url.sendKeys(webdriver.Key.BACK_SPACE)
     }
     await url.sendKeys('http://localhost:8080')
-  
+
     const testTab = await driver.wait(
       webdriver.until.elementLocated(webdriver.By.id('tab-0')),
       5000
@@ -150,17 +159,17 @@ function startWebdriverBackend() {
       })
       proc.stdout.on('data', (out) => {
         const outStr = `${out}`
-        // WebdriverDebugLog(outStr)
+        WebdriverDebugLog(outStr)
         const fullyStarted = outStr.includes(successMessage)
         if (fullyStarted) {
           initialized = true
-          WebdriverDebugLog('Driver has initialized!')
+          WebdriverDebugLog('Webdriver backend is ready!')
           resolve({ success: true, proc: proc })
         }
       })
       proc.stderr.on('data', (err) => {
         const errStr = `${err}`
-        // WebdriverDebugLog(errStr)
+        WebdriverDebugLog(errStr)
         if (!initialized) {
           resolve({ success: false, error: errStr })
         }

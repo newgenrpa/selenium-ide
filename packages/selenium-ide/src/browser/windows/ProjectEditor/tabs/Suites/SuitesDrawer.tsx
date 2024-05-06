@@ -1,10 +1,14 @@
 import List from '@mui/material/List'
+import Tooltip from '@mui/material/Tooltip'
 import React, { FC, useContext } from 'react'
 import Drawer from 'browser/components/Drawer/Wrapper'
 import RenamableListItem from 'browser/components/Drawer/RenamableListItem'
 import { context as activeTestContext } from 'browser/contexts/active-test'
 import { context } from 'browser/contexts/suites'
 import SuitesToolbar from './Toolbar'
+import { FormattedMessage } from 'react-intl'
+import languageMap from 'browser/I18N/keys'
+import { QuestionMark } from '@mui/icons-material'
 
 const {
   state: { setActiveSuite: setSelected },
@@ -14,13 +18,21 @@ const {
 const rename = (id: string, name: string) => update(id, { name })
 
 const SuitesDrawer: FC = () => {
-  const {activeSuiteID} = useContext(activeTestContext)
+  const { activeSuiteID } = useContext(activeTestContext)
   const suites = useContext(context)
-
   return (
     <Drawer>
-      <SuitesToolbar />
-      <List className='flex-col flex-1 overflow-y' dense>
+      <SuitesToolbar>
+        <Tooltip
+          title={<FormattedMessage id={languageMap.suitesTab.tooltip} />}
+        >
+          <QuestionMark
+            className="mx-2"
+            sx={{ color: 'primary.main', scale: 0.75 }}
+          />
+        </Tooltip>
+      </SuitesToolbar>
+      <List className="flex-col flex-1 overflow-y" dense>
         {suites
           .slice()
           .sort((a, b) => a.name.localeCompare(b.name))

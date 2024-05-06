@@ -4,6 +4,7 @@ import { menuFactoryFromCommandFactory } from '../utils'
 export const commands: MenuComponent = (session) => () =>
   [
 
+
     // {
     //   accelerator: 'CommandOrControl+N',
     //   label: 'New Project',
@@ -36,9 +37,10 @@ export const commands: MenuComponent = (session) => () =>
     // },
     // { type: 'separator' },
 
+
     {
       accelerator: 'CommandOrControl+S',
-      label: 'Save Project',
+      label: session.system.languageMap.fileMenuTree.saveProject,
       click: async () => {
         await session.projects.save(session.projects.filepath as string)
       },
@@ -46,7 +48,7 @@ export const commands: MenuComponent = (session) => () =>
     },
     {
       accelerator: 'CommandOrControl+Shift+S',
-      label: 'Save Project As...',
+      label: session.system.languageMap.fileMenuTree.saveProjectAs,
       click: async () => {
         const response = await session.dialogs.openSave()
         if (response.canceled) return

@@ -19,7 +19,7 @@ jobs:
       repository-projects: read
       security-events: read
       statuses: read
-    runs-on: macos-11
+    runs-on: ubuntu-latest
     if: github.repository == 'seleniumhq/selenium-ide'
     steps:
       - uses: actions/checkout@v4
@@ -34,5 +34,11 @@ jobs:
         run: pnpm -r i
       - name: Build side-runner and selenium-ide
         run: npm run build
-      - name: Run all tests
-        run: npm run test
+      - name: Install xvfb
+        run: sudo apt-get update -y && sudo apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+      - name: Run all tests and also use xvfb
+        run: |
+          Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 &
+          export DISPLAY=:99
+          npm run test:ci
+

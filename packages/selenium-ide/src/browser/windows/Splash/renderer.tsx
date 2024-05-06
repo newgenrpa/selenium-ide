@@ -8,12 +8,16 @@ import Typography from '@mui/material/Typography'
 import AppWrapper from 'browser/components/AppWrapper'
 import React, { useEffect, useState } from 'react'
 import renderWhenReady from 'browser/helpers/renderWhenReady'
+import languageMap from 'browser/I18N/keys'
+import { FormattedMessage } from 'react-intl'
 import { TextField } from '@mui/material'
+
 
 const ProjectEditor = () => {
   const [logPath, setLogPath] = useState<string>('...')
   // const [recentProjects, setRecentProjects] = useState<string[]>([])
   const [openUrl, setOpenUrl] = useState<string>('')
+
   useEffect(() => {
     window.sideAPI.system.getLogPath().then(setLogPath)
    // window.sideAPI.projects.getRecent().then(setRecentProjects)
@@ -31,12 +35,16 @@ const ProjectEditor = () => {
     <AppWrapper>
       <Grid className="centered pt-4" container spacing={4}>
         <Grid item xs={12}>
+
         <Typography variant="h4">Welcome to Newgen Web Recorder</Typography>
+
           <Typography variant="caption">
-            Your logfiles are located at "{logPath}"
+            <FormattedMessage id={languageMap.splash.logPath} /> "{logPath}"
           </Typography>
+
           <Typography variant="subtitle1" style={{marginTop:30,marginBottom:10}}>
             Enter the open URL of the website:
+
           </Typography>
           <TextField id="outlined-basic" label="open URL" variant="outlined" 
           autoFocus
@@ -54,8 +62,9 @@ const ProjectEditor = () => {
         </Grid>
         {/* <Grid item xs={6}>
           <Button data-load-project onClick={loadProject} variant="contained">
-            Load Project
+            <FormattedMessage id={languageMap.splash.loadProject} />
           </Button>
+
         </Grid> */}
         <Grid item xs={12}>
           <Button data-new-project onClick={newProject} variant="contained">
@@ -64,6 +73,7 @@ const ProjectEditor = () => {
         </Grid>
         {/* <Grid item xs={12}>
           <Typography variant="h6">Recent Projects:</Typography>
+
           <List dense>
             {recentProjects.map((filepath, index) => (
               <ListItem

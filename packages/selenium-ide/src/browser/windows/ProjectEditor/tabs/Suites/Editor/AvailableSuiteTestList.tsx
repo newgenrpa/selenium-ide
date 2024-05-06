@@ -4,6 +4,8 @@ import List from '@mui/material/List'
 import React, { FC } from 'react'
 import AvailableSuiteTestRow from './AvailableSuiteTestRow'
 import EditorToolbar from 'browser/components/Drawer/EditorToolbar'
+import { FormattedMessage } from 'react-intl'
+import languageMap from 'browser/I18N/keys'
 
 export interface AvailableSuiteTestListProps {
   activeSuite: string
@@ -16,7 +18,9 @@ const AvailableSuiteTestList: FC<AvailableSuiteTestListProps> = ({
 }) => (
   <Box className="flex flex-col flex-1">
     <EditorToolbar className="flex-initial py-2 z-1" elevation={1}>
-      <span className="ms-4 py-2">Available tests</span>
+      <span className="ms-4 py-2">
+        {<FormattedMessage id={languageMap.suitesTab.AvailableTests} />}
+      </span>
     </EditorToolbar>
     <List
       className="flex flex-col flex-1 overflow-y pt-0"

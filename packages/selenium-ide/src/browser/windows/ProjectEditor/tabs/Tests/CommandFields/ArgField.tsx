@@ -10,6 +10,7 @@ const ArgField: FC<CommandArgFieldProps> = (props) => {
     command: { command },
     fieldName,
   } = props
+  // @ts-expect-error our shape traversal kinda sucks :(
   const arg = commands[command][fieldName]?.name as ArgNames
   switch (arg) {
     case 'alert text':

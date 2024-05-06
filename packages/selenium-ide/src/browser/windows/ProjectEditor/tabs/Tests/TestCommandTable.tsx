@@ -7,6 +7,8 @@ import EditorToolbar from '../../../../components/Drawer/EditorToolbar'
 import makeKeyboundNav from 'browser/hooks/useKeyboundNav'
 import ReorderableList from 'browser/components/ReorderableList'
 import { Box } from '@mui/material'
+import { useIntl } from 'react-intl'
+import languageMap from 'browser/I18N/keys'
 
 export interface CommandListProps {
   activeTest: string
@@ -25,6 +27,7 @@ const CommandList: FC<CommandListProps> = ({
   disabled,
   selectedCommandIndexes,
 }) => {
+  const intl = useIntl()
   const [preview, reorderPreview, resetPreview] = useReorderPreview(
     commands,
     selectedCommandIndexes,
@@ -34,7 +37,7 @@ const CommandList: FC<CommandListProps> = ({
   return (
     <>
       <EditorToolbar
-        className='z-1'
+        className="z-1"
         elevation={2}
         onAdd={() =>
           window.sideAPI.tests.addSteps(
@@ -42,7 +45,7 @@ const CommandList: FC<CommandListProps> = ({
             Math.max(selectedCommandIndexes.slice(-1)[0], 0)
           )
         }
-        addText='Add Command'
+        addText={intl.formatMessage({ id: languageMap.testCore.addCommand })}
         onRemove={
           commands.length > 1
             ? () =>
@@ -52,13 +55,23 @@ const CommandList: FC<CommandListProps> = ({
                 )
             : undefined
         }
-        removeText='Remove Command'
+        removeText={intl.formatMessage({
+          id: languageMap.testCore.removeCommand,
+        })}
       >
         <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-          <Box className="flex" sx={{ flex: 0, flexBasis: 50 }}>&nbsp;</Box>
-          <Box className="flex" sx={{ flex: 1 }}>Cmd</Box>
-          <Box className="flex" sx={{ flex: 2, paddingLeft: 2 }}>Target</Box>
-          <Box className="flex" sx={{ flex: 2, paddingLeft: 2 }}>Value</Box>
+          <Box className="flex" sx={{ flex: 0, flexBasis: 50 }}>
+            &nbsp;
+          </Box>
+          <Box className="flex" sx={{ flex: 1 }}>
+            {intl.formatMessage({ id: languageMap.testCore.tabCommand })}
+          </Box>
+          <Box className="flex" sx={{ flex: 2, paddingLeft: 2 }}>
+            {intl.formatMessage({ id: languageMap.testCore.tabTarget })}
+          </Box>
+          <Box className="flex" sx={{ flex: 2, paddingLeft: 2 }}>
+            {intl.formatMessage({ id: languageMap.testCore.tabValue })}
+          </Box>
         </Box>
       </EditorToolbar>
       <ReorderableList

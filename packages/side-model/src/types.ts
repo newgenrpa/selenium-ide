@@ -58,6 +58,7 @@ export interface ProjectShape {
   name: string
   url: string
   urls: string[]
+  timeout?: number
   delay?: number
   plugins: string[]
   tests: TestShape[]

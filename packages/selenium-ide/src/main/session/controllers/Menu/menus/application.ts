@@ -12,17 +12,32 @@ export const commands: MenuComponent = (session: Session) => () =>
     {
       label: 'Web Recorder',
       submenu: [
-        { role: 'about' },
+        {
+          label: session.system.languageMap.electronMenuTree.about,
+          role: 'about',
+        },
         { type: 'separator' },
-        { role: 'services' },
+        {
+          label: session.system.languageMap.electronMenuTree.services,
+          role: 'services',
+        },
         { type: 'separator' },
-        { role: 'hide' },
-        { role: 'hideOthers' },
-        { role: 'unhide' },
+        {
+          label: session.system.languageMap.electronMenuTree.hideElectron,
+          role: 'hide',
+        },
+        {
+          label: session.system.languageMap.electronMenuTree.hideOthers,
+          role: 'hideOthers',
+        },
+        {
+          label: session.system.languageMap.electronMenuTree.showAll,
+          role: 'unhide',
+        },
         { type: 'separator' },
         {
           accelerator: platform() === 'win32' ? 'Alt+F4' : 'CommandOrControl+Q',
-          label: 'Quit',
+          label: session.system.languageMap.electronMenuTree.quit,
           click: async () => {
             await session.system.quit()
           },
@@ -30,22 +45,22 @@ export const commands: MenuComponent = (session: Session) => () =>
       ],
     },
     {
-      label: '&File',
+      label: session.system.languageMap.windowTab.file,
       submenu: projectEditorCommands(session)(),
     },
     {
-      label: '&Edit',
+      label: session.system.languageMap.windowTab.edit,
       submenu: [
         ...editBasicsCommands(session)(),
         ...testEditorCommands(session)(),
       ],
     },
     {
-      label: '&View',
+      label: session.system.languageMap.windowTab.view,
       submenu: projectViewCommands(session)(),
     },
     {
-      label: '&Help',
+      label: session.system.languageMap.windowTab.help,
       submenu: helpMenuCommands(session)(),
     },
   ]

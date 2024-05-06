@@ -6,6 +6,8 @@ import useReorderPreview from 'browser/hooks/useReorderPreview'
 import React, { FC } from 'react'
 import CommandListItem from './TestCommandListItem'
 import EditorToolbar from '../../../../components/Drawer/EditorToolbar'
+import { FormattedMessage, useIntl } from 'react-intl'
+import languageMap from 'browser/I18N/keys'
 
 export interface CommandListProps {
   activeTest: string
@@ -24,6 +26,7 @@ const CommandList: FC<CommandListProps> = ({
   disabled = false,
   selectedCommandIndexes,
 }) => {
+  const intl = useIntl()
   const [preview, reorderPreview, resetPreview] = useReorderPreview(
     commands,
     selectedCommandIndexes,
@@ -42,7 +45,7 @@ const CommandList: FC<CommandListProps> = ({
             Math.max(selectedCommandIndexes.slice(-1)[0], 0)
           )
         }
-        addText="Add Command"
+        addText={intl.formatMessage({ id: languageMap.testCore.addCommand })}
         onRemove={
           commands.length > 1
             ? () =>
@@ -52,9 +55,11 @@ const CommandList: FC<CommandListProps> = ({
                 )
             : undefined
         }
-        removeText="Remove Command"
+        removeText={intl.formatMessage({ id: languageMap.testCore.removeCommand })}
       >
-        <span className="ms-4">Commands</span>
+        <span className="ms-4">
+          <FormattedMessage id={languageMap.testCore.commands} />
+        </span>
       </EditorToolbar>
       <ReorderableList
         classes={{

@@ -89,7 +89,7 @@ const startDriver: StartDriver = (session: Session) => (info) =>
                 await driver.kill(9)
               }
             } catch (e) {
-              console.warn('Failed ot kill driver', e)
+              console.warn('Failed to kill driver', e)
             }
           })
         }

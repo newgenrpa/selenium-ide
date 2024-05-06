@@ -16,19 +16,26 @@
 // under the License.
 
 import { Commands, ArgTypes, ProjectShape } from '@seleniumhq/side-model'
+import { CommandKey } from '@seleniumhq/side-model/dist/Commands'
 
 export default function migrate(project: ProjectShape) {
   let r = Object.assign({}, project)
   r.tests = r.tests.map((test) => {
     return Object.assign({}, test, {
       commands: test.commands.map((c) => {
-        if (Commands[c.command]) {
+        if (c.command in Commands) {
           let newCmd = Object.assign({}, c)
-          const type = Commands[c.command]
-          if (type.target?.name === ArgTypes.variableName.name) {
+          const type = Commands[c.command as CommandKey]
+          if (
+            'target' in type &&
+            type.target?.name === ArgTypes.variableName.name
+          ) {
             newCmd.target = migrateVariableName(newCmd.target as string)
           }
-          if (type.value?.name === ArgTypes.variableName.name) {
+          if (
+            'value' in type &&
+            type.value?.name === ArgTypes.variableName.name
+          ) {
             newCmd.value = migrateVariableName(newCmd.value as string)
           }
           return newCmd

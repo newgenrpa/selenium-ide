@@ -8,9 +8,8 @@ export const commands: MenuComponent = (session) => () =>
       click: async () => {
         await session.system.dumpSession()
       },
-      label: 'Dump Session To File',
+      label: session.system.languageMap.helpMenuTree.dumpSession,
     },
   ]
-
 
 export default menuFactoryFromCommandFactory(commands)

@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography'
 import React, { useContext } from 'react'
 import { Checkbox, Tooltip } from '@mui/material'
 import { context } from 'browser/contexts/session'
+import languageMap from 'browser/I18N/keys'
+import { FormattedMessage } from 'react-intl'
 
 const {
   state: { set },
@@ -44,7 +46,7 @@ const PlaybackDimensionControls: React.FC = () => {
     <>
       <Tooltip
         placement="left"
-        title="Force panel window dimensions (will zoom out if larger than panel and crop if smaller)"
+        title={<FormattedMessage id={languageMap.playback.windowSize} />}
       >
         <Box
           className="flex flex-row flex-initial ps-3"
@@ -65,7 +67,9 @@ const PlaybackDimensionControls: React.FC = () => {
         </Box>
       </Tooltip>
       <Box className="flex flex-col flex-initial pe-3" justifyContent="center">
-        <Typography>W</Typography>
+        <Typography>
+          <FormattedMessage id={languageMap.playback.width} />
+        </Typography>
       </Box>
       <Box className="flex-initial">
         <TextField
@@ -84,7 +88,9 @@ const PlaybackDimensionControls: React.FC = () => {
         />
       </Box>
       <Box className="flex flex-col flex-initial px-3" justifyContent="center">
-        <Typography>H</Typography>
+        <Typography>
+          <FormattedMessage id={languageMap.playback.height} />
+        </Typography>
       </Box>
       <Box className="flex-initial pe-4">
         <TextField

@@ -13,19 +13,23 @@ import { loadingID } from '@seleniumhq/side-api/dist/constants/loadingID'
 import MainHeader from 'browser/components/Main/Header'
 
 import { context } from 'browser/contexts/session'
+import { FormattedMessage } from 'react-intl'
+import languageMap from 'browser/I18N/keys'
 
 //import TestSelector from './TestSelector'
 
 
 const sxCenter = { textAlign: 'center' }
 const NoTestFound = () => (
-  <>
-    <MainHeader />
-    <Paper className="p-4" elevation={1} id="command-editor" square>
-      <Typography sx={sxCenter}>No Test Selected</Typography>
-    </Paper>
-  </>
-)
+    <>
+      <MainHeader />
+      <Paper className="p-4" elevation={1} id="command-editor" square>
+        <Typography sx={sxCenter}>
+          <FormattedMessage id={languageMap.testsTab.noTestSelected} />
+        </Typography>
+      </Paper>
+    </>
+  )
 
 const TestsTab: React.FC = () => {
   const session = useContext(context)

@@ -24,11 +24,7 @@ export interface CommandType {
   value?: ArgType
 }
 
-export interface CommandTypes {
-  [key: string]: CommandType
-}
-
-export default {
+const commands = {
   acceptAlert: {
     name: 'accept alert',
     description: `Affects a currently showing alert. This 
@@ -651,4 +647,9 @@ export default {
     target: ArgTypes.conditionalExpression,
     value: ArgTypes.loopLimit,
   },
-} as CommandTypes
+}
+
+export default commands
+
+export type CommandTypes = typeof commands
+export type CommandKey = keyof CommandTypes

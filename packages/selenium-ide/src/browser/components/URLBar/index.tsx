@@ -3,6 +3,8 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import React from 'react'
 import { TabShape } from '../PlaybackTabBar/tab'
+import { FormattedMessage } from 'react-intl'
+import languageMap from 'browser/I18N/keys'
 
 const {
   windows: { navigatePlaybackWindow },
@@ -19,7 +21,9 @@ const URLBar: React.FC<{ tab: null | TabShape }> = ({ tab }) => {
   return (
     <>
       <Box className="flex flex-col flex-initial" justifyContent="center">
-        <Typography>URL</Typography>
+        <Typography>
+          <FormattedMessage id={languageMap.playback.url} />
+        </Typography>
       </Box>
       <Box className="flex-1 justify-content-center no-window-drag px-3">
         <TextField

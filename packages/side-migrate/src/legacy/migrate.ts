@@ -24,6 +24,7 @@ import {
   SuiteShape,
   TestShape,
 } from '@seleniumhq/side-model'
+import { CommandKey } from '@seleniumhq/side-model/dist/Commands'
 
 export const FileTypes = {
   Suite: 'suite',
@@ -212,7 +213,7 @@ function parseTarget(targetCell: any) {
 
 function isImplementedWait(command: string) {
   if (/^wait/.test(command)) {
-    return Commands[command]
+    return Commands[command as CommandKey]
   } else {
     // not a wait command
     return true

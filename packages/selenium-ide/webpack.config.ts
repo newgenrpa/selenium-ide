@@ -1,4 +1,3 @@
-import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import fs from 'fs'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
@@ -6,8 +5,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import kebabCase from 'lodash/fp/kebabCase'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import path from 'path'
-// eslint-disable-next-line node/no-unpublished-import
-import ReactRefreshTypeScript from 'react-refresh-typescript'
 import {
   Configuration,
   SourceMapDevToolPlugin,
@@ -28,9 +25,6 @@ const commonPlugins: WebpackPluginInstance[] = [
 ]
 if (isProduction) {
   commonPlugins.push(new MiniCssExtractPlugin())
-}
-if (useHMR) {
-  commonPlugins.push(new ReactRefreshWebpackPlugin())
 }
 
 const commonConfig: Pick<
@@ -55,9 +49,6 @@ const commonConfig: Pick<
         // eslint-disable-next-line node/no-unpublished-require
         loader: require.resolve('ts-loader'),
         options: {
-          getCustomTransformers: () => ({
-            before: [useHMR && ReactRefreshTypeScript()].filter(Boolean),
-          }),
           transpileOnly: true,
         },
       },

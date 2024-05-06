@@ -5,6 +5,8 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import TextField from '@mui/material/TextField'
+import languageMap from 'browser/I18N/keys'
+import { FormattedMessage } from 'react-intl'
 
 const {
   state: { setActiveTest: setSelected },
@@ -40,22 +42,23 @@ const TestNewDialog: React.FC<TestNewDialogProps> = ({ open, setOpen }) => {
       handleClose('Create')
     }
   }
-
   return (
     <Dialog
       classes={{
-        container: 'justify-content-start'
+        container: 'justify-content-start',
       }}
       onClose={handleClose}
       open={open}
     >
       <DialogContent>
-        <DialogContentText>Please specify the new test name</DialogContentText>
+        <DialogContentText>
+          {<FormattedMessage id={languageMap.testsTab.dialogTitle} />}
+        </DialogContentText>
         <TextField
           autoFocus
           fullWidth
           id="name"
-          label="Test Name"
+          label={<FormattedMessage id={languageMap.testsTab.testName} />}
           margin="dense"
           onChange={(e) => setTestName(e.target.value)}
           onKeyDown={onKeyDown}
@@ -63,8 +66,12 @@ const TestNewDialog: React.FC<TestNewDialogProps> = ({ open, setOpen }) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => handleClose('Cancel')}>Cancel</Button>
-        <Button onClick={() => handleClose('Create')}>Create</Button>
+        <Button onClick={() => handleClose('Cancel')}>
+          {<FormattedMessage id={languageMap.testsTab.cancel} />}
+        </Button>
+        <Button onClick={() => handleClose('Create')}>
+          {<FormattedMessage id={languageMap.testsTab.create} />}
+        </Button>
       </DialogActions>
     </Dialog>
   )

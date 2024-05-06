@@ -1,20 +1,24 @@
+import langFileEn, {LanguageMap} from 'browser/I18N/en'
 import { dialog, ipcMain } from 'electron'
 import { autoUpdater } from 'electron-updater'
-import { COLOR_CYAN, isAutomated, vdebuglog } from 'main/util'
-import { inspect } from 'util'
 import { writeFile } from 'fs/promises'
-import BaseController from '../Base'
+import { COLOR_CYAN, isAutomated, vdebuglog } from 'main/util'
 import { platform } from 'os'
+import { inspect } from 'util'
+import BaseController from '../Base'
+import { flattenNestedObject } from 'browser/I18N/util'
 
 let firstTime = true
 export default class SystemController extends BaseController {
   constructor(session: any) {
     super(session)
     this.writeToLog = this.writeToLog.bind(this)
+    this.getLanguageMap(false)
   }
   isDown = true
   isDev = false
   shuttingDown = false
+  languageMap: LanguageMap = langFileEn
   logs: string[] = []
   loggers = {
     api: vdebuglog('api', COLOR_CYAN),
@@ -50,8 +54,29 @@ export default class SystemController extends BaseController {
     this.logs.push(args.map((arg) => inspect(arg)).join(' '))
   }
 
+  /***以下是我新增***/
+  async getLanguageMap(frontend = false) {
+    try {
+      const language = await this.session.app.getLocale()
+      const langFile = await import(`../../i18n/${language}/Commands`)
+      this.languageMap = langFile.default
+    } catch (e) {
+      // lang DNE, stay en
+    } finally {
+      if (frontend) {
+        // React intl uses a flat dict so we convert it here
+        const frontendMap = flattenNestedObject(this.languageMap)
+        return frontendMap
+      }
+      return this.languageMap
+    }
+  }
+
+  /***以上是我新增***/
+
   async startup() {
-    this.isDev = process.env.SIDE_DEV === '1'
+    this.isDev =
+      process.env.SIDE_DEV === '1' && process.env.NODE_ENV !== 'production'
     if (this.isDown) {
       // If automated, assume we already have a chromedriver process running
       if (!isAutomated) {

@@ -9,6 +9,8 @@ import React from 'react'
 import SuiteEditor from './SuiteEditor'
 import AvailableSuiteTestList from './AvailableSuiteTestList'
 import CurrentSuiteTestList from './CurrentSuiteTestList'
+import languageMap from 'browser/I18N/keys'
+import { FormattedMessage } from 'react-intl'
 
 const SuiteCustomizer: React.FC<Pick<SIDEMainProps, 'session'>> = ({
   session,
@@ -24,7 +26,9 @@ const SuiteCustomizer: React.FC<Pick<SIDEMainProps, 'session'>> = ({
   if (activeSuite.id === loadingID) {
     return (
       <Box className="flex-1 width-100" textAlign="center">
-        <Typography className="p-4">No Suite Selected</Typography>
+        <Typography className="p-4">
+          {<FormattedMessage id={languageMap.suitesTab.noSuiteSelected} />}
+        </Typography>
       </Box>
     )
   }

@@ -153,7 +153,7 @@ const sideModule: SideModule = {
       )
       return result
     }
-  }
+  },
 }
 
 window.addEventListener('message', (event) => {
@@ -196,6 +196,5 @@ function removeRecorderTracingAttribute() {
 if (window == window.top) {
   window.addEventListener('message', sideModule.handler)
 }
-
 
 if (autHasRecorderTracingAttribute()) attach()

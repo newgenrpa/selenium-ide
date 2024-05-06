@@ -164,7 +164,7 @@ const argTypes = {
     name: 'xpath',
     description: 'The xpath expression to evaluate',
   },
-} as const
+}
 
 export type ArgTypes = typeof argTypes
 export type ArgNames = ArgTypes[keyof ArgTypes]['name']

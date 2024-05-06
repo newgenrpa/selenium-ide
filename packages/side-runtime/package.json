@@ -1,6 +1,6 @@
 {
   "name": "@seleniumhq/side-runtime",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "private": false,
   "description": "Selenium IDE playback and execution",
   "author": "Tomer <tomer@corevo.io>",

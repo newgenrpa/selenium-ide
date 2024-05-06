@@ -4,7 +4,7 @@ import { singleton as locatorBuilders } from './locator-builders'
 let recorder: Recorder
 async function onContextMenu(event: any) {
   const el = event.target as HTMLElement
-  const targets = locatorBuilders.buildAll(el);
+  const targets = locatorBuilders.buildAll(el)
   const selectedCommand = await window.sideAPI.menus.openSync('playback')
   switch (selectedCommand) {
     case 'Record Wait For Element Present':

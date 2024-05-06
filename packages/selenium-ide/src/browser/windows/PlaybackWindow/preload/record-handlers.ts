@@ -16,7 +16,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import {singleton as locatorBuilders} from './locator-builders'
+import { singleton as locatorBuilders } from './locator-builders'
 import type Recorder from './recorder'
 import { isTest } from './utils'
 

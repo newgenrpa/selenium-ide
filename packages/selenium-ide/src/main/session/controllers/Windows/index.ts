@@ -111,7 +111,7 @@ export default class WindowsController extends BaseController {
           'waitForElementVisible',
         ].map((cmd) => {
           return {
-            label: Commands[cmd].name,
+            label: Commands[cmd as keyof typeof Commands].name,
             click() {
               handled = true
               resolve({
@@ -446,10 +446,10 @@ export default class WindowsController extends BaseController {
     throw new Error('Failed to register playback window')
   }
 
-  async requestPlaybackWindow() {
+  async requestPlaybackWindow(url?: string) {
     const window = await this.openPlaybackWindow(null)
     const projectURL = this.session.projects.project.url
-    window.loadURL(projectURL)
+    window.loadURL(url || projectURL)
   }
 
   async calculateScaleAndZoom(_targetWidth: number, _targetHeight: number) {
@@ -745,7 +745,9 @@ export default class WindowsController extends BaseController {
       this.session.projects?.filepath ??
       this.session.projects.project.name ??
       ''
-    projectWindow.title = `Project Editor${projectID ? `: ${projectID}` : ''}`
+    projectWindow.title = `${this.session.system.languageMap.windowTab.title}${
+      projectID ? `: ${projectID}` : ''
+    }`
     this.useWindowState(projectWindow, 'windowSize', 'windowPosition')
     projectWindow.on('move', () => {
       this.session.resizablePanels.recalculatePlaybackWindows()

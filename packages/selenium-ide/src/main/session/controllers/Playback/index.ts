@@ -344,9 +344,7 @@ export default class PlaybackController extends BaseController {
       const testName = this.session.tests.getByID(
         testID || this.session.state.state.activeTestID
       )?.name
-      console.debug(
-        `Playing state changed ${e.state} for test ${testName}, doink?`
-      )
+      console.debug(`Playing state changed ${e.state} for test ${testName}`)
       let closeAll = false
       switch (e.state) {
         case 'aborted':
@@ -376,7 +374,6 @@ export default class PlaybackController extends BaseController {
       if (fullyComplete) {
         this.playingSuite = ''
       }
-      console.debug(`Fully complete? ${fullyComplete}`)
       this.session.api.playback.onPlayUpdate.dispatchEvent({
         state: e.state,
         testID,

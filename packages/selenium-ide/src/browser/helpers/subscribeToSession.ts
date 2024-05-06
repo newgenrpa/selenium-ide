@@ -41,6 +41,7 @@ export default () => {
     project: defaultProject,
     state: defaultState,
   })
+  console.debug('activeTestID:'+session.state.activeTestID)
   performSubscription(updateSession)
   return session
 }

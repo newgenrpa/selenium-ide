@@ -4,10 +4,12 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import Stack from '@mui/material/Stack'
+import { context } from 'browser/contexts/config'
 import { VerboseBoolean } from '@seleniumhq/side-api'
 import React, { FC, useContext } from 'react'
 import DriverSelector from './DriverSelect'
-import { context } from 'browser/contexts/config'
+import { FormattedMessage } from 'react-intl'
+import languageMap from 'browser/I18N/keys'
 
 export interface MiniProjectShape {
   id: string
@@ -19,11 +21,15 @@ const SystemSettings: FC = () => {
   return (
     <Stack className="p-4" spacing={1}>
       <FormControl>
-        <InputLabel id="themePref">Theme preference</InputLabel>
-        <FormHelperText>restart required to take effect</FormHelperText>
+        <InputLabel id="themePref">
+          <FormattedMessage id={languageMap.systemConfig.theme} />
+        </InputLabel>
+        <FormHelperText>
+          <FormattedMessage id={languageMap.systemConfig.themeHelper} />
+        </FormHelperText>
         <Select
           id="themePref"
-          label="Theme Preference"
+          label="Theme preference"
           name="themePref"
           value={config.system.themePref}
           onChange={(e: any) => {
@@ -37,7 +43,7 @@ const SystemSettings: FC = () => {
       </FormControl>
       <FormControl>
         <InputLabel id="insertNewCommandPref">
-          New command insert preference
+          {<FormattedMessage id={languageMap.systemConfig.commandInsert} />}
         </InputLabel>
         <Select
           id="insertNewCommandPref"
@@ -54,7 +60,7 @@ const SystemSettings: FC = () => {
       </FormControl>
       <FormControl>
         <InputLabel id="camelCaseNames">
-          Camel case various names in UI
+          {<FormattedMessage id={languageMap.systemConfig.camelCase} />}
         </InputLabel>
         <Select
           id="camelCaseNamesPref"
@@ -71,7 +77,7 @@ const SystemSettings: FC = () => {
       </FormControl>
       <FormControl>
         <InputLabel id="ignoreSSLErrors">
-          Ignore Certificate/SSL errors
+          {<FormattedMessage id={languageMap.systemConfig.ignoreErrors} />}
         </InputLabel>
         <Select
           id="ignoreCertificateErrorsPref"
@@ -90,7 +96,7 @@ const SystemSettings: FC = () => {
       </FormControl>
       <FormControl>
         <InputLabel id="disableCodeExportCompat">
-          Disable code export compatibility mode
+          {<FormattedMessage id={languageMap.systemConfig.codeExport} />}
         </InputLabel>
         <Select
           id="disableCodeExportCompatPref"

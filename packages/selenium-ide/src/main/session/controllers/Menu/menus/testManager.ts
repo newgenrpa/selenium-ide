@@ -3,6 +3,7 @@ import { menuFactoryFromCommandFactory } from '../utils'
 
 export const commands: MenuComponent<[string[]]> = (session) => (testIDs) => {
   const outputFormats = session.outputFormats.getFormats()
+  const languageMap = session.system.languageMap
   return [
     {
       accelerator: 'CommandOrControl+Shift+Delete',
@@ -11,11 +12,11 @@ export const commands: MenuComponent<[string[]]> = (session) => (testIDs) => {
           testIDs.map((testID) => session.api.tests.delete(testID))
         )
       },
-      label: 'Delete test(s)',
+      label: languageMap.testsTab.deleteTest,
     },
     { type: 'separator' },
     ...outputFormats.map((formatName) => ({
-      label: `Export test(s) to ${formatName}`,
+      label: languageMap.testsTab.exportTest + formatName,
       click: async () => {
         await Promise.all(
           testIDs.map((testID) =>

@@ -38,6 +38,7 @@ import {
 } from '../types'
 import { writeCommands } from './utils'
 import { LanguageHooks } from './hook'
+import { CommandKey } from '@seleniumhq/side-model/src/Commands'
 
 export interface EmitterContext extends Omit<LanguageEmitterOpts, 'hooks'> {
   testLevel?: number
@@ -55,11 +56,13 @@ export interface EmitterContext extends Omit<LanguageEmitterOpts, 'hooks'> {
 function validateCommand(command: CommandShape) {
   const commandName = command.command
   if (!commandName.startsWith('//')) {
-    let commandSchema = Commands[commandName]
+    let commandSchema = Commands[commandName as CommandKey]
     if (!commandSchema) throw new Error(`Invalid command '${commandName}'`)
-    if (!!commandSchema.target !== !!command.target) {
-      const isOptional = commandSchema.target
-        ? !!commandSchema.target.isOptional
+    const hasTarget = 'target' in commandSchema
+    if (hasTarget !== Boolean(command.target)) {
+      const isOptional = hasTarget
+        ? // @ts-expect-error holy fucking shut up already
+          Boolean(commandSchema.target.isOptional)
         : true
       if (!isOptional) {
         throw new Error(
@@ -67,9 +70,11 @@ function validateCommand(command: CommandShape) {
         )
       }
     }
-    if (!!commandSchema.value !== !!command.value) {
-      const isOptional = commandSchema.value
-        ? !!commandSchema.value.isOptional
+    const hasValue = 'value' in commandSchema
+    if (hasValue !== Boolean(command.value)) {
+      const isOptional = hasValue
+        ? // @ts-expect-error holy fucking shut up already
+          Boolean(commandSchema.value.isOptional)
         : true
       if (!isOptional) {
         throw new Error(

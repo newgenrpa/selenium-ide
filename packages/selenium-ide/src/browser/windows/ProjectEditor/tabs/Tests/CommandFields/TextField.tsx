@@ -7,22 +7,47 @@ import { CommandFieldProps } from '../types'
 import { updateField } from './utils'
 import Tooltip from '@mui/material/Tooltip'
 import { LocatorFields } from '@seleniumhq/side-api'
+import { useIntl } from 'react-intl'
+import languageMap from 'browser/I18N/keys'
+
+const inputLabelProps = {
+  sx: {
+    textOverflow: 'ellipsis',
+  },
+}
 
 const CommandTextField: FC<CommandFieldProps> = ({
   command,
-  commands,
   disabled,
   fieldName,
   note,
   testID,
 }) => {
+  const intl = useIntl()
   const FieldName = startCase(fieldName)
   const updateText = updateField(fieldName)
+  // 处理label标签
+  const handleLabel = (value: string) => {
+    switch (value) {
+      case 'Comment':
+        return intl.formatMessage({ id: languageMap.testCore.comment })
+      case 'Target':
+        return intl.formatMessage({ id: languageMap.testCore.target })
+      case 'Value':
+        return intl.formatMessage({ id: languageMap.testCore.value })
+      default:
+        return value
+    }
+  }
+  // 一定会使用languageMap.commandMap,其实是为了兼容参数commands
   const fullNote =
-    (note ||
-      commands[command.command][fieldName as LocatorFields]?.description) ??
-    ''
-  const label = fullNote ? FieldName + ' - ' + fullNote : FieldName
+    note ||
+    intl.formatMessage({
+      id: `commandMap.${command.command}.${fieldName}.description`,
+    })
+  const label = fullNote
+    ? handleLabel(FieldName) + ' - ' + fullNote
+    : handleLabel(FieldName)
 
   return (
     <FormControl className="flex flex-row">
@@ -31,11 +56,7 @@ const CommandTextField: FC<CommandFieldProps> = ({
         disabled={disabled}
         id={`${fieldName}-${command.id}`}
         label={label}
-        InputLabelProps={{
-          sx: {
-            textOverflow: 'ellipsis',
-          },
-        }}
+        InputLabelProps={inputLabelProps}
         name={fieldName}
         onChange={updateText(testID, command.id)}
         onContextMenu={() => {

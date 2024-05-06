@@ -3,7 +3,7 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import TextField from '@mui/material/TextField'
 import { CommandState } from '@seleniumhq/side-runtime'
-import React, { FC } from 'react'
+import React from 'react'
 import CommandOverlay from '../../windows/ProjectEditor/tabs/Tests/TestCommandOverlay'
 
 export interface TestListProps {
@@ -15,15 +15,10 @@ export interface TestListProps {
   state?: CommandState
 }
 
-const RenamableListItem: FC<ListItemProps & TestListProps> = ({
-  id,
-  name,
-  rename,
-  selected,
-  setSelected,
-  state = null,
-  ...props
-}) => {
+const RenamableListItem = React.forwardRef<
+  HTMLLIElement,
+  ListItemProps & TestListProps
+>(({ id, name, rename, selected, setSelected, state = null, ...props }, ref) => {
   const [renaming, setRenaming] = React.useState(false)
   return (
     <ListItem
@@ -31,6 +26,7 @@ const RenamableListItem: FC<ListItemProps & TestListProps> = ({
       key={id}
       onClick={() => setSelected(id)}
       onDoubleClick={() => setRenaming(true)}
+      ref={ref}
       {...props}
     >
       {renaming ? (
@@ -57,6 +53,6 @@ const RenamableListItem: FC<ListItemProps & TestListProps> = ({
       )}
     </ListItem>
   )
-}
+})
 
 export default RenamableListItem

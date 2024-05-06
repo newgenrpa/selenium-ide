@@ -7,6 +7,8 @@ import React, { FC } from 'react'
 import CommandSelector from './CommandFields/CommandSelector'
 import ArgField from './CommandFields/ArgField'
 import CommandTextField from './CommandFields/TextField'
+import { FormattedMessage, useIntl } from 'react-intl'
+import languageMap from 'browser/I18N/keys'
 
 export interface CommandEditorProps {
   command: CommandShape
@@ -26,6 +28,7 @@ const CommandEditor: FC<CommandEditorProps> = ({
   selectedCommandIndexes,
   ...props
 }) => {
+  const intl = useIntl()
   if (typeof command.command != 'string') {
     command.command = '//unknown - could not process'
   }
@@ -45,13 +48,13 @@ const CommandEditor: FC<CommandEditorProps> = ({
     )
   }
   if (
-    !commands[correctedCommand.command] ||
+    !(correctedCommand.command in commands) ||
     selectedCommandIndexes.length === 0
   ) {
     return (
       <Stack className="p-4" spacing={1}>
         <Typography className="centered py-4" variant="body2">
-          No commands selected
+          {<FormattedMessage id={languageMap.testsTab.noCommandsSelected} />}
         </Typography>
       </Stack>
     )
@@ -70,8 +73,14 @@ const CommandEditor: FC<CommandEditorProps> = ({
           <CommandTextField
             command={correctedCommand}
             {...props}
-            fieldName="windowHandleName"
-            note="Variable name to set to the new window handle"
+            fieldName={
+              intl.formatMessage({
+                id: languageMap.testCore.windowHandleName,
+              }) as 'windowHandleName'
+            }
+            note={intl.formatMessage({
+              id: languageMap.testCore.windowHandleNameNote,
+            })}
           />
         )}
         <CommandTextField

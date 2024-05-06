@@ -7,6 +7,8 @@ import { Tooltip } from '@mui/material'
 import React, { FC, useMemo } from 'react'
 import { setField, updateACField } from './utils'
 import { CommandSelectorProps } from '../types'
+import { FormattedMessage } from 'react-intl'
+import languageMap from 'browser/I18N/keys'
 
 const setCommandFactory = setField('command')
 const setOpensWindowFactory = setField<boolean>('opensWindow')
@@ -21,14 +23,13 @@ const CommandSelector: FC<CommandSelectorProps> = ({
   const commandsList = useMemo(
     () =>
       Object.entries(commands)
-        .map(([id, { name }]) => ({ id, name }))
+        .map(([id, { name }]: [string, { name: string }]) => ({ id, name }))
         .sort((a, b) => a.name.localeCompare(b.name)),
     []
   )
   if (commandsList.length === 0) {
     return null
   }
-  const commandData = commands[command.command]
   const setCommand = setCommandFactory(testID, command.id)
   const setOpensWindow = setOpensWindowFactory(testID, command.id)
   const commandOptions = commandsList.map((item) => {
@@ -52,7 +53,7 @@ const CommandSelector: FC<CommandSelectorProps> = ({
                 ...params.inputProps,
                 ['data-overridearrowkeys']: true,
               }}
-              label="Command"
+              label={<FormattedMessage id={languageMap.testCore.stepCommand} />}
             />
           )}
           size="small"
@@ -62,9 +63,15 @@ const CommandSelector: FC<CommandSelectorProps> = ({
 
         <Tooltip
           className="flex-initial ms-4 my-auto"
-          title={`${
-            command.opensWindow ? 'Opens' : 'Does not open'
-          } a new window`}
+          title={
+            <FormattedMessage
+              id={
+                command.opensWindow
+                  ? languageMap.testCore.openNewWindow
+                  : languageMap.testCore.notOpenNewWindow
+              }
+            />
+          }
           placement="top-end"
         >
           <IconButton
@@ -76,7 +83,15 @@ const CommandSelector: FC<CommandSelectorProps> = ({
         </Tooltip>
         <Tooltip
           className="flex-initial my-auto"
-          title={`${isDisabled ? 'En' : 'Dis'}able this command`}
+          title={
+            <FormattedMessage
+              id={
+                isDisabled
+                  ? languageMap.testCore.enableCommand
+                  : languageMap.testCore.disableCommand
+              }
+            />
+          }
           placement="top-end"
         >
           <IconButton
@@ -90,7 +105,7 @@ const CommandSelector: FC<CommandSelectorProps> = ({
         </Tooltip>
         <Tooltip
           className="flex-initial mx-2 my-auto"
-          title={commandData.description}
+          title={<FormattedMessage id={`commandMap.${command.command}.description`} />}
           placement="top-end"
         >
           <HelpCenter />

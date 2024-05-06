@@ -16,5 +16,6 @@
 // under the License.
 
 export * from './types'
+export { default as I18N } from './I18N'
 export { default as ArgTypes } from './ArgTypes'
 export { default as Commands } from './Commands'

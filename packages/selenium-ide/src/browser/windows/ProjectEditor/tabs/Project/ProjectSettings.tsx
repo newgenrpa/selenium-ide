@@ -4,10 +4,12 @@ import IconButton from '@mui/material/IconButton'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import Stack from '@mui/material/Stack'
+import languageMap from 'browser/I18N/keys'
 import EditorToolbar from 'browser/components/Drawer/EditorToolbar'
 import TextField from 'browser/components/UncontrolledTextField'
 import { context } from 'browser/contexts/config'
 import React, { FC } from 'react'
+import { FormattedMessage } from 'react-intl'
 
 export interface MiniProjectShape {
   id: string
@@ -20,7 +22,7 @@ const {
 } = window.sideAPI
 const ProjectSettings: FC = () => {
   const {
-    project: { delay, name, plugins, url },
+    project: { delay, name, plugins, timeout, url },
   } = React.useContext(context)
   if (url === 'http://loading') {
     return null
@@ -31,7 +33,7 @@ const ProjectSettings: FC = () => {
         <FormControl>
           <TextField
             id="name"
-            label="Name"
+            label={<FormattedMessage id={languageMap.projectConfig.name} />}
             name="name"
             onChange={(e: any) => {
               update({
@@ -44,23 +46,28 @@ const ProjectSettings: FC = () => {
         </FormControl>
         <FormControl>
           <TextField
-            id="project-url"
-            label="Project URL"
-            name="project-url"
+            id="timeout"
+            label={<FormattedMessage id={languageMap.projectConfig.stepTimeout} />}
+            helperText={<FormattedMessage id={languageMap.projectConfig.stepTimeoutHelper} />}
+            name="timeout"
+            type="number"
+            inputProps={{ min: 0, step: 1000 }}
             onChange={(e: any) => {
               update({
-                url: e.target.value,
+                // delay: Math.max(parseInt(e.target.value || "0"), 0)
+                timeout: Math.max(parseInt(e.target.value || '0'), 0),
               })
             }}
             size="small"
-            value={url}
+            // value={project.delay || 0}
+            value={timeout || 0}
           />
         </FormControl>
         <FormControl>
           <TextField
             id="delay"
-            label="Step Delay (MILLISECONDS)"
-            helperText="Each step will pause by this setting"
+            label={<FormattedMessage id={languageMap.projectConfig.stepDelay} />}
+            helperText={<FormattedMessage id={languageMap.projectConfig.stepDelayHelper} />}
             name="delay"
             type="number"
             inputProps={{ min: 0, step: 1000 }}
@@ -78,7 +85,7 @@ const ProjectSettings: FC = () => {
         dense
         subheader={
           <EditorToolbar onAdd={() => projectCreate()} addText="Add Plugin">
-            <span className="ps-4">Project Plugins</span>
+            {<FormattedMessage id={languageMap.projectConfig.projectPlugins} />}
           </EditorToolbar>
         }
         sx={{

@@ -7,9 +7,22 @@ import { Browser } from '@seleniumhq/get-driver'
 import { VerboseBoolean } from '@seleniumhq/side-api'
 import { BrowserInfo, BrowsersInfo } from 'main/types'
 import React, { useEffect, useState } from 'react'
+import Button from '@mui/material/Button'
+import { FormattedMessage } from 'react-intl'
+import languageMap from 'browser/I18N/keys'
+
+/****************以下为我新增*****************/
+const ElectronVersion = require('electron/package.json').version
+const ourElectronBrowserInfo: BrowserInfo = {
+  browser: 'electron',
+  useBidi: false,
+  version: ElectronVersion,
+}
+/****************以上为我新增*****************/
 
 const browserToString = (browser: BrowserInfo): string =>
   `${browser.browser}|${browser.version}`
+
 const browserFromString = (browserString: string): BrowserInfo => {
   const [browser, version] = browserString.split('|')
   return { browser: browser as Browser, version }
@@ -26,6 +39,9 @@ const DriverSelector = () => {
     })
   }, [])
   const processBrowserSelection = async (browser: BrowserInfo) => {
+    /****************以下为我新增*****************/
+    browser = browser.useBidi ? browser : ourElectronBrowserInfo
+    /****************以上为我新增*****************/
     console.log('Setting browser', browser)
     setBrowserInfo((info) => ({ browsers: info!.browsers, selected: null }))
     await window.sideAPI.driver.download(browser)
@@ -53,14 +69,16 @@ const DriverSelector = () => {
   }
   return (
     <>
-      <Typography variant='caption'>Bidi settings (Experimental / Non working)</Typography>
+      <Typography variant="caption">
+        <FormattedMessage id={languageMap.systemConfig.bidiHelper} />
+      </Typography>
       <FormControl>
         <InputLabel id="useBidi">
-          Use Bidi
+          <FormattedMessage id={languageMap.systemConfig.bidi} />
         </InputLabel>
         <Select
           id="useBidi"
-          label="Use Bidi"
+          label={<FormattedMessage id={languageMap.systemConfig.bidi} />}
           name="useBidi"
           value={browserInfo.selected?.useBidi ? 'Yes' : 'No'}
           onChange={(e) => {
@@ -74,7 +92,9 @@ const DriverSelector = () => {
         </Select>
       </FormControl>
       <FormControl>
-        <InputLabel id="browser-label">Selected Playback Browser</InputLabel>
+        <InputLabel id="browser-label">
+          <FormattedMessage id={languageMap.systemConfig.playbackBrowser} />
+        </InputLabel>
         {browserInfo.selected ? (
           <Select
             disabled={!browserInfo.selected?.useBidi}
@@ -82,7 +102,12 @@ const DriverSelector = () => {
             labelId="browser-label"
             onChange={selectBrowser}
             placeholder="Please select a browser"
-            value={browserToString(browserInfo.selected)}
+            value={
+              !browserInfo.selected?.useBidi ||
+              browserInfo.selected?.browser === 'electron'
+                ? browserToString(ourElectronBrowserInfo)
+                : browserToString(browserInfo.selected)
+            }
           >
             {browserInfo.browsers.map((browser, index) => (
               <MenuItem key={index} value={browserToString(browser)}>
@@ -97,7 +122,7 @@ const DriverSelector = () => {
             labelId="browser-label"
             onChange={selectBrowser}
             placeholder="Please select a browser"
-            value=""
+            value={browserToString(ourElectronBrowserInfo)}
           >
             <MenuItem value="">
               <em>Loading...</em>
@@ -105,6 +130,15 @@ const DriverSelector = () => {
           </Select>
         )}
       </FormControl>
+      <Button
+        color="secondary"
+        size="small"
+        onClick={() => {
+          processBrowserSelection(browserInfo.selected!)
+        }}
+      >
+        <FormattedMessage id={languageMap.systemConfig.restartDriver} />
+      </Button>
     </>
   )
 }

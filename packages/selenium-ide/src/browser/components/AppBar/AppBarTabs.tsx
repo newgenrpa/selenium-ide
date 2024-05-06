@@ -1,9 +1,14 @@
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import React from 'react'
-import { PROJECT_TAB, TESTS_TAB } from '../../enums/tab'
-import { SIDEMainProps } from '../types'
 
+import { PROJECT_TAB, TESTS_TAB } from '../../enums/tab'
+import languageMap from 'browser/I18N/keys'
+
+import { SIDEMainProps } from '../types'
+import { FormattedMessage } from 'react-intl'
+
+/**********顶部菜单栏tab*************/
 function a11yProps(index: number) {
   return {
     'aria-controls': `tabpanel-${index}`,
@@ -23,9 +28,20 @@ const AppBarTabs: React.FC<Pick<SIDEMainProps, 'setTab' | 'tab'>> = ({
     textColor="inherit"
     value={tab}
   >
-    <Tab label="Tests" {...a11yProps(TESTS_TAB)} />
-    {/* <Tab label="Suites" {...a11yProps(SUITES_TAB)} /> */}
-    <Tab label="Config" {...a11yProps(PROJECT_TAB)} />
+
+    <Tab
+      label={<FormattedMessage id={languageMap.mainMenu.tests} />}
+      {...a11yProps(TESTS_TAB)}
+    />
+   {/* <Tab
+      label={<FormattedMessage id={languageMap.mainMenu.suites} />}
+      {...a11yProps(SUITES_TAB)}
+    /> */}
+    <Tab
+      label={<FormattedMessage id={languageMap.mainMenu.config} />}
+      {...a11yProps(PROJECT_TAB)}
+    />
+
   </Tabs>
 )
 

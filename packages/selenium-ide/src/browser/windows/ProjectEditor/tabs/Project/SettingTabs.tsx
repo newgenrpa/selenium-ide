@@ -2,6 +2,8 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import React, { useContext } from 'react'
 import { context } from 'browser/contexts/config-settings-group'
+import { FormattedMessage } from 'react-intl'
+import languageMap from 'browser/I18N/keys'
 
 function a11yProps(name: string) {
   return {
@@ -20,10 +22,23 @@ const SettingsTabs: React.FC = () => (
     }}
     textColor="inherit"
     value={useContext(context)}
-    variant='fullWidth'
+    variant="fullWidth"
   >
-    <Tab label="Project" value="project" {...a11yProps('project')} />
-    <Tab label="System" value="system" {...a11yProps('system')} />
+    <Tab
+      label={<FormattedMessage id={languageMap.configTab.project} />}
+      value="project"
+      {...a11yProps('project')}
+    />
+    <Tab
+      label={<FormattedMessage id={languageMap.configTab.system} />}
+      value="system"
+      {...a11yProps('system')}
+    />
+    <Tab
+      label={<FormattedMessage id={languageMap.configTab.outPut} />}
+      value="outPut"
+      {...a11yProps('outPut')}
+    />
   </Tabs>
 )
 

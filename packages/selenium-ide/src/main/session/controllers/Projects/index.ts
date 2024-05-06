@@ -11,6 +11,7 @@ import BaseController from '../Base'
 import { isAutomated } from 'main/util'
 import { session,app } from 'electron'
 
+
 export default class ProjectsController {
   constructor(session: Session) {
     this.session = session
@@ -44,9 +45,6 @@ export default class ProjectsController {
     if (this.loaded) return
     this.filepath = filepath
     this.project = project
-    await session.defaultSession.clearStorageData({
-      storages: ['cookies', 'localstorage'],
-    })
     await this.executeHook('onProjectLoaded')
     this.loaded = true
   }
@@ -136,7 +134,8 @@ export default class ProjectsController {
           }
         }
         await this.onProjectLoaded(loadedProject, filepath)
-        return await this.session.state.get()
+        const state = await this.session.state.get()
+        return JSON.parse(JSON.stringify(state))
       }
       return null
     } else {
@@ -181,7 +180,8 @@ export default class ProjectsController {
 
   async select(useArgs = false): Promise<void> {
     // When we're opened with a side file in the path
-    let argsFilepath = process.argv.find((arg) => arg.startsWith('--side-file=')) || ''
+    let argsFilepath =
+      process.argv.find((arg) => arg.startsWith('--side-file=')) || ''
     if (this.filepath) {
       await this.load(this.filepath)
     } else if (useArgs && argsFilepath) {
@@ -207,9 +207,8 @@ export default class ProjectsController {
     let project: ProjectShape
     try {
       project = JSON.parse(fileContents)
-      project.plugins = project?.plugins?.filter(
-        (plugin) => typeof plugin === 'string'
-      ) ?? []
+      project.plugins =
+        project?.plugins?.filter((plugin) => typeof plugin === 'string') ?? []
       return project
     } catch (e) {
       console.log((e as Error).message)

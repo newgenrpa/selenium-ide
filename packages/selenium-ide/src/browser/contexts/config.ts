@@ -7,6 +7,7 @@ type ConfigShape = {
     delay?: number
     name: string
     plugins: string[]
+    timeout?: number
     url: string
   }
   system: CoreSessionData['state']['userPrefs']
@@ -17,6 +18,7 @@ export const transform = (data: CoreSessionData): ConfigShape => ({
     delay: data.project.delay,
     name: data.project.name,
     plugins: data.project.plugins,
+    timeout: data.project.timeout,
     url: data.project.url,
   },
   system: data.state.userPrefs,
