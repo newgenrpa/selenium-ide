@@ -3,7 +3,7 @@ import MenuOpenIcon from '@mui/icons-material/MenuOpen'
 import React, { useContext } from 'react'
 import SuiteControls from 'browser/windows/ProjectEditor/tabs/Suites/Controls'
 import TestControls from 'browser/windows/ProjectEditor/tabs/Tests/Controls'
-import { SUITES_TAB, TESTS_TAB } from 'browser/enums/tab'
+import { SUITES_TAB,TESTS_TAB } from 'browser/enums/tab'
 import { SIDEMainProps } from '../types'
 import AppBarTabs from './AppBarTabs'
 import IconButton from '@mui/material/IconButton'
@@ -32,6 +32,7 @@ const SIDEAppBar: React.FC<SIDEAppBarProps> = ({ setTab, tab }) => {
       <TabPanel index={TESTS_TAB} value={tab}>
         <TestControls />
       </TabPanel>
+
       <TabPanel index={SUITES_TAB} value={tab}>
         <SuiteControls />
       </TabPanel>

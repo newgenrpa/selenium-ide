@@ -123,7 +123,7 @@ export default class WindowsController extends BaseController {
         })
         const menu = Menu.buildFromTemplate([
           {
-            label: 'Selenium IDE',
+            label: 'Web Recorder',
             submenu: template,
           },
         ])

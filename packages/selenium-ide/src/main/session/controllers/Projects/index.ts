@@ -9,6 +9,8 @@ import { randomUUID } from 'crypto'
 import RecentProjects from './Recent'
 import BaseController from '../Base'
 import { isAutomated } from 'main/util'
+import { session,app } from 'electron'
+
 
 export default class ProjectsController {
   constructor(session: Session) {
@@ -66,7 +68,7 @@ export default class ProjectsController {
     return this.recentProjects.get()
   }
 
-  async new(): Promise<ProjectShape | null> {
+  async new(openUrl:string): Promise<ProjectShape | null> {
     if (this.loaded) {
       const confirm = await this.onProjectUnloaded()
       if (!confirm) {
@@ -78,8 +80,8 @@ export default class ProjectsController {
       id: randomUUID(),
       version: '3.0',
       name: 'New Project',
-      url: 'http://www.google.com',
-      urls: ['http://www.google.com'],
+      url: openUrl,
+      urls: [openUrl],
       plugins: [],
       suites: [
         {
@@ -144,7 +146,36 @@ export default class ProjectsController {
   }
 
   async save(filepath: string): Promise<boolean> {
-    return this.save_v3(filepath)
+   // return this.save_v3(filepath)
+   console.log(filepath)
+   const response = await fetch("http://localhost:8888/webrecorder/actions",{
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+      "Access-Control-Allow-Origin":" *"
+    },
+    // redirect: 'follow', // manual, *follow, error
+    // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+     body: JSON.stringify(this.project, undefined, 2) // body data type must match "Content-Type" header
+  });
+
+  if(response.status==200){
+    console.log(response)
+    await this.session.dialogs.showSaveMessageBox(
+      'Changes Saved Successfully',
+      ['Ok']
+    )
+    console.log(" data save response 200")
+    app.exit(0)
+  }else{
+    console.log("failed data save")
+    console.log(response)
+  }
+    return true
   }
 
   async select(useArgs = false): Promise<void> {

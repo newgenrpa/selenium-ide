@@ -11,10 +11,13 @@ import CommandList from './TestCommandList'
 import CommandTable from './TestCommandTable'
 import { loadingID } from '@seleniumhq/side-api/dist/constants/loadingID'
 import MainHeader from 'browser/components/Main/Header'
-import TestSelector from './TestSelector'
+
 import { context } from 'browser/contexts/session'
 import { FormattedMessage } from 'react-intl'
 import languageMap from 'browser/I18N/keys'
+
+//import TestSelector from './TestSelector'
+
 
 const sxCenter = { textAlign: 'center' }
 const NoTestFound = () => (
@@ -83,7 +86,9 @@ const TestsTab: React.FC = () => {
   const disabled = ['playing', 'recording'].includes(session.state.status)
   return (
     <Box className="fill flex flex-col" ref={ref}>
-      {!session.state.editor.showDrawer && <TestSelector />}
+
+       {/* {!session.state.editor.showDrawer && <TestSelector />} */}
+
       {activeTestID === loadingID ? (
         <NoTestFound />
       ) : (

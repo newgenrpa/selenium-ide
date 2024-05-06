@@ -1,8 +1,10 @@
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import React from 'react'
-import { PROJECT_TAB, SUITES_TAB, TESTS_TAB } from 'browser/enums/tab'
+
+import { PROJECT_TAB, TESTS_TAB } from '../../enums/tab'
 import languageMap from 'browser/I18N/keys'
+
 import { SIDEMainProps } from '../types'
 import { FormattedMessage } from 'react-intl'
 
@@ -26,18 +28,20 @@ const AppBarTabs: React.FC<Pick<SIDEMainProps, 'setTab' | 'tab'>> = ({
     textColor="inherit"
     value={tab}
   >
+
     <Tab
       label={<FormattedMessage id={languageMap.mainMenu.tests} />}
       {...a11yProps(TESTS_TAB)}
     />
-    <Tab
+   {/* <Tab
       label={<FormattedMessage id={languageMap.mainMenu.suites} />}
       {...a11yProps(SUITES_TAB)}
-    />
+    /> */}
     <Tab
       label={<FormattedMessage id={languageMap.mainMenu.config} />}
       {...a11yProps(PROJECT_TAB)}
     />
+
   </Tabs>
 )
 

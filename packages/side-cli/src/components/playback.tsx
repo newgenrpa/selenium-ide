@@ -17,7 +17,7 @@
 
 import React from 'react'
 import util from 'util'
-import TestSelector from './test-selector'
+//import TestSelector from './test-selector'
 import TestTitle from './test-title'
 import TestResults from './test-results'
 import Logs from './log'
@@ -80,20 +80,20 @@ const PlaybackComponent: React.FC<PlaybackProps> = ({ playback, project }) => {
     )
   }, [])
 
-  const handleTestSelected = async (test: TestShape) => {
-    setState({ test })
-    try {
-      await (
-        await playback.play(test)
-      )()
-    } catch (err) {
-      // eslint-disable-next-line
-      console.error(err)
-      process.exitCode = 1
-    } finally {
-      await playback.cleanup()
-    }
-  }
+  // const handleTestSelected = async (test: TestShape) => {
+  //   setState({ test })
+  //   try {
+  //     await (
+  //       await playback.play(test)
+  //     )()
+  //   } catch (err) {
+  //     // eslint-disable-next-line
+  //     console.error(err)
+  //     process.exitCode = 1
+  //   } finally {
+  //     await playback.cleanup()
+  //   }
+  // }
 
   return state.test ? (
     <>
@@ -101,8 +101,8 @@ const PlaybackComponent: React.FC<PlaybackProps> = ({ playback, project }) => {
       <TestResults commands={state.test.commands} results={state.results} />
       <Logs logs={state.logs} />
     </>
-  ) : (
-    <TestSelector tests={project.tests} onTestSelected={handleTestSelected} />
+  ) : (<></>
+    // <TestSelector tests={project.tests} onTestSelected={handleTestSelected} />
   )
 }
 
