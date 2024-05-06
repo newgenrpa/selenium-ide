@@ -204,6 +204,40 @@ const commands: typeof Commands = {
         '完全匹配的字符串。对模式匹配的支持正在进行中。请前往https://github.com/SeleniumHQ/selenium-ide/issues/141了解详细信息',
     },
   },
+  captureScreen: {
+    name: 'capture screen',
+    description: `Executes a snippet of JavaScript in the context of the 
+    currently selected frame or window. The script fragment will be executed 
+    as the body of an anonymous function.  To store the return value, use 
+    the 'return' keyword and provide a variable name in the value input field.`,
+    target: {
+      name: 'locator',
+      description: '元素定位器',
+    },
+    value: {
+      isOptional:true,
+      name: 'text',
+      description:
+        '完全匹配的字符串。对模式匹配的支持正在进行中。请前往https://github.com/SeleniumHQ/selenium-ide/issues/141了解详细信息',
+    },
+  },
+  csvSave: {
+    name: 'csv save',
+    description: `Executes a snippet of JavaScript in the context of the 
+    currently selected frame or window. The script fragment will be executed 
+    as the body of an anonymous function.  To store the return value, use 
+    the 'return' keyword and provide a variable name in the value input field.`,
+    target: {
+      name: 'locator',
+      description: '元素定位器',
+    },
+    value: {
+      isOptional:true,
+      name: 'text',
+      description:
+        '完全匹配的字符串。对模式匹配的支持正在进行中。请前往https://github.com/SeleniumHQ/selenium-ide/issues/141了解详细信息',
+    },
+  },
   dismissConfirmation: {
     name: 'dismiss confirmation',
     description: '影响当前显示的Confirmation。此命令指示Selenium取消它。',
