@@ -1,9 +1,9 @@
 import Box from '@mui/material/Box'
 import SIDEAppBar from 'browser/components/AppBar'
-import SIDEDrawer from 'browser/components/Drawer'
+// import SIDEDrawer from 'browser/components/Drawer'
 import Main from 'browser/components/Main'
 import { context } from 'browser/contexts/show-drawer'
-import { PROJECT_TAB, TAB } from 'browser/enums/tab'
+import { TESTS_TAB, TAB } from 'browser/enums/tab'
 import { usePanelGroup } from 'browser/hooks/usePanelGroup'
 import React, { useContext } from 'react'
 import { DndProvider } from 'react-dnd'
@@ -17,7 +17,7 @@ export type PluginWindow = {
 }
 
 const ProjectEditor: React.FC = () => {
-  const [tab, setTab] = React.useState<TAB>(PROJECT_TAB)
+  const [tab, setTab] = React.useState<TAB>(TESTS_TAB)
   const showDrawer = useContext(context)
   const [pluginWindows, setPluginWindows] = React.useState<PluginWindow[]>([])
   React.useEffect(() => {
@@ -43,19 +43,20 @@ const ProjectEditor: React.FC = () => {
                 id="drawer-editor"
                 {...usePanelGroup('drawer-editor', !showDrawer)}
               >
-                {showDrawer && (
+                {/* {showDrawer && (
                   <>
                     <Panel
                       collapsible
                       id="editor-drawer"
                       defaultSize={25}
                       order={1}
+                    
                     >
                       <SIDEDrawer tab={tab} />
                     </Panel>
                     <ResizeHandle id="h-resize-1" y />
                   </>
-                )}
+                )} */}
                 <Panel defaultSize={75} id="editor-panel" order={2}>
                   <Box className="fill flex flex-col">
                     <Main setTab={setTab} tab={tab} />
