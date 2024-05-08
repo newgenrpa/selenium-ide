@@ -20,7 +20,7 @@ import * as fs from 'fs-extra'
 import * as stream from 'stream'
 import fetch from 'node-fetch'
 import * as unzipper from 'unzipper'
-import tar from 'tar'
+import * as tar from 'tar'
 import {
   resolveDriverUrl,
   resolveDriverName,

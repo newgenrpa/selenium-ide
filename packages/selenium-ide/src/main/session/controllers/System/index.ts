@@ -1,4 +1,4 @@
-import langFileEn, {LanguageMap} from 'browser/I18N/en'
+import langFileEn, { LanguageMap } from 'browser/I18N/en'
 import { dialog, ipcMain } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import { writeFile } from 'fs/promises'
@@ -82,27 +82,31 @@ export default class SystemController extends BaseController {
       if (!isAutomated) {
         // Just don't do this until we have CSC unfortunately
         // this.checkForUpdates()
-        const startupError = await this.session.driver.startProcess(
+        const browser = this.session.store.get('browserInfo')
+        let startupError = await this.session.driver.startProcess(
           this.session.store.get('browserInfo')
         )
         if (startupError) {
-          console.warn(`
-            Failed to locate non-electron driver on startup,
-            Resetting to electron driver.
-          `)
-          await this.session.store.set('browserInfo', {
-            browser: 'electron',
-            useBidi: false,
-            version: '',
-          })
-          const fallbackStartupError = await this.session.driver.startProcess(
-            this.session.store.get('browserInfo')
-          )
-          if (fallbackStartupError) {
-            await this.crash(
-              `Unable to startup due to chromedriver error: ${fallbackStartupError}`
+          const isElectronBrowser = browser.browser === 'electron'
+          if (!isElectronBrowser) {
+            console.warn(`
+              Failed to locate non-electron driver on startup,
+              Resetting to electron driver.
+            `)
+            await this.session.store.set('browserInfo', {
+              browser: 'electron',
+              useBidi: false,
+              version: '',
+            })
+            startupError = await this.session.driver.startProcess(
+              this.session.store.get('browserInfo')
             )
           }
+        }
+        if (startupError) {
+          await this.crash(
+            `Unable to startup due to chromedriver error: ${startupError}`
+          )
         }
       }
       await this.session.projects.select(firstTime)

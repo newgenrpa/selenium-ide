@@ -1,6 +1,6 @@
 {
   "name": "selenium-ide",
-  "version": "4.0.1-beta.9",
+  "version": "4.0.1-beta.11",
   "private": false,
   "description": "Newgen Web Recorder electron app",
   "author": "NEWGEN",
@@ -57,9 +57,7 @@
     "mac": {
       "target": {
         "target": "default",
-        "arch": [
-          "x64"
-        ]
+        "arch": "universal"
       },
       "category": "public.app-category.developer-tools",
       "darkModeSupport": true
@@ -117,17 +115,17 @@
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.15.13",
     "@mui/material": "^5.15.13",
-    "@seleniumhq/code-export-csharp-nunit": "^4.0.3",
-    "@seleniumhq/code-export-csharp-xunit": "^4.0.3",
-    "@seleniumhq/code-export-java-junit": "^4.0.3",
-    "@seleniumhq/code-export-javascript-mocha": "^4.0.3",
-    "@seleniumhq/code-export-python-pytest": "^4.0.3",
-    "@seleniumhq/code-export-ruby-rspec": "^4.0.3",
-    "@seleniumhq/get-driver": "^4.0.1",
-    "@seleniumhq/side-api": "^4.0.7",
+    "@seleniumhq/code-export-csharp-nunit": "^4.0.4",
+    "@seleniumhq/code-export-csharp-xunit": "^4.0.4",
+    "@seleniumhq/code-export-java-junit": "^4.0.4",
+    "@seleniumhq/code-export-javascript-mocha": "^4.0.4",
+    "@seleniumhq/code-export-python-pytest": "^4.0.4",
+    "@seleniumhq/code-export-ruby-rspec": "^4.0.4",
+    "@seleniumhq/get-driver": "^4.0.2",
+    "@seleniumhq/side-api": "^4.0.8",
     "@seleniumhq/side-commons": "^4.0.1",
-    "@seleniumhq/side-model": "^4.0.1",
-    "@seleniumhq/side-runtime": "^4.0.6",
+    "@seleniumhq/side-model": "^4.0.2",
+    "@seleniumhq/side-runtime": "^4.0.7",
     "dnd-core": "^16.0.1",
     "electron-chromedriver": "^28.0.0",
     "electron-log": "^5.1.0",
@@ -143,8 +141,8 @@
     "react-intl": "^6.6.5",
     "react-resizable-panels": "^1.0.8",
     "scroll-into-view-if-needed": "^3.0.10",
-    "selenium-webdriver": "^4.16.0",
-    "side-code-export": "^4.0.4",
+    "selenium-webdriver": "^4.20.0",
+    "side-code-export": "^4.0.5",
     "v8-compile-cache": "^2.3.0"
   },
   "devDependencies": {
@@ -156,7 +154,7 @@
     "@types/lodash": "^4.14.199",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
-    "@types/selenium-webdriver": "^4.1.21",
+    "@types/selenium-webdriver": "^4.1.22",
     "@types/webpack-env": "^1.16.0",
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.8.1",
