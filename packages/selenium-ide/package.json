@@ -59,6 +59,9 @@
         "target": "default",
         "arch": "universal"
       },
+      "singleArchFiles": "*",
+      "x64ArchFiles": "*",
+      "mergeASARs": false,
       "category": "public.app-category.developer-tools",
       "darkModeSupport": true
     },
