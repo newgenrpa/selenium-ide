@@ -70,18 +70,32 @@ const CommandEditor: FC<CommandEditorProps> = ({
         <ArgField command={correctedCommand} {...props} fieldName="target" />
         <ArgField command={correctedCommand} {...props} fieldName="value" />
         {command.opensWindow && (
-          <CommandTextField
-            command={correctedCommand}
-            {...props}
-            fieldName={
-              intl.formatMessage({
-                id: languageMap.testCore.windowHandleName,
-              }) as 'windowHandleName'
-            }
-            note={intl.formatMessage({
-              id: languageMap.testCore.windowHandleNameNote,
-            })}
-          />
+          <>
+            <CommandTextField
+              command={correctedCommand}
+              {...props}
+              fieldName={
+                intl.formatMessage({
+                  id: languageMap.testCore.windowHandleName,
+                }) as 'windowHandleName'
+              }
+              note={intl.formatMessage({
+                id: languageMap.testCore.windowHandleNameNote,
+              })}
+            />
+            <CommandTextField
+              command={correctedCommand}
+              {...props}
+              fieldName={
+                intl.formatMessage({
+                  id: languageMap.testCore.windowTimeout,
+                }) as 'windowTimeout'
+              }
+              note={intl.formatMessage({
+                id: languageMap.testCore.windowTimeoutNote,
+              })}
+              />
+            </>
         )}
         <CommandTextField
           command={correctedCommand}

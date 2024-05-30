@@ -183,6 +183,8 @@ const testCore = {
   value: '指令值',
   windowHandleName: '窗口句柄名称',
   windowHandleNameNote: '要设置为新窗口句柄的变量名称',
+  windowTimeout: '窗口超时',
+  windowTimeoutNote: '等待窗口打开的时间量（以毫秒为单位）',
   commands: '指令集',
   tabCommand: '指令',
   tabTarget: '关键字',
