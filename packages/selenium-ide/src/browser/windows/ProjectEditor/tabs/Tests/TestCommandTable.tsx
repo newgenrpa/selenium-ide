@@ -63,8 +63,11 @@ const CommandList: FC<CommandListProps> = ({
           <Box className="flex" sx={{ flex: 0, flexBasis: 50 }}>
             &nbsp;
           </Box>
-          <Box className="flex" sx={{ flex: 1 }}>
+          {/* <Box className="flex" sx={{ flex: 1 }}>
             {intl.formatMessage({ id: languageMap.testCore.tabCommand })}
+          </Box> */}
+           <Box className="flex" sx={{ flex: 1 }}>
+            {intl.formatMessage({ id: languageMap.testCore.Activities })}
           </Box>
           <Box className="flex" sx={{ flex: 2, paddingLeft: 2 }}>
             {intl.formatMessage({ id: languageMap.testCore.tabTarget })}

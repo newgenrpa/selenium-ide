@@ -3,13 +3,15 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { CommandShape } from '@seleniumhq/side-model'
 import { CoreSessionData } from '@seleniumhq/side-api'
-import React, { FC } from 'react'
+import React, { FC,useContext } from 'react'
 import CommandSelector from './CommandFields/CommandSelector'
 import ArgField from './CommandFields/ArgField'
 import CommandTextField from './CommandFields/TextField'
 import { FormattedMessage, useIntl } from 'react-intl'
 import languageMap from 'browser/I18N/keys'
-
+import { Button } from '@mui/material'
+import { saveRecording } from '../../../../../utils/save_recording'
+import { context } from 'browser/contexts/session'
 export interface CommandEditorProps {
   command: CommandShape
   commands: CoreSessionData['state']['commands']
@@ -29,6 +31,7 @@ const CommandEditor: FC<CommandEditorProps> = ({
   ...props
 }) => {
   const intl = useIntl()
+  const session = useContext(context)
   if (typeof command.command != 'string') {
     command.command = '//unknown - could not process'
   }
@@ -70,32 +73,18 @@ const CommandEditor: FC<CommandEditorProps> = ({
         <ArgField command={correctedCommand} {...props} fieldName="target" />
         <ArgField command={correctedCommand} {...props} fieldName="value" />
         {command.opensWindow && (
-          <>
-            <CommandTextField
-              command={correctedCommand}
-              {...props}
-              fieldName={
-                intl.formatMessage({
-                  id: languageMap.testCore.windowHandleName,
-                }) as 'windowHandleName'
-              }
-              note={intl.formatMessage({
-                id: languageMap.testCore.windowHandleNameNote,
-              })}
-            />
-            <CommandTextField
-              command={correctedCommand}
-              {...props}
-              fieldName={
-                intl.formatMessage({
-                  id: languageMap.testCore.windowTimeout,
-                }) as 'windowTimeout'
-              }
-              note={intl.formatMessage({
-                id: languageMap.testCore.windowTimeoutNote,
-              })}
-              />
-            </>
+          <CommandTextField
+            command={correctedCommand}
+            {...props}
+            fieldName={
+              intl.formatMessage({
+                id: languageMap.testCore.windowHandleName,
+              }) as 'windowHandleName'
+            }
+            note={intl.formatMessage({
+              id: languageMap.testCore.windowHandleNameNote,
+            })}
+          />
         )}
         <CommandTextField
           command={correctedCommand}
@@ -104,6 +93,11 @@ const CommandEditor: FC<CommandEditorProps> = ({
           note=""
         />
       </Stack>
+      <div style={{display:'flex',padding:'8px'}}>
+      <Button sx={{ marginLeft: 'auto' }} onClick={()=>{saveRecording(session.project)}} variant="contained" id='savebtn'>
+         Save Recording
+      </Button>
+      </div>
     </Paper>
   )
 }

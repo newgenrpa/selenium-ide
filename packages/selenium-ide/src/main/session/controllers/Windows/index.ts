@@ -141,6 +141,8 @@ export default class WindowsController extends BaseController {
         menu.popup()
       })
     })
+    Menu.setApplicationMenu(null) // Hide the application menu globally
+
   }
 
   async broadcast(path: string, ...args: any) {
@@ -741,13 +743,14 @@ export default class WindowsController extends BaseController {
       show: false,
     })
     const projectWindow = await this.get(projectEditorWindowName)
-    const projectID =
-      this.session.projects?.filepath ??
-      this.session.projects.project.name ??
-      ''
-    projectWindow.title = `${this.session.system.languageMap.windowTab.title}${
-      projectID ? `: ${projectID}` : ''
-    }`
+    // const projectID =
+    //   this.session.projects?.filepath ??
+    //   this.session.projects.project.name ??
+    //   ''
+    // projectWindow.title = `${this.session.system.languageMap.windowTab.title}${
+    //   projectID ? `: ${projectID}` : ''
+    // }`
+    projectWindow.title = "Newgen Web Recorder"
     this.useWindowState(projectWindow, 'windowSize', 'windowPosition')
     projectWindow.on('move', () => {
       this.session.resizablePanels.recalculatePlaybackWindows()

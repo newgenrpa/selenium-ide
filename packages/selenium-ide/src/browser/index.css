@@ -272,7 +272,8 @@ body,
   padding-top: 1.6rem;
 }
 .pt-6 {
-  padding-top: 1.875rem;
+  /* padding-top: 1.875rem; */
+  padding-top: 0rem;
 }
 .ps-1 {
   padding-left: 0.125rem;

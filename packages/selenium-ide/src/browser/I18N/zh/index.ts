@@ -201,6 +201,7 @@ const testCore = {
   playFromHere: '从此处回放',
   playThisStep: '回放此步骤',
   playFromStart: '从头开始回放',
+  Activities:'活动'
 }
 
 export const language: LanguageMap = {

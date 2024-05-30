@@ -31,7 +31,11 @@ const ReorderableListItem: React.FC<ReorderableListItemProps> = ({
   reorderConfirm,
   reorderReset,
   select,
-  sx = {},
+  sx = {
+    "&.MuiListItem-root.Mui-selected": {
+      backgroundColor: '#0072C63b', 
+    }
+  },
   ...props
 }) => {
   const ref = React.useRef<HTMLLIElement>()

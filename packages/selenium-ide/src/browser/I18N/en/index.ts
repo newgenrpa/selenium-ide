@@ -43,7 +43,7 @@ const helpMenuTree = {
   dumpSession: 'Dump Session To File',
 }
 
-const mainMenu = { tests: 'Tests', suites: 'Suites', config: 'Config' }
+const mainMenu = { tests: 'Recording', suites: 'Suites', config: 'Config' }
 
 const configTab = {
   project: 'Project',
@@ -195,6 +195,7 @@ const testCore = {
   playFromHere: 'Play From Here',
   playThisStep: 'Play This Step',
   playFromStart: 'Play From Start',
+  Activities:'Activities'
 }
 
 export const language = {

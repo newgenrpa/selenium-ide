@@ -53,7 +53,7 @@ const CommandSelector: FC<CommandSelectorProps> = ({
                 ...params.inputProps,
                 ['data-overridearrowkeys']: true,
               }}
-              label={<FormattedMessage id={languageMap.testCore.stepCommand} />}
+              label={<FormattedMessage id={languageMap.testCore.Activities} />}
             />
           )}
           size="small"

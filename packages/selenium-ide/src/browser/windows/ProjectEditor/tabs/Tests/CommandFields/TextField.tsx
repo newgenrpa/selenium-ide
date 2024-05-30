@@ -51,26 +51,30 @@ const CommandTextField: FC<CommandFieldProps> = ({
 
   return (
     <FormControl className="flex flex-row">
-      <TextField
-        className="flex-1"
-        disabled={disabled}
-        id={`${fieldName}-${command.id}`}
-        label={label}
-        InputLabelProps={inputLabelProps}
-        name={fieldName}
-        onChange={updateText(testID, command.id)}
-        onContextMenu={() => {
-          window.sideAPI.menus.open('textField')
-        }}
-        size="small"
-        value={command[fieldName as LocatorFields]}
-      />
-      {fullNote && (
-        <Tooltip className="mx-2 my-auto" title={fullNote} placement="top-end">
-          <HelpCenter />
-        </Tooltip>
-      )}
-    </FormControl>
+    {fieldName !== 'comment' ? (
+      <>
+    <TextField
+      className="flex-1"
+      disabled={disabled}
+      id={`${fieldName}-${command.id}`}
+      label={label}
+      InputLabelProps={inputLabelProps}
+      name={fieldName}
+      onChange={updateText(testID, command.id)}
+      onContextMenu={() => {
+        window.sideAPI.menus.open('textField')
+      }}
+      size="small"
+      value={command[fieldName as LocatorFields]}
+    />
+    {fullNote && (
+      <Tooltip className="mx-2 my-auto" title={fullNote} placement="top-end">
+        <HelpCenter />
+      </Tooltip>
+    )}
+ </>
+    ) : null}
+  </FormControl>
   )
 }
 

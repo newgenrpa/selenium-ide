@@ -1,4 +1,4 @@
-import { app } from 'electron'
+// import { app } from 'electron'
 import log, { LogMessage } from 'electron-log'
 import { existsSync, writeFileSync } from 'fs'
 import { join } from 'node:path'
@@ -7,13 +7,22 @@ import { Session } from 'main/types'
 
 export const configureLogging = () => {
   // Configure logging
+  // const logFile = Date.now() + '.main.log'
+  // const logPath = join(app.getPath('logs'), logFile)
+  // const logFileExists = existsSync(logPath)
+  // if (!logFileExists) {
+  //   writeFileSync(logPath, '')
+  // }
+  // log.transports.file.resolvePathFn = () => join(app.getPath('logs'), logFile)
+  // Object.assign(console, log.functions)
+  // return log
   const logFile = Date.now() + '.main.log'
-  const logPath = join(app.getPath('logs'), logFile)
+  const logPath = join(process.cwd(), logFile)
   const logFileExists = existsSync(logPath)
   if (!logFileExists) {
     writeFileSync(logPath, '')
   }
-  log.transports.file.resolvePathFn = () => join(app.getPath('logs'), logFile)
+  log.transports.file.resolvePathFn = () => join(process.cwd(), logFile)
   Object.assign(console, log.functions)
   return log
 }

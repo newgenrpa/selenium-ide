@@ -8,18 +8,18 @@ import Typography from '@mui/material/Typography'
 import AppWrapper from 'browser/components/AppWrapper'
 import React, { useEffect, useState } from 'react'
 import renderWhenReady from 'browser/helpers/renderWhenReady'
-import languageMap from 'browser/I18N/keys'
-import { FormattedMessage } from 'react-intl'
+// import languageMap from 'browser/I18N/keys'
+// import { FormattedMessage } from 'react-intl'
 import { TextField } from '@mui/material'
 
 
 const ProjectEditor = () => {
-  const [logPath, setLogPath] = useState<string>('...')
+  // const [logPath, setLogPath] = useState<string>('...')
   // const [recentProjects, setRecentProjects] = useState<string[]>([])
   const [openUrl, setOpenUrl] = useState<string>('')
 
   useEffect(() => {
-    window.sideAPI.system.getLogPath().then(setLogPath)
+    // window.sideAPI.system.getLogPath().then(setLogPath)
    // window.sideAPI.projects.getRecent().then(setRecentProjects)
   }, [])
   // const loadProject = async () => {
@@ -29,6 +29,7 @@ const ProjectEditor = () => {
   // }
   const newProject = async () => {
     await window.sideAPI.projects.new(openUrl)
+
   }
 
   return (
@@ -38,9 +39,9 @@ const ProjectEditor = () => {
 
         <Typography variant="h4">Welcome to Newgen Web Recorder</Typography>
 
-          <Typography variant="caption">
+          {/* <Typography variant="caption">
             <FormattedMessage id={languageMap.splash.logPath} /> "{logPath}"
-          </Typography>
+          </Typography> */}
 
           <Typography variant="subtitle1" style={{marginTop:30,marginBottom:10}}>
             Enter the open URL of the website:
@@ -67,31 +68,16 @@ const ProjectEditor = () => {
 
         </Grid> */}
         <Grid item xs={12}>
-          <Button data-new-project onClick={newProject} variant="contained">
+        {/* {openUrl != ''?
+          <Button data-new-project onClick={newProject} variant="contained" id='recordbtn'>
           Start Web Recording
           </Button>
+          : */}
+          <Button data-new-project onClick={newProject} variant="contained" id='recordbtn'  disabled={!openUrl.startsWith("http://") && !openUrl.startsWith("https://")}>
+          Start Web Recording
+          </Button>
+        {/* } */}
         </Grid>
-        {/* <Grid item xs={12}>
-          <Typography variant="h6">Recent Projects:</Typography>
-
-          <List dense>
-            {recentProjects.map((filepath, index) => (
-              <ListItem
-                disablePadding
-                key={index}
-                onClick={() => {
-                  window.sideAPI.projects.load(filepath).then(() => {
-                    window.sideAPI.projects.getRecent().then(setRecentProjects)
-                  })
-                }}
-              >
-                <ListItemButton>
-                  <ListItemText primary={filepath} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Grid> */}
       </Grid>
     </AppWrapper>
   )
