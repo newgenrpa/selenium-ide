@@ -62,6 +62,9 @@
       "path": "./packages/side-testkit"
     },
     {
+      "path": "./packages/side-test-metaparser"
+    },
+    {
       "path": "./packages/webdriver-testkit"
     }
   ]

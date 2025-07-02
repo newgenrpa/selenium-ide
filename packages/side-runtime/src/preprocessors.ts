@@ -27,7 +27,7 @@ const nbsp = String.fromCharCode(160)
 // have this in scope as well as grant the preprocessor access to the variables
 export function composePreprocessors(...args: any[]) {
   const func = args[args.length - 1]
-  const params = args.slice(0, args.length - 1)
+  const params = args.slice(0, -1)
   if (params.length === 0) {
     return func
   } else if (params.length === 1) {

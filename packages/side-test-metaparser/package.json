@@ -1,35 +1,22 @@
 {
-  "name": "@seleniumhq/side-api",
+  "name": "@seleniumhq/side-test-metaparser",
   "version": "4.0.13",
   "private": false,
-  "description": "Selenium IDE API command shapes and such.",
+  "description": "Reads code to JSON and back",
   "author": "Todd Tarsi <tarsitodd@gmail.com>",
   "homepage": "http://github.com/SeleniumHQ/selenium-ide",
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist tsconfig.tsbuildinfo node_modules",
+    "try": "node dist/comment.ts",
     "watch": "tsc --watch"
-  },
-  "engines": {
-    "node": ">16"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "@seleniumhq/browser-info": "4.0.13",
-    "@seleniumhq/get-driver": "4.0.13",
-    "@seleniumhq/side-model": "4.0.13",
-    "@seleniumhq/side-runtime": "4.0.13",
-    "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "@types/lodash": "^4.14.199",
-    "electron": "^28.0.0"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SeleniumHQ/selenium-ide.git"
@@ -37,5 +24,5 @@
   "bugs": {
     "url": "https://github.com/SeleniumHQ/selenium-ide/issues"
   },
-  "gitHead": "f58e327e7616e23a3e926e4b80cf9952164e5744"
+  "gitHead": "507c7c802f34196e6ee4800bf5c0b36553d41369"
 }

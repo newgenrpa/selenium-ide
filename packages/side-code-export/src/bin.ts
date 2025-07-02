@@ -80,13 +80,22 @@ export const main = async () => {
 
   const options = program.opts()
   const [formatPath, projectPath, outputDir] = program.args
+
+  let outputFormatPath = ''
+  const relativeFormatPath = path.join(process.cwd(), formatPath)
+  if (path.isAbsolute(formatPath)) {
+    outputFormatPath = formatPath
+  } else if (fs.existsSync(relativeFormatPath)) {
+    outputFormatPath = relativeFormatPath
+  } else {
+    outputFormatPath = require.resolve(formatPath)
+  }
+
   const configuration: Configuration = {
     baseUrl: '',
     debug: options.debug,
     filter: options.filter || '.*',
-    format: path.isAbsolute(formatPath)
-      ? formatPath
-      : path.join(process.cwd(), formatPath),
+    format: outputFormatPath,
     mode: options.mode || 'suite',
     outputDir: path.isAbsolute(outputDir)
       ? outputDir

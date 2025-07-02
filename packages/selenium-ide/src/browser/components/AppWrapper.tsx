@@ -33,7 +33,6 @@ const AppWrapper: FC<AppWrapperProps> = ({ children }) => {
   const [languageMap, setLanguageMap] = React.useState<any>({})
   React.useEffect(() => {
     window.sideAPI.system.getLanguageMap(true).then((result) => {
-      console.log(result)
       setLanguageMap(result)
     })
   }, [])

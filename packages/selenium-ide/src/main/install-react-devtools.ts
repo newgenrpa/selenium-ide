@@ -7,5 +7,5 @@ export default () => {
     loadExtensionOptions: { allowFileAccess: true },
   })
     .then((name) => console.log(`Added Extension:  ${name}`))
-    .catch((err) => console.log('An error occurred: ', err))
+    .catch((err) => console.error('An error occurred: ', err))
 }

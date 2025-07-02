@@ -14,6 +14,7 @@
       "parallel": false,
       "persistSession": false,
       "tests": [
+        "d28f4cec-2da9-4230-b83c-ee61673cc58b",
         "b722bec1-cd73-4df1-af19-0d4f977fca47",
         "8b8e2497-1a65-46e4-baa5-a4dd2a0670c0"
       ],
@@ -76,8 +77,56 @@
         {
           "command": "waitForElementNotPresent",
           "target": "css=.dne",
-          "value": "",
+          "value": "10000",
           "id": "d341e173-b4f8-4645-b25d-1b58f55ef371"
+        }
+      ]
+    },
+    {
+      "id": "a677029f-ad77-4b13-8bb2-d4211be82629",
+      "name": "recurse",
+      "commands": [
+        {
+          "id": "28021ae0-91a3-4f12-b5c5-db5dd3ea1962",
+          "command": "if",
+          "target": "Number(${RECURSE_COUNT}) < 3",
+          "value": ""
+        },
+        {
+          "command": "executeScript",
+          "target": "return Number(${RECURSE_COUNT}) + 1",
+          "value": "RECURSE_COUNT",
+          "id": "82900f85-ffba-46df-9d48-f2a4bd4d7377"
+        },
+        {
+          "command": "run",
+          "target": "recurse",
+          "value": "",
+          "id": "c4b6767a-26f0-40f9-a4f5-30d07122e9f5"
+        },
+        {
+          "command": "end",
+          "target": "",
+          "value": "",
+          "id": "5edf0787-4a1e-4864-bd43-bc10392f75e1"
+        }
+      ]
+    },
+    {
+      "id": "d28f4cec-2da9-4230-b83c-ee61673cc58b",
+      "name": "recurse outer",
+      "commands": [
+        {
+          "command": "store",
+          "target": "0",
+          "value": "RECURSE_COUNT",
+          "id": "8735776c-738a-4d75-91b4-1a0b9561d26f"
+        },
+        {
+          "id": "96d0d1bd-ff56-43a6-84eb-4e4c2d4e6295",
+          "command": "run",
+          "target": "recurse",
+          "value": ""
         }
       ]
     }

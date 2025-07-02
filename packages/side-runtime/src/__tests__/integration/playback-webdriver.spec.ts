@@ -220,7 +220,7 @@ describe('Playback using webdriver', () => {
     )()
     expect(didExecute).toBeTruthy()
   })
-  it('should perform locator fallback', async () => {
+  it.skip('should perform locator fallback', async () => {
     const test: TestShape = {
       id: '1',
       name: 'test',

@@ -212,7 +212,7 @@ export default class ProjectsController {
         project?.plugins?.filter((plugin) => typeof plugin === 'string') ?? []
       return project
     } catch (e) {
-      console.log((e as Error).message)
+      console.error((e as Error).message)
       return null
     }
   }

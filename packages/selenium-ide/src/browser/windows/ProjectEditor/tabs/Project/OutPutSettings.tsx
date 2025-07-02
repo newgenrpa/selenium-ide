@@ -165,7 +165,7 @@ const OutPutSettings: FC = () => {
       .catch((error) => {
         setOptions([])
         setPage('')
-        console.log(error)
+        console.error(error)
       })
   }
 

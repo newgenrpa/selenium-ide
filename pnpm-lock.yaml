@@ -131,73 +131,73 @@ importers:
   packages/code-export-csharp-commons:
     dependencies:
       side-code-export:
-        specifier: ^4.0.5
+        specifier: ^4.0.11
         version: link:../side-code-export
     devDependencies:
       '@seleniumhq/side-model':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../side-model
 
   packages/code-export-csharp-nunit:
     dependencies:
       '@seleniumhq/code-export-csharp-commons':
-        specifier: ^4.0.1
+        specifier: 4.0.13
         version: link:../code-export-csharp-commons
       side-code-export:
-        specifier: ^4.0.5
+        specifier: ^4.0.11
         version: link:../side-code-export
 
   packages/code-export-csharp-xunit:
     dependencies:
       '@seleniumhq/code-export-csharp-commons':
-        specifier: ^4.0.1
+        specifier: 4.0.13
         version: link:../code-export-csharp-commons
       side-code-export:
-        specifier: ^4.0.5
+        specifier: ^4.0.11
         version: link:../side-code-export
     devDependencies:
       '@seleniumhq/side-model':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../side-model
 
   packages/code-export-java-junit:
     dependencies:
       side-code-export:
-        specifier: ^4.0.5
+        specifier: ^4.0.11
         version: link:../side-code-export
     devDependencies:
       '@seleniumhq/side-model':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../side-model
 
   packages/code-export-javascript-mocha:
     dependencies:
       side-code-export:
-        specifier: ^4.0.5
+        specifier: ^4.0.11
         version: link:../side-code-export
     devDependencies:
       '@seleniumhq/side-model':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../side-model
 
   packages/code-export-python-pytest:
     dependencies:
       side-code-export:
-        specifier: ^4.0.5
+        specifier: ^4.0.11
         version: link:../side-code-export
     devDependencies:
       '@seleniumhq/side-model':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../side-model
 
   packages/code-export-ruby-rspec:
     dependencies:
       side-code-export:
-        specifier: ^4.0.5
+        specifier: ^4.0.11
         version: link:../side-code-export
     devDependencies:
       '@seleniumhq/side-model':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../side-model
 
   packages/get-driver:
@@ -246,37 +246,37 @@ importers:
         specifier: ^5.15.13
         version: 5.15.13(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.15)(react-dom@18.2.0)(react@18.2.0)
       '@seleniumhq/code-export-csharp-nunit':
-        specifier: ^4.0.4
+        specifier: 4.0.13
         version: link:../code-export-csharp-nunit
       '@seleniumhq/code-export-csharp-xunit':
-        specifier: ^4.0.4
+        specifier: 4.0.13
         version: link:../code-export-csharp-xunit
       '@seleniumhq/code-export-java-junit':
-        specifier: ^4.0.4
+        specifier: 4.0.13
         version: link:../code-export-java-junit
       '@seleniumhq/code-export-javascript-mocha':
-        specifier: ^4.0.4
+        specifier: 4.0.13
         version: link:../code-export-javascript-mocha
       '@seleniumhq/code-export-python-pytest':
-        specifier: ^4.0.4
+        specifier: 4.0.13
         version: link:../code-export-python-pytest
       '@seleniumhq/code-export-ruby-rspec':
-        specifier: ^4.0.4
+        specifier: 4.0.13
         version: link:../code-export-ruby-rspec
       '@seleniumhq/get-driver':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../get-driver
       '@seleniumhq/side-api':
-        specifier: ^4.0.8
+        specifier: 4.0.13
         version: link:../side-api
       '@seleniumhq/side-commons':
-        specifier: ^4.0.1
+        specifier: 4.0.13
         version: link:../side-commons
       '@seleniumhq/side-model':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../side-model
       '@seleniumhq/side-runtime':
-        specifier: ^4.0.7
+        specifier: 4.0.13
         version: link:../side-runtime
       dnd-core:
         specifier: ^16.0.1
@@ -324,10 +324,10 @@ importers:
         specifier: ^3.0.10
         version: 3.0.10
       selenium-webdriver:
-        specifier: ^4.20.0
-        version: 4.20.0
+        specifier: ^4.25.0
+        version: 4.26.0
       side-code-export:
-        specifier: ^4.0.5
+        specifier: ^4.0.11
         version: link:../side-code-export
       v8-compile-cache:
         specifier: ^2.3.0
@@ -337,7 +337,7 @@ importers:
         specifier: ^1.1.1
         version: 1.1.3
       '@seleniumhq/browser-info':
-        specifier: ^4.0.1
+        specifier: 4.0.13
         version: link:../browser-info
       '@types/copy-webpack-plugin':
         specifier: 8.0.1
@@ -358,8 +358,8 @@ importers:
         specifier: ^18.2.7
         version: 18.2.7
       '@types/selenium-webdriver':
-        specifier: ^4.1.22
-        version: 4.1.22
+        specifier: ^4.1.26
+        version: 4.1.27
       '@types/webpack-env':
         specifier: ^1.16.0
         version: 1.18.0
@@ -424,16 +424,16 @@ importers:
   packages/side-api:
     dependencies:
       '@seleniumhq/browser-info':
-        specifier: ^4.0.1
+        specifier: 4.0.13
         version: link:../browser-info
       '@seleniumhq/get-driver':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../get-driver
       '@seleniumhq/side-model':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../side-model
       '@seleniumhq/side-runtime':
-        specifier: ^4.0.7
+        specifier: 4.0.13
         version: link:../side-runtime
       lodash:
         specifier: ^4.17.21
@@ -474,10 +474,10 @@ importers:
   packages/side-code-export:
     dependencies:
       '@seleniumhq/side-model':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../side-model
       '@seleniumhq/side-runtime':
-        specifier: ^4.0.7
+        specifier: 4.0.13
         version: link:../side-runtime
       commander:
         specifier: ^9.4.0
@@ -488,14 +488,14 @@ importers:
   packages/side-example-suite:
     dependencies:
       '@seleniumhq/code-export-python-pytest':
-        specifier: ^4.0.1
+        specifier: 4.0.13
         version: link:../code-export-python-pytest
       side-code-export:
-        specifier: ^4.0.5
+        specifier: ^4.0.11
         version: link:../side-code-export
     devDependencies:
       '@seleniumhq/side-api':
-        specifier: ^4.0.8
+        specifier: 4.0.13
         version: link:../side-api
 
   packages/side-migrate:
@@ -525,10 +525,10 @@ importers:
   packages/side-runner:
     dependencies:
       '@seleniumhq/side-model':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../side-model
       '@seleniumhq/side-runtime':
-        specifier: ^4.0.7
+        specifier: 4.0.13
         version: link:../side-runtime
       commander:
         specifier: ^11.0.0
@@ -580,27 +580,29 @@ importers:
   packages/side-runtime:
     dependencies:
       '@seleniumhq/side-commons':
-        specifier: ^4.0.1
+        specifier: 4.0.13
         version: link:../side-commons
       '@seleniumhq/side-model':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../side-model
       '@types/selenium-webdriver':
-        specifier: ^4.1.22
-        version: 4.1.22
+        specifier: ^4.1.26
+        version: 4.1.27
       selenium-webdriver:
-        specifier: ^4.20.0
-        version: 4.20.0
+        specifier: ^4.25.0
+        version: 4.26.0
     devDependencies:
       '@seleniumhq/get-driver':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../get-driver
       '@seleniumhq/side-testkit':
-        specifier: ^4.0.1
+        specifier: 4.0.13
         version: link:../side-testkit
       '@seleniumhq/webdriver-testkit':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../webdriver-testkit
+
+  packages/side-test-metaparser: {}
 
   packages/side-testkit:
     dependencies:
@@ -615,10 +617,10 @@ importers:
   packages/webdriver-testkit:
     dependencies:
       '@seleniumhq/browser-info':
-        specifier: ^4.0.1
+        specifier: 4.0.13
         version: link:../browser-info
       '@seleniumhq/get-driver':
-        specifier: ^4.0.2
+        specifier: 4.0.13
         version: link:../get-driver
       fs-extra:
         specifier: ^8.1.0
@@ -628,11 +630,11 @@ importers:
         specifier: ^8.0.1
         version: 8.1.2
       '@types/selenium-webdriver':
-        specifier: ^4.1.22
-        version: 4.1.22
+        specifier: ^4.1.26
+        version: 4.1.27
       selenium-webdriver:
-        specifier: ^4.20.0
-        version: 4.20.0
+        specifier: ^4.25.0
+        version: 4.26.0
 
 packages:
 
@@ -2142,6 +2144,9 @@ packages:
     resolution: {integrity: sha512-KgqAWMH0emL6f3xH6nqyTryoBMqlJ627LBIe9PT1PRRQPz2FtHib3FIHJPukp1slzF3hJYZvdiVwgPnHbaSOOA==}
     hasBin: true
     dev: true
+
+  /@bazel/runfiles@6.3.1:
+    resolution: {integrity: sha512-1uLNT5NZsUVIGS4syuHwTzZ8HycMPyr6POA3FCE4GbMtc4rhoJk8aZKtNIRthJYfL+iioppi+rTfH3olMPr9nA==}
 
   /@bazel/typescript@5.8.1(typescript@5.1.6):
     resolution: {integrity: sha512-NAJ8WQHZL1WE1YmRoCrq/1hhG15Mvy/viWh6TkvFnBeEhNUiQUsA5GYyhU1ztnBIYW03nATO3vwhAEfO7Q0U5g==}
@@ -3721,9 +3726,10 @@ packages:
   /@types/scheduler@0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
 
-  /@types/selenium-webdriver@4.1.22:
-    resolution: {integrity: sha512-MCL4l7q8dwxejr2Q2NXLyNwHWMPdlWE0Kpn6fFwJtvkJF7PTkG5jkvbH/X1IAAQxgt/L1dA8u2GtDeekvSKvOA==}
+  /@types/selenium-webdriver@4.1.27:
+    resolution: {integrity: sha512-ALqsj8D7Swb6MnBQuAQ58J3KC3yh6fLGtAmpBmnZX8j+0kmP7NaLt56CuzBw2W2bXPrvHFTgn8iekOQFUKXEQA==}
     dependencies:
+      '@types/node': 16.11.64
       '@types/ws': 8.5.10
 
   /@types/semver@7.5.0:
@@ -10453,13 +10459,14 @@ packages:
     resolution: {integrity: sha512-mEugaLK+YfkijB4fx0e6kImuJdCIt2LxCRcbEYPqRGCs4F2ogyfZU5IAZRdjCP8JPq2AtdNoC/Dux63d9Kiryg==}
     dev: true
 
-  /selenium-webdriver@4.20.0:
-    resolution: {integrity: sha512-s/G44lGQ1xB3tmtX6NNPomlkpL6CxLdmAvp/AGWWwi4qv5Te1+qji7tPSyr6gyuoPpdYiof1rKnWe3luy0MrYA==}
-    engines: {node: '>= 14.20.0'}
+  /selenium-webdriver@4.26.0:
+    resolution: {integrity: sha512-nA7jMRIPV17mJmAiTDBWN96Sy0Uxrz5CCLb7bLVV6PpL417SyBMPc2Zo/uoREc2EOHlzHwHwAlFtgmSngSY4WQ==}
+    engines: {node: '>= 14.21.0'}
     dependencies:
+      '@bazel/runfiles': 6.3.1
       jszip: 3.10.1
       tmp: 0.2.3
-      ws: 8.16.0
+      ws: 8.18.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -12068,6 +12075,19 @@ packages:
 
   /ws@8.16.0:
     resolution: {integrity: sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dev: true
+
+  /ws@8.18.0:
+    resolution: {integrity: sha512-8VbfWfHLbbwu3+N6OKsOMpBdT4kXPDDB9cJk2bJ6mh9ucxdlnNvH1e+roYkKmN9Nxw2yjz7VzeO9oOz2zJ04Pw==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1

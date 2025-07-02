@@ -860,7 +860,9 @@ export default class WebDriverExecutor {
       commandObject.fallbackTargets
     )
     await element.clear()
-    await element.sendKeys(value)
+    if (value) {
+      await element.sendKeys(value)
+    }
   }
 
   async doSendKeys(
@@ -1445,6 +1447,10 @@ export default class WebDriverExecutor {
     const elementLocator = parseLocator(locator)
     const matches = await this.driver.findElements(elementLocator)
     if (matches.length > 0) return matches[0]
+    return null
+    // Fallback selectors are not visible or editable enough for now.
+    // They create points of user confusion and are not necessary for the vast majority of cases.
+    /*
     const fallbacks = _fallbacks.filter(Boolean).flat() as [string, string][]
     for (let i = 0; i < fallbacks.length; i++) {
       const loc = parseLocator(fallbacks[i][0])
@@ -1452,6 +1458,7 @@ export default class WebDriverExecutor {
       if (fallbackMatches.length) return fallbackMatches[0]
     }
     return null
+    */
   }
 
   withCancel<T extends () => Promise<any>>(poller: T) {
@@ -1845,16 +1852,17 @@ WebDriverExecutor.prototype.doAssertPrompt = composePreprocessors(
   WebDriverExecutor.prototype.doAssertPrompt
 )
 
-WebDriverExecutor.prototype.doAssertSelectedLabel = composePreprocessors(
+WebDriverExecutor.prototype.doAssertNotText = composePreprocessors(
   interpolateString,
   interpolateString,
   { targetFallback: preprocessArray(interpolateString) },
-  WebDriverExecutor.prototype.doAssertSelectedLabel
+  WebDriverExecutor.prototype.doAssertNotText
 )
 
 WebDriverExecutor.prototype.doAssertText = composePreprocessors(
   interpolateString,
   interpolateString,
+  { targetFallback: preprocessArray(interpolateString) },
   WebDriverExecutor.prototype.doAssertText
 )
 
@@ -1869,6 +1877,57 @@ WebDriverExecutor.prototype.doAssertValue = composePreprocessors(
   interpolateString,
   { targetFallback: preprocessArray(interpolateString) },
   WebDriverExecutor.prototype.doAssertValue
+)
+
+WebDriverExecutor.prototype.doAssertNotValue = composePreprocessors(
+  interpolateString,
+  interpolateString,
+  { targetFallback: preprocessArray(interpolateString) },
+  WebDriverExecutor.prototype.doAssertNotValue
+)
+
+WebDriverExecutor.prototype.doAssertChecked = composePreprocessors(
+  interpolateString,
+  { targetFallback: preprocessArray(interpolateString) },
+  WebDriverExecutor.prototype.doAssertChecked
+)
+
+WebDriverExecutor.prototype.doAssertNotChecked = composePreprocessors(
+  interpolateString,
+  { targetFallback: preprocessArray(interpolateString) },
+  WebDriverExecutor.prototype.doAssertNotChecked
+)
+
+WebDriverExecutor.prototype.doAssertNotChecked = composePreprocessors(
+  interpolateString,
+  { targetFallback: preprocessArray(interpolateString) },
+  WebDriverExecutor.prototype.doAssertNotChecked
+)
+
+WebDriverExecutor.prototype.doAssertSelectedValue = composePreprocessors(
+  interpolateString,
+  { targetFallback: preprocessArray(interpolateString) },
+  WebDriverExecutor.prototype.doAssertSelectedValue
+)
+
+WebDriverExecutor.prototype.doAssertNotSelectedValue = composePreprocessors(
+  interpolateString,
+  { targetFallback: preprocessArray(interpolateString) },
+  WebDriverExecutor.prototype.doAssertNotSelectedValue
+)
+
+WebDriverExecutor.prototype.doAssertSelectedLabel = composePreprocessors(
+  interpolateString,
+  interpolateString,
+  { targetFallback: preprocessArray(interpolateString) },
+  WebDriverExecutor.prototype.doAssertSelectedLabel
+)
+
+WebDriverExecutor.prototype.doAssertNotSelectedLabel = composePreprocessors(
+  interpolateString,
+  interpolateString,
+  { targetFallback: preprocessArray(interpolateString) },
+  WebDriverExecutor.prototype.doAssertSelectedLabel
 )
 
 WebDriverExecutor.prototype.doEcho = composePreprocessors(
